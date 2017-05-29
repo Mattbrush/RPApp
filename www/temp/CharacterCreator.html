@@ -1,0 +1,133 @@
+<!--
+
+/*
+8 Biome
+    
+    Temporary Biome Elements
+    
+    Basic Attack - Physical
+    
+    
+    
+    Mountain  
+color: 845526
+    STRENGTH: Boreal Forest,Valley---
+    WEAKNESS SaltWater,Freshwater----
+    
+    SaltWater
+color: 5BCCAB
+    STRENGTH: Mountain, Valley---
+    WEAKNESS Boreal Forest, Deciduous Forest----
+    
+    Freshwater
+color :  3294D9
+        STRENGTH: Mountain, Deciduous Forest
+    WEAKNESS Tundra, Valley----
+    
+    Deciduous Forest
+color: e6bd2d;
+        STRENGTH: SaltWater, Tundra
+    WEAKNESS Grassland   Freshwater
+    
+    Boreal Forest
+color: 2F9833
+        STRENGTH: SaltWater, Tundra------
+    WEAKNESS Grassland, Mountain-----
+    
+    Grassland
+color: FF7D0A;
+        STRENGTH: Boreal Forest, Deciduous Forest-----
+    WEAKNESS Tundra,Valley------
+    
+    Tundra
+color: 9eb1a6;
+        STRENGTH: Grasslands Freshwater
+    WEAKNESS Boreal Forest, Deciduous Forest
+    
+    Valley
+color: F2A985
+        STRENGTH: Grasslands , Freshwater-----
+    WEAKNESS SaltWater, Mountain ------
+
+
+*/
+
+-->
+
+
+<div id='Creator'>
+        <h3 class='animated bounce SubMainTitle'>  Identification Registration Form </h3>
+        <div class='MenuWrapper' id='CreatorMenu'>
+        <input class='Input animated fadeInDown MenuButton' maxlength="10" type="text" pattern="[a-zA-Z0-9-]" id='Name' placeholder='Name'>
+        <input class='Input animated fadeInDown MenuButton' maxlength="10" type="text" pattern="[a-zA-Z0-9-]" id='FamilyName' placeholder='Family Name'>
+        <br>
+            <div clas='animated fadeInDown MenuWrapper'> Favourite Color: </div>
+        <select class='Select animated fadeInDown MenuButton' id='Colorpick'>
+            
+            <option style='background:#4985D6; color:white'>Blue</option>
+            <option style='background:#FF4848; color:white'>Red</option>
+            <option style='background:#80B584; color:white'>Green</option>
+            <option style='background:#FFCB2F; color:white'>Yellow</option>
+            <option style='background:#BA21E0; color:white'>Purple</option>
+        </select>
+            <br>
+            <div clas='animated fadeInDown MenuWrapper '>  2 Favourite Activities: </div>
+        <select class='Select animated fadeInDown MenuButton width75' id='Strength1'>
+            <option style='background:#845526; color:white';  value="Mountain">Mountain Biking</option>
+            <option style='background:#5BCCAB; color:white'; value="Saltwater">Snorkling or Fishing in the ocean</option>
+            <option style='background:#3294D9; color:white'; selected value="Freshwater">Fishing or Swiming in Lakes</option>
+            <option style='background:#e6bd2d; color:white'; value="Deciduous Forest">Tree climbing or camping</option>
+            <option style='background:#2F9833; color:white'; value="Boreal Forest">Hot springs or canoeing</option>
+            <option style='background:#FF7D0A; color:white'; value="Grassland">Wildlife Photography or night sky viewing</option>
+            <option style='background:#9eb1a6; color:white'; value="Tundra">Snowmobiling or ice fishing</option>
+            <option style='background:#F2A985; color:white'; value="Valley" > Wine tasting or farmer's market</option>
+            </select>
+            <select class='Select animated fadeInDown MenuButton width75' id='Strength2'>
+            <option style='background:#845526; color:white'; selected value="Mountain">Mountain Biking</option>
+            <option style='background:#5BCCAB; color:white'; value="Saltwater">Snorkling or Fishing in the ocean</option>
+            <option style='background:#3294D9; color:white'; value="Freshwater">Fishing or Swiming in Lakes</option>
+            <option style='background:#FFD130; color:white'; value="Deciduous Forest">Tree climbing or camping</option>
+            <option style='background:#2F9833; color:white'; value="Boreal Forest">Hot springs or canoeing</option>
+            <option style='background:#FF7D0A; color:white'; value="Grassland">Wildlife Photography or night sky viewing</option>
+            <option style='background:#9eb1a6; color:white'; value="Tundra">Snowmobiling or ice fishing</option>
+            <option style='background:#F2A985; color:white'; value="Valley" > Wine tasting or farmer's market</option>
+            </select>
+            <br>
+            <div clas='animated fadeInDown MenuWrapper width75'> 2 Least Favourite Activites: </div>
+        <select class='Select animated fadeInDown MenuButton width75' id='Weakness1'>
+            <option style='background:#845526; color:white'; value="Mountain">Mountain Biking</option>
+            <option style='background:#5BCCAB; color:white';  value="Saltwater">Snorkling or Fishing in the ocean</option>
+            <option style='background:#3294D9; color:white'; value="Freshwater">Fishing or Swiming in Lakes</option>
+            <option style='background:#e6bd2d; color:white'; value="Deciduous Forest">Tree climbing or hunting</option>
+            <option style='background:#2F9833; color:white'; value="Boreal Forest">Hot springs or canoeing</option>
+            <option style='background:#FF7D0A; color:white'; selected value="Grassland">Wildlife photography or night sky viewing</option>
+            <option style='background:#9eb1a6; color:white'; value="Tundra">Snowmobiling or ice fishing</option>
+            <option style='background:#F2A985; color:white'; value="Valley"> Wine tasting or farmer's market</option>
+        </select>
+            <select class='Select animated fadeInDown MenuButton width75' id='Weakness2'>
+            <option style='background:#845526; color:white'; value="Mountain">Mountain Biking</option>
+            <option style='background:#5BCCAB; color:white';  value="Saltwater">Snorkling or Fishing in the ocean</option>
+            <option style='background:#3294D9; color:white'; value="Freshwater">Fishing or Swiming in Lakes</option>
+            <option style='background:#FFD130; color:white'; selected value="Deciduous Forest">Tree climbing or hunting</option>
+            <option style='background:#2F9833; color:white'; value="Boreal Forest">Hot springs or canoeing</option>
+            <option style='background:#FF7D0A; color:white'; value="Grassland">Wildlife photography or night sky viewing</option>
+            <option style='background:#9eb1a6; color:white'; value="Tundra">Snowmobiling or ice fishing</option>
+            <option style='background:#F2A985; color:white'; value="Valley"> Wine tasting or farmer's market</option>
+        </select>
+        <form class='Form'>
+        
+            
+            <div class='animated fadeInDown Male Sex'><input class='' type='radio' name='Sex' value='Male 'checked='yes'>Male</div>
+            <div class='animated fadeInDown Female Sex'><input class='' type='radio' name='Sex' value='Female' >Female</div>
+          
+            
+        </form>
+        <br>
+        <div class='MenuWrapper animated fadeIn' id='Stats'>
+        </div>
+        <br>
+        </div>
+        <h3 class='MainTitle'> <button class=' animated fadeIn MenuButton' id='Confirm'>Confirm</button> </h3>
+    </div>
+    
+    <script type="text/javascript" src="./js/creator.js"></script>
