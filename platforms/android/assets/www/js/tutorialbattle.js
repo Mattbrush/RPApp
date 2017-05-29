@@ -6,11 +6,12 @@
 ////////////////////////////////////////////
 console.clear();
 console.log("~~~~~~~~~~~BATTLE STARTED~~~~~~~~~~");
-StartBattle();
+InitializeBattle();
 
-function StartBattle() {
-    /*~~~~~~~~~~~~~~~~~~~~ Creating Objects   /1/ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    /*
+function InitializeBattle() {
+/* ~~~~~~~~~~~~
+    
+    ELEMETNAL CHART CHECKER :D
     
     8 Biome
     
@@ -52,6 +53,23 @@ function StartBattle() {
         STRENGTH: Grasslands , Freshwater-----
     WEAKNESS SaltWater, Mountain ------
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       ***** THIS IS A  TUTORIAL BATTLE WITH BEN, BEN WILL BE SHOWING THE PLAYER HOW TO PROPERLY FIGHT AN ENEYM WITH BASIC ATTACKS. THERE WILL BE ANOTHER TUTORIAL LATER ON THAT WILL HANDLE SPELLS AND PARTY MEMBERS BUT THIS ONE IS AS BASIC AS IT GETS. AFTER THE BATTLE FINISHES, THE PLAYER WILL RECEIVE SOME SEAWEED AS WELL AS GAIN A LEVEL. BEN WILL BE EXCITED AND TAKE THE PLAYER TO THE SHOPPING DISTRICT TO SELL THE ITEMS AND SHOW OFF THE ARMOUR AND WEAPONS SECTION OF THE GAME. *******
+       
+       
+       
+       
+       
     
     
     
@@ -129,7 +147,34 @@ function StartBattle() {
     for (i = 0; i < Enemies.length; i++) {
         console.log(Enemies[i]);
     };
-    StartBattle(Character)
+    
+    
+    console.log(Character);
+    
+    /* Star tAnimation For Battle ? */
+    BattleAnimation();
+    
+    
+    
+    
+    function BattleAnimation(){
+        $("#MessageHolder").html("<h4 class='animated lightSpeedIn  Message' id='StatusMSG'> Enemy Approaching ! </div>");
+        $("#MessageHolder").append("<img id='Transition' class='width75' src='./img/BattleTransition.gif'></img>");
+        
+        setTimeout(function () {
+           StartBattle(Character) 
+           }, 2000);
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
         /*~~~~~~~~~~~~~~~~~~~~ Battle Functions    /2/~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     function StartBattle(Character) {
@@ -163,6 +208,7 @@ function StartBattle() {
         
             /* Change Status */
         $("#MessageHolder").html("<h4 class='animated lightSpeedIn  Message' id='StatusMSG'>A " + Enemy.Name + " Approaches </div>");
+        $("#Transition").css("display:","none");
         /* Enemy Animation ? */
         /*Create Battle Scene*/
         if (Enemy.Type == 'Saltwater') {
@@ -178,14 +224,14 @@ function StartBattle() {
         $("#EnemyAvatar").attr("src", "" + Enemy.Avatar + "");
         $("#Player").html("<div class='SubMainTitle' id='PlayerName'>" + Character.Name + " " + Character.FamilyName + "</div><br><div class='HealthMainTitle' id='PlayerHealth'>Health : " + Character.Stats[0].Value + " / " + Character.Stats[6].Value + "</div></div><br><div class='ManaMainTitle'  id='PlayerMana'>Mana : " + Character.Stats[7].Value + " / " + Character.Stats[8].Value + "</div><br><div class='XPMainTitle'  id='PlayerXP'>XP : " + Character.Experience.Total + " / " + Character.Experience.ToNextLevel + "</div>");
         $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
-        //Update HealthBArs
+        //Update HealthBars
         $("#HealthBar").css("width", "100%");
         /* Activate Turn Decider */
         setTimeout(function () {
             TurnChoice(Enemy, Character, TempHealth);
         }, Character.PlayerTextSpeed);
-    };
-    };
+    };// End of CreateBattel()
+    };// End of StartBattle()
     //////////////////// TURN DECIDER //////////////////////////
     function TurnChoice(Enemy, Character, TempHealth) {
         /* Randomly Decide First Turn */
