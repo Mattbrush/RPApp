@@ -18,6 +18,8 @@ function CheckLevel(Character) {
         Character.Level = Character.Level + 1;
         Character.Experience.Total = 0;
     }
+    
+    
     localStorage.setItem('_character', JSON.stringify(Character));
     localStorage.setItem('_Party', JSON.stringify(Party));
      console.log("~~~~~~~~~~~~~~~~~~~")
@@ -34,81 +36,141 @@ function StartApp(Character) {
     var NewDefense = 0;
     var NewWisdom = 0;
     var NewVitality = 0;
-    $("#PartySkills").html("<h3 class='SubSubMainTitle animated rubberBand'> SkillPoints </h3><div>Player Name : "  + Character.Name + " " + Character.FamilyName+ "</div><br><div id='Stats'></div><div id='Confirm'></div><div id='Level'>Level :  " + Character.Level + "</div><br><div id='Experience'>Total Experience : " + Character.Experience.Total + "</div><br><div id='ToNext'> To Next Level : " + Character.Experience.ToNextLevel + "</div><br><div id='SkillPoints'>Available Skill Points : " + Character.Experience.SkillPoints + "</div>");
-      $("#PartySkills").css("border-color",""+Party[0].Color+"");
-   
-    PlaceStats(Character);
-    CheckSkillPoints(Character);
+    var PartyIndex = 0;
     
-    /////// ADDING SKILLPOINTS TO STATS
+    
+    PlaceInformation();
+    
+    function PlaceInformation(){
+        var SkillpointsOriginal = Party[PartyIndex].Experience.SkillPoints;
+       
+    $("#PartySkills").html("<div id='SkillsMenu'><h3 class='SubSubMainTitle animated rubberBand'> SkillPoints </h3><div>Player Name : "  + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName+ "</div><br><div id='Stats'></div><div id='Confirm'></div><div id='Level'>Level :  " + Party[PartyIndex].Level + "</div><br><div id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><br><div id='ToNext'> To Next Level : " + Party[PartyIndex].Experience.ToNextLevel + "</div><br><div id='SkillPoints'>Available Skill Points : " + Party[PartyIndex].Experience.SkillPoints + "<br> </div><div class='MenuWrapper' id='PartySwitch'><button class='MenuButton' id='PrevParty'> Previous </button><button class='MenuButton' id='NextParty'> Next </button></div></div>");
+      $("#PartySkills").css("border-color",""+Party[PartyIndex].Color+"");
+        
+                      // Changing Party Member Button
+    $("#NextParty").click(function () {
+        Party[PartyIndex].Experience.SkillPoints = SkillpointsOriginal
+        NewStatPoints = 0;
+        NewAttack = 0;
+        NewDefense = 0;
+        NewWisdom = 0;
+        NewVitality = 0;
+        PartyIndex++
+        if (Party[PartyIndex] == undefined){
+            PartyIndex = 0;
+            PlaceInformation();
+           console.log(Party[PartyIndex]) 
+        } else {
+            PlaceInformation();
+            console.log(Party[PartyIndex])
+        }
+    })
+    
+        $("#PrevParty").click(function () {
+            Party[PartyIndex].Experience.SkillPoints = SkillpointsOriginal
+           NewStatPoints = 0;
+        NewAttack = 0;
+        NewDefense = 0;
+        NewWisdom = 0;
+        NewVitality = 0;
+        PartyIndex--
+        if (Party[PartyIndex] == undefined){
+            PartyIndex = Party.length-1;
+            PlaceInformation();
+           console.log(Party[PartyIndex]) 
+        } else {
+            PlaceInformation();
+            console.log(Party[PartyIndex])
+        }
+    })
+    ////////////////////////////
+        
+   
+    PlaceStats(Party[PartyIndex]);
+    CheckSkillPoints(Party[PartyIndex]);
+    
+         /////// ADDING SKILLPOINTS TO STATS
     $(".Add").click(function () {
-        if(Character.Experience.SkillPoints > 0){
+        
+         console.log(Party[PartyIndex].Experience.SkillPoints);
+      //  PlaceInformation();
+       
+        if(Party[PartyIndex].Experience.SkillPoints > 0){
          $("#Confirm").html("<button class='MenuButton' id='ConfirmChanges'> Confirm Changes</button>");
         }
-        if (this.id.indexOf("Attack") != -1 && Character.Experience.SkillPoints > 0) {
+        if (this.id.indexOf("Attack") != -1 && Party[PartyIndex].Experience.SkillPoints > 0) {
             NewAttack = NewAttack + 1;
             NewStatPoints = NewStatPoints + 1;
-            Character.Experience.SkillPoints = Character.Experience.SkillPoints - 1;
+            Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints - 1;
             $("#NewAttack").html(" + : " + NewAttack + " ");
-            $("#SkillPoints").html("Skill Points : " + Character.Experience.SkillPoints);
+            $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
         }
-        else if (this.id.indexOf("Defense") != -1 && Character.Experience.SkillPoints > 0) {
+        else if (this.id.indexOf("Defense") != -1 && Party[PartyIndex].Experience.SkillPoints > 0) {
             NewDefense = NewDefense + 1;
             NewStatPoints = NewStatPoints + 1;
-            Character.Experience.SkillPoints = Character.Experience.SkillPoints - 1;
+            Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints - 1;
             $("#NewDefense").html(" + : " + NewDefense + " ");
-            $("#SkillPoints").html("Skill Points : " + Character.Experience.SkillPoints);
+            $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
         }
-        else if (this.id.indexOf("Wisdom") != -1 && Character.Experience.SkillPoints > 0) {
+        else if (this.id.indexOf("Wisdom") != -1 && Party[PartyIndex].Experience.SkillPoints > 0) {
             NewWisdom = NewWisdom + 1;
             NewStatPoints = NewStatPoints + 1;
-            Character.Experience.SkillPoints = Character.Experience.SkillPoints - 1;
+            Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints - 1;
             $("#NewWisdom").html(" + : " + NewWisdom + " ");
-            $("#SkillPoints").html("Skill Points : " + Character.Experience.SkillPoints);
+            $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
         }
-        else if (this.id.indexOf("Vitality") != -1 && Character.Experience.SkillPoints > 0) {
+        else if (this.id.indexOf("Vitality") != -1 && Party[PartyIndex].Experience.SkillPoints > 0) {
             NewVitality = NewVitality + 1;
             NewStatPoints = NewStatPoints + 1;
-            Character.Experience.SkillPoints = Character.Experience.SkillPoints - 1;
+            Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints - 1;
             $("#NewVitality").html(" + : " + NewVitality + " ");
-            $("#SkillPoints").html("Skill Points : " + Character.Experience.SkillPoints);
+            $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
         }
         $("#ConfirmChanges").click(function () {
            // THERE ARE TWO CONFIRM CHANGES!?!?!?
             NewStatPoints = 0;
-            Character.Stats[1].Value = Character.Stats[1].Value + NewAttack;
-            Character.Stats[2].Value = Character.Stats[2].Value + NewDefense;
-            Character.Stats[3].Value = Character.Stats[3].Value + NewWisdom;
-            Character.Stats[4].Value = Character.Stats[4].Value + NewVitality;
-            var Vitality = Character.Stats[4].Value * 1.75;
+            Party[PartyIndex].Stats[1].Value = Party[PartyIndex].Stats[1].Value + NewAttack;
+            Party[PartyIndex].Stats[2].Value = Party[PartyIndex].Stats[2].Value + NewDefense;
+            Party[PartyIndex].Stats[3].Value = Party[PartyIndex].Stats[3].Value + NewWisdom;
+            Party[PartyIndex].Stats[4].Value = Party[PartyIndex].Stats[4].Value + NewVitality;
+            var Vitality = Party[PartyIndex].Stats[4].Value * 1.75;
             var Health = Math.round(Vitality);
-            Character.Stats[0].Value = Health + Character.Stats[0].Value  ;
-            Character.Stats[6].Value = Health + Character.Stats[6].Value ;
-            var Wisdom = Character.Stats[8].Value  * 2.75;
+            Party[PartyIndex].Stats[0].Value = Health + Party[PartyIndex].Stats[0].Value  ;
+            Party[PartyIndex].Stats[6].Value = Health + Party[PartyIndex].Stats[6].Value ;
+            var Wisdom = Party[PartyIndex].Stats[8].Value  * 2.75;
             var Mana = Math.round(Wisdom);
-            Character.Stats[8].Value = Mana;
-            Character.Stats[7].Value = Character.Stats[7].Value ;
+            Party[PartyIndex].Stats[8].Value = Mana;
+            Party[PartyIndex].Stats[7].Value = Party[PartyIndex].Stats[7].Value ;
             $("#Stats").html("");
             $("#Confirm").html("");
-            PlaceStats(Character);
-            CheckSkillPoints(Character);
+            PlaceStats(Party[PartyIndex]);
+            CheckSkillPoints(Party[PartyIndex]);
             localStorage.setItem('_character', JSON.stringify(Character));
+            localStorage.setItem('_Party', JSON.stringify(Party));
         });
-        CheckSkillPoints(Character);
+        CheckSkillPoints(Party[PartyIndex]);
+        
+            if(Party[PartyIndex].Experience.SkillPoints == 0){
+            //     console.log('dfs')
+         $(".Add").addClass("MenuButtonDisabled");
+        }
     })
     
     
-    /////// REMOVING SKILLPOINTS TO STATS
+     /////// REMOVING SKILLPOINTS TO STATS
     $(".Minus").click(function () {
-         if(Character.Experience.SkillPoints > 0){
+        console.log(Party[PartyIndex].Experience.SkillPoints);
+//PlaceInformation();
+        
+         if(Party[PartyIndex].Experience.SkillPoints > 0){
          $("#Confirm").html("<button class='MenuButton' id='ConfirmChanges'> Confirm Changes</button>");
         }
         if (this.id.indexOf("Attack") != -1 && NewAttack > 0) {
             NewAttack = NewAttack - 1;
             NewStatPoints = NewStatPoints - 1;
-            Character.Experience.SkillPoints = Character.Experience.SkillPoints + 1;
+            Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints + 1;
             $("#NewAttack").html(" + : " + NewAttack + " ");
-            $("#SkillPoints").html("Skill Points : " + Character.Experience.SkillPoints);
+            $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
             if(NewAttack == 0){
                 $("#NewAttack").html("");
             }
@@ -116,9 +178,9 @@ function StartApp(Character) {
         else if (this.id.indexOf("Defense") != -1 && NewDefense> 0) {
             NewDefense = NewDefense - 1;
             NewStatPoints = NewStatPoints - 1;
-            Character.Experience.SkillPoints = Character.Experience.SkillPoints + 1;
+            Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints + 1;
             $("#NewDefense").html(" + : " + NewDefense + " ");
-            $("#SkillPoints").html("Skill Points : " + Character.Experience.SkillPoints);
+            $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
             if(NewDefense == 0){
                 $("#NewDefense").html("");
             }
@@ -126,9 +188,9 @@ function StartApp(Character) {
         else if (this.id.indexOf("Wisdom") != -1 && NewWisdom > 0) {
             NewWisdom = NewWisdom - 1;
             NewStatPoints = NewStatPoints +-1;
-            Character.Experience.SkillPoints = Character.Experience.SkillPoints + 1;
+            Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints + 1;
             $("#NewWisdom").html(" + : " + NewWisdom + " ");
-            $("#SkillPoints").html("Skill Points : " + Character.Experience.SkillPoints);
+            $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
             if(NewWisdom == 0){
                 $("#NewWisdom").html("");
             }
@@ -136,82 +198,104 @@ function StartApp(Character) {
         else if (this.id.indexOf("Vitality") != -1 && NewVitality > 0) {
             NewVitality = NewVitality - 1;
             NewStatPoints = NewStatPoints - 1;
-            Character.Experience.SkillPoints = Character.Experience.SkillPoints + 1;
+            Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints + 1;
             $("#NewVitality").html(" + : " + NewVitality + " ");
-            $("#SkillPoints").html("Skill Points : " + Character.Experience.SkillPoints);
+            $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
             if(NewVitality == 0){
                 $("#NewVitality").html("");
             }
             
-        }   
+        }
+       CheckSkillPoints(Party[PartyIndex]);
+        
+         if(Party[PartyIndex].Experience.SkillPoints == 0){
+            //     console.log('dfs')
+         $(".Add").addClass("MenuButtonDisabled");
+        } else {
+          $(".Add").removeClass("MenuButtonDisabled");  
+        }
+         
+    });
+    
+    
         
        $("#ConfirmChanges").click(function () {
            // THERE ARE TWO CONFIRM CHANGES!?!?!?
             NewStatPoints = 0;
-            Character.Stats[1].Value = Character.Stats[1].Value + NewAttack;
-            Character.Stats[2].Value = Character.Stats[2].Value + NewDefense;
-            Character.Stats[3].Value = Character.Stats[3].Value + NewWisdom;
-            Character.Stats[4].Value = Character.Stats[4].Value + NewVitality;
-            var Vitality = Character.Stats[4].Value * 1.75;
+            Party[PartyIndex].Stats[1].Value = Party[PartyIndex].Stats[1].Value + NewAttack;
+            Party[PartyIndex].Stats[2].Value = Party[PartyIndex].Stats[2].Value + NewDefense;
+            Party[PartyIndex].Stats[3].Value = Party[PartyIndex].Stats[3].Value + NewWisdom;
+            Party[PartyIndex].Stats[4].Value = Party[PartyIndex].Stats[4].Value + NewVitality;
+            var Vitality = Party[PartyIndex].Stats[4].Value * 1.75;
             var Health = Math.round(Vitality);
-            Character.Stats[0].Value = Health + Character.Stats[0].Value  ;
-            Character.Stats[6].Value = Health + Character.Stats[6].Value ;
-            var Wisdom = Character.Stats[8].Value  * 2.75;
+            Party[PartyIndex].Stats[0].Value = Health + Party[PartyIndex].Stats[0].Value  ;
+            Party[PartyIndex].Stats[6].Value = Health + Party[PartyIndex].Stats[6].Value ;
+            var Wisdom = Party[PartyIndex].Stats[8].Value  * 2.75;
             var Mana = Math.round(Wisdom);
-            Character.Stats[8].Value = Mana;
-            Character.Stats[7].Value = Character.Stats[7].Value ;
+            Party[PartyIndex].Stats[8].Value = Mana;
+            Party[PartyIndex].Stats[7].Value = Party[PartyIndex].Stats[7].Value ;
             $("#Stats").html("");
             $("#Confirm").html("");
-            PlaceStats(Character);
-            CheckSkillPoints(Character);
+            PlaceStats(Party[PartyIndex]);
+            CheckSkillPoints(Party[PartyIndex]);
             localStorage.setItem('_character', JSON.stringify(Character));
+            localStorage.setItem('_Party', JSON.stringify(Party));
         });
-        CheckSkillPoints(Character);
-    })
+        
+              
+     
     
+    
+    
+    /// End of PLaceInformation();
+    };
+        
+   
+    
+    
+   
+    
+  
 
-    function PlaceStats(Character) {
+    function PlaceStats() {
         for (i = 1; i < 5; i++) {
             
-            $("#Stats").append("<span id='" + Character.Stats[i].Name +"' class='StatHeader'>  "+ Character.Stats[i].Name +"<button class='Add Modifier MenuButton StatMenuButtonAdd' id='" + Character.Stats[i].Name + "Add'>+</button> " + Character.Stats[i].Value + "</span><button class='Minus Modifier MenuButton StatMenuButtonMinus'  id='" + Character.Stats[i].Name + "Minus'>-</button><span id='New" + Character.Stats[i].Name + "' class='NewStatClass'></span><br>");
+            $("#Stats").append("<span id='" + Party[PartyIndex].Stats[i].Name +"' class='StatHeader'>  "+ Party[PartyIndex].Stats[i].Name +"<button class='Add Modifier MenuButton StatMenuButtonAdd' id='" + Party[PartyIndex].Stats[i].Name + "Add'>+</button> " + Party[PartyIndex].Stats[i].Value + "</span><button class='Minus Modifier MenuButton StatMenuButtonMinus'  id='" + Party[PartyIndex].Stats[i].Name + "Minus'>-</button><span id='New" + Party[PartyIndex].Stats[i].Name + "' class='NewStatClass'></span><br>");
             
-             if(Character.Experience.SkillPoints == 0){
+         
+            
+        };
+        
+         if(Party[PartyIndex].Experience.SkillPoints == 0){
             //     console.log('dfs')
          $(".Modifier").addClass("MenuButtonDisabled");
         }
-            
-        };
     };
     
     
     
-    function CheckSkillPoints(Character){
+    function CheckSkillPoints(){
         /////// Statements to check whether or not the player can allocate more points to their stats.
         
-      if(Character.Experience.SkillPoints == 0  && NewStatPoints > 0  ){
+      if(Party[PartyIndex].Experience.SkillPoints == 0  && NewStatPoints > 0  ){
         $(".Add").attr('disabled', true);
-      } else if (Character.Experience.SkillPoints == 0  && NewStatPoints == 0){
+      } else if (Party[PartyIndex].Experience.SkillPoints == 0  && NewStatPoints == 0){
          $(".AddModifier").html(""); 
          $(".MinusModifier").html(""); 
       } else if(NewStatPoints == 0){
             $(".NewStatClass").html("");
             $("#Confirm").html("");
-      } else if ( Character.Experience.SkillPoints > 0 ){
+      } else if ( Party[PartyIndex].Experience.SkillPoints > 0 ){
           $(".Add").attr('disabled', false);
       };
     };
     
     
     
-  
-    
 
     
     
-    /*
-    $("#NextCharacter").click(function(){
-    i + 1;
-    $("#PartySkills").html("<div>Player Name : " + Party[i].Name + "</div><br><div id='Stats'></div><div id='Level'>Level :  " + Party[i].Level + "</div><br><div id='Experience'>Total Experience : " + Party[i].Experience.Total + "</div><br><div id='ToNext'> To Next Level : " + Party[i].Experience.ToNextLevel + "</div><br><div id='SkillPoints'>Available Skill Points : "+Party[i].Experience.SkillPoints+"</div>");
-    });
-    */
+    
+    
+    
 };

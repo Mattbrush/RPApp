@@ -337,7 +337,12 @@ body {
     width: 100%;
     position: fixed;
 }
-
+.CharacterMessageContainer {
+        position: fixed;
+        z-index: 5;
+    background: rgba(0, 0, 0, 0.72);
+    padding-bottom: 100%;
+}
 .Form {
     font-size: larger;
     display: flex;

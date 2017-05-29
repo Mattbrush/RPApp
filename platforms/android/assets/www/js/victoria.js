@@ -3,9 +3,12 @@ StartApp();
 
 function StartApp() {
     var Character = JSON.parse(localStorage.getItem('_character'));
+    var Party = JSON.parse(localStorage.getItem('_Party'));
     console.clear();
     console.log("Character :");
     console.log(Character);
+    console.log("Party : ");
+    console.log(Party);
     $("#Overlay").css("opacity","0.85");
     $("#Message").html(" Welcome To Victoria ! ");
     $("#Locationtitle").html(" Victoria, B.C");

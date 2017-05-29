@@ -13,16 +13,45 @@ console.clear();
 
 
 
-
-console.log("~~~~~Jan's Office~~~~~~");
+ var Character = JSON.parse(localStorage.getItem('_character'));
+console.log("~~~~~Victoria Pier~~~~~~");
+if (Character.Triggers.Victoria4 == true){
+PierVictoria2();
+}else {
 PierVictoria();
+};
 console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-
+function PierVictoria2() {
+        
+    
+        $("#OverlayContainer").append("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+        $("#Overlay").css("opacity", "0.65");
+        $("#Overlay").css("background-image", "url(img/PierVictoria.jpg)");
+        $("#Overlay").css("background-position-x", "770px");
+        $("#Overlay").css("background-size", "cover");
+    $("#Locationtitle").html(" The Pier, Victoria,  B.C");
+    $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' I think it's a little too dangerous to come back here right now. Maybe we should go grab some equipment at the Shopping District first ?  '</div>");
+      $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Accept3'> Okay. </button>");
+    
+    
+     $("#Accept3").click(function () {
+                 $("#StatusMessageHolder").html("");
+                $("#ContinueMessageHolder").html("");
+                $("#CharacterAvatar").html("");
+                $("#App").load("./temp/Victoria.html");
+                    
+                });
+    
+    
+    
+    
+};
 
 
 function PierVictoria() {
-    var Character = JSON.parse(localStorage.getItem('_character'));
+   
     console.clear();
     console.log("Character :");
     console.log(Character);
