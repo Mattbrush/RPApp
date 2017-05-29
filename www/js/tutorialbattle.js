@@ -158,7 +158,12 @@ function InitializeBattle() {
     
     
     function BattleAnimation(){
+        $("#MessageHolder").html("<h4 class='animated lightSpeedIn  Message' id='StatusMSG'> Enemy Approaching ! </div>");
+        $("#MessageHolder").append("<img id='Transition' class='width75' src='./img/BattleTransition.gif'></img>");
         
+        setTimeout(function () {
+           StartBattle(Character) 
+           }, 2000);
     };
     
     
@@ -169,7 +174,7 @@ function InitializeBattle() {
     
     
     
-    //StartBattle(Character)
+
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
         /*~~~~~~~~~~~~~~~~~~~~ Battle Functions    /2/~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     function StartBattle(Character) {
@@ -203,6 +208,7 @@ function InitializeBattle() {
         
             /* Change Status */
         $("#MessageHolder").html("<h4 class='animated lightSpeedIn  Message' id='StatusMSG'>A " + Enemy.Name + " Approaches </div>");
+        $("#Transition").css("display:","none");
         /* Enemy Animation ? */
         /*Create Battle Scene*/
         if (Enemy.Type == 'Saltwater') {
@@ -218,14 +224,17 @@ function InitializeBattle() {
         $("#EnemyAvatar").attr("src", "" + Enemy.Avatar + "");
         $("#Player").html("<div class='SubMainTitle' id='PlayerName'>" + Character.Name + " " + Character.FamilyName + "</div><br><div class='HealthMainTitle' id='PlayerHealth'>Health : " + Character.Stats[0].Value + " / " + Character.Stats[6].Value + "</div></div><br><div class='ManaMainTitle'  id='PlayerMana'>Mana : " + Character.Stats[7].Value + " / " + Character.Stats[8].Value + "</div><br><div class='XPMainTitle'  id='PlayerXP'>XP : " + Character.Experience.Total + " / " + Character.Experience.ToNextLevel + "</div>");
         $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
-        //Update HealthBArs
+        //Update HealthBars
         $("#HealthBar").css("width", "100%");
         /* Activate Turn Decider */
         setTimeout(function () {
-            TurnChoice(Enemy, Character, TempHealth);
+            /* LEAVES initial battle Setup and head into the turn chooser.*/
+            
+            
+            //TurnChoice(Enemy, Character, TempHealth);
         }, Character.PlayerTextSpeed);
-    };
-    };
+    };// End of CreateBattel()
+    };// End of StartBattle()
     //////////////////// TURN DECIDER //////////////////////////
     function TurnChoice(Enemy, Character, TempHealth) {
         /* Randomly Decide First Turn */
