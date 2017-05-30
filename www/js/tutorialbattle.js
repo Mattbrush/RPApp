@@ -1532,12 +1532,137 @@ function InitializeBattle() {
                 Cost: 2,
                     Type:"Physical"},
         ]
+                     , BattleStats:{
+            AttackStrength:"",
+            DefenseStrength:""
+        }
         , Experience: {
             Total: 0
             , ToNextLevel: 25
             , SkillPoints: 0
         , }
      };
+                 
+                 
+                 
+                 /* Add in BattleStats */
+    PartyMember = Ben;
+         var AttackStrength = 0;
+        var DefenseStrength = 0
+        
+        
+        if (PartyMember.Equipment.Head.Stats == undefined){
+            console.log("No Headwear On Character");
+        } else {
+            DefenseStrength = DefenseStrength + PartyMember.Equipment.Head.Stats.Defense
+        };
+        
+        if (PartyMember.Equipment.Torso.Stats == undefined){
+            console.log("No Torso On Character");
+        } else {
+            DefenseStrength = DefenseStrength + PartyMember.Equipment.Torso.Stats.Defense
+        }
+        
+         if (PartyMember.Equipment.Belt.Stats == undefined){
+            console.log("No Belt On Character");
+        } else {
+            DefenseStrength = DefenseStrength + PartyMember.Equipment.Belt.Stats.Defense
+        }
+        
+        
+        if (PartyMember.Equipment.Legs.Stats == undefined){
+            console.log("No Legs On Character");
+        } else {
+            DefenseStrength = DefenseStrength + PartyMember.Equipment.Legs.Stats.Defense
+        }
+        
+        if (PartyMember.Equipment.Ring1.Stats == undefined){
+            console.log("No Ring1 On Character");
+        } else {
+            DefenseStrength = DefenseStrength + PartyMember.Equipment.Ring1.Stats.Defense
+        }
+        
+        
+         if (PartyMember.Equipment.Ring2.Stats == undefined){
+            console.log("No Ring2 On Character");
+        } else {
+            DefenseStrength = DefenseStrength + PartyMember.Equipment.Ring2.Stats.Defense
+        }
+        
+        
+        
+        
+
+        if (PartyMember.Equipment.RightHand.Stats == undefined){
+        console.log(" No Item Equipped In Right Hand")
+        } else {
+              if (PartyMember.Equipment.RightHand.Stats.Attack != undefined){
+             console.log("No RightHand Defense For  Character");
+            AttackStrength = AttackStrength + PartyMember.Equipment.RightHand.Stats.Attack   
+            } else if (PartyMember.Equipment.RightHand.Stats.Defense != undefined){
+             console.log("No RightHand Attack For  Character");
+            DefenseStrength = DefenseStrength + PartyMember.Equipment.RightHand.Stats.Defense   
+            }
+        }
+        
+        if (PartyMember.Equipment.LeftHand.Stats == undefined){
+        console.log(" No Item Equipped In LeftHand ")
+        } else {
+              if (PartyMember.Equipment.LeftHand.Stats.Attack != undefined){
+             console.log("No LeftHand Defense For  Character");
+            AttackStrength = AttackStrength + PartyMember.Equipment.LeftHand.Stats.Attack   
+            } else if (PartyMember.Equipment.LeftHand.Stats.Defense != undefined){
+             console.log("No LeftHand Attack For  Character");
+            DefenseStrength = DefenseStrength + PartyMember.Equipment.LeftHand.Stats.Defense   
+            }
+        }
+                 
+                   if (DefenseStrength == 0){
+            DefenseStrength = 1;
+        }
+        
+         if (AttackStrength == 0){
+            AttackStrength = 1;
+        }
+                 
+                 
+        
+        if (PartyMember.Stats[2].Value < 1){
+         DefenseStrength = Math.round(( 1 ) *  DefenseStrength);   
+        } else {
+        DefenseStrength = Math.round(( PartyMember.Stats[2].Value + .45) *  DefenseStrength);
+        };
+        
+        
+        if (PartyMember.Stats[1].Value < 1){
+         AttackStrength = Math.round(( 1 ) *  AttackStrength);   
+        } else {
+        AttackStrength = Math.round(( PartyMember.Stats[1].Value + .25) *  AttackStrength);
+        };
+        
+        
+    Ben.BattleStats.AttackStrength = AttackStrength;
+    Ben.BattleStats.DefenseStrength= DefenseStrength;
+    
+    
+    
+    
+    //////////////////////
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+  /* finished With Character Creation MOVING ON IN STORY */               
+                 
+                 
+                 
+                 
+                 
+                 
+                 
                  
                  
                       Character.Triggers.Victoria4 = true;
@@ -1551,6 +1676,13 @@ function InitializeBattle() {
                  
                  
                 });
+            
+            
+            
+            
+            
+            
+            
             
             
    setTimeout(function () {          

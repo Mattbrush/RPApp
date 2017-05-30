@@ -43,7 +43,8 @@ function StartApp(Character) {
     
     function PlaceInformation(){
         var SkillpointsOriginal = Party[PartyIndex].Experience.SkillPoints;
-       
+        
+    
     $("#PartySkills").html("<div id='SkillsMenu'><h3 class='SubSubMainTitle animated rubberBand'> SkillPoints </h3><div>Player Name : "  + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName+ "</div><br><div id='Stats'></div><div id='Confirm'></div><div id='Level'>Level :  " + Party[PartyIndex].Level + "</div><br><div id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><br><div id='ToNext'> To Next Level : " + Party[PartyIndex].Experience.ToNextLevel + "</div><br><div id='SkillPoints'>Available Skill Points : " + Party[PartyIndex].Experience.SkillPoints + "<br> </div><div class='MenuWrapper' id='PartySwitch'><button class='MenuButton' id='PrevParty'> Previous </button><button class='MenuButton' id='NextParty'> Next </button></div></div>");
       $("#PartySkills").css("border-color",""+Party[PartyIndex].Color+"");
         

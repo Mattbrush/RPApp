@@ -189,7 +189,10 @@ function StartApp() {
                 $("#EquipmentContainer").prepend("<div id='EquipmentOverview' class='EquipmentOverview'> " + Party[PartyIndex].Equipment[CurrentClickedEquipment].Name + "<br>Stats : <span id='EquipmentStats'></span><br><img src='" + Party[PartyIndex].Equipment[CurrentClickedEquipment].Avatar + "'></img><br><button id='Unequip' class='MenuButton'> Unequip </button> <br><button id='Close' class='MenuButton2'> Close </button></div>");
                 if (Party[PartyIndex].Equipment[CurrentClickedEquipment].Stats.Attack) {
                     $("#EquipmentStats").append("<span> Attack : " + Party[PartyIndex].Equipment[CurrentClickedEquipment].Stats.Attack + "</span>");
-                }
+                };
+                 if (Party[PartyIndex].Equipment[CurrentClickedEquipment].Stats.Defense) {
+                    $("#EquipmentStats").append("<span> Defense : " + Party[PartyIndex].Equipment[CurrentClickedEquipment].Stats.Defense + "</span>");
+                };
                 $("#Unequip").click(function () {
                     // Clicking the unequip Button Functionality
                     $("#Unequip").addClass("MenuButtonDisabled");
