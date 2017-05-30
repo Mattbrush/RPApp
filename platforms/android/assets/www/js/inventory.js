@@ -4,6 +4,7 @@ console.log("~~~Inventory~~~")
 StartApp();
 /*~~~~~~~~~~~~~~~~~~~~ --------------------- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 function StartApp() {
+      $("#MessageHolder").remove();
     var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     Party[0] = Character
@@ -25,7 +26,7 @@ function StartApp() {
                 for (i = 0; i < Character.Inventory.length; i++) {
                     console.log(Character.Inventory[i]);
                     Character.Inventory[i].Index = i;
-                    $("#InventoryContainer").append("<div class='BattleItemSlot'><input class='BattleItem' type='image' src='" + Character.Inventory[i].Avatar + "' id='" + i + "'>" + Character.Inventory[i].Name + "</input></div>");
+                    $("#InventoryContainer").append("<div class='animated bounceIn BattleItemSlot'><input class='BattleItem' type='image' src='" + Character.Inventory[i].Avatar + "' id='" + i + "'><br>" + Character.Inventory[i].Name + "</input></div>");
                     $("#InventoryContainer").css("border-color", "" + Party[0].Color + "");
                     $("#" + i + "").click(function () {
                        
@@ -33,16 +34,29 @@ function StartApp() {
                         var Item = Character.Inventory[index]
                          if(Character.Inventory[index].Type == "Key"){
                              $("#StatusMessageHolder").css("display", "block");
-                             $("#StatusMessageHolder").html("<div class='animated flipInX StatusMessage'>You can't use " + Character.Inventory[index].Name + " right now </div><div class='MenuWrapper'><button class='MenuButton' id='Back'> Back </button></div><br>");
+                             $("#StatusMessageHolder").html("<div class='animated flipInX StatusMessage'>You can't use a  <strong>" + Character.Inventory[index].Name + "</strong> right now </div><div class='MenuWrapper'><button class='MenuButton' id='Back'> Back </button></div><br>");
                              $("#Back").click(function () {
                             $("#StatusMessageHolder").html("");
                             $("#InventoryContainer").html("");
                             $("#InventoryDialog").html("");
                             PlaceInventory();
                         });
-                         }else{
+                         }else if (Character.Inventory[index].Type == "Weapon" || Character.Inventory[index].Type == "Armour"){
+                         $("#StatusMessageHolder").css("display", "block");
+                        $("#StatusMessageHolder").html("<div class='animated flipInX StatusMessage'>Do you want to equip someone with the <strong>" + Character.Inventory[index].Name + "</strong> ? </div><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='Deny'> No </button></div><br>");
+                        $("#Accept").click(function () {
+                            WhichCharacter(Item, index);
+                        });
+                        $("#Deny").click(function () {
+                            $("#StatusMessageHolder").html("");
+                            $("#InventoryContainer").html("");
+                            $("#InventoryDialog").html("");
+                            PlaceInventory();
+                        });    
+                         }
+                        else{
                         $("#StatusMessageHolder").css("display", "block");
-                        $("#StatusMessageHolder").html("<div class='animated flipInX StatusMessage'>Do You Want To Use " + Character.Inventory[index].Name + " On Someone ?</div><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='Deny'> No </button></div><br>");
+                        $("#StatusMessageHolder").html("<div class='animated flipInX StatusMessage'>Do you want to use  a <strong>" + Character.Inventory[index].Name + "</strong> on someone ?</div><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='Deny'> No </button></div><br>");
                         $("#Accept").click(function () {
                             WhichCharacter(Item, index);
                         });
@@ -131,8 +145,82 @@ function StartApp() {
                             $("#InventoryDialog").html("");
                             PlaceInventory();
                         });
+                    }else if (Item.Type == "Weapon" || Item.Type == "Armour" ) {
+                              // IF ITEM IS WEAPON OR ARMOUR 
+                        $("#StatusMessageHolder").html("<div class='animated flipInX StatusMessage'><span>Are you sure you want to equip " + Party[this.id.substr(1, 1)].Name + " with a  " + Character.Inventory[index].Name + " ?</span><br><button class='animated flipInX MenuButton' id='Yes'> Yes </button><button class='animated flipInX MenuButton' id='No'> No </button></div>");
+                        var Name = this.id.substr(1, 1);
+                        localStorage.setItem('_Name', JSON.stringify(Name));
+                        $("#Yes").click(function () {
+                              var Name = JSON.parse(localStorage.getItem('_Name'));
+                            
+                            // If player Already has something equipped in that slot, Refuse the palyer access to equip an item... //
+                            if (Party[Name].Equipment[Item.Equip]  != ""){
+                                 $("#StatusMessageHolder").html("<div class='animated pulse StatusMessage'> "+Party[Name].Name+" already has something equipped for that. Would you like to equip the "+Item.Name+" instead?<br> <button class='MenuButton' id='Yes'> Yes </button> <button class='MenuButton' id='No'> No </button></div> ");
+                                $("#No").click(function(){
+                                    WhichCharacter(Item, index);
+                                });
+                                
+                                
+                                 $("#Yes").click(function(){
+                            
+                            // Unequipping previous item from slot first *Adding it to Inventory*
+                                     
+                                     Party[0].Inventory.push(Party[Name].Equipment[Item.Equip]);
+                              var OldName = Party[Name].Equipment[Item.Equip];
+                                     
+                             // Equiping Character With Item *Replacing Previous item with new item*
+                            console.log(Item)
+                            Party[Name].Equipment[Item.Equip] = Item;
+                            console.log(Party[Name].Equipment)
+                            $("#StatusMessageHolder").html("<div class='animated bounceIn StatusMessage'> "+Party[Name].Name+" has switched the "+OldName.Name+" with the " + Item.Name + " !</div>");
+                           Party[0].Inventory.splice(index, 1);
+                            Character = Party[0];
+                            localStorage.setItem('_character', JSON.stringify(Character));
+                           localStorage.setItem('_Party', JSON.stringify(Party));
+                           setTimeout(function () {
+                                $("#InventoryDialog").html("");
+                                PlaceInventory();
+                            }, Character.PlayerTextSpeed);  
+                                     
+                                     
+                                });
+                                
+                                
+                            } else {
+                                                
+                            // Are You Sure Statements...  Allows players to back out form this if need be.
+                          
+                            // Equiping Character With Item
+                            console.log(Item)
+                            Party[Name].Equipment[Item.Equip] = Item;
+                            console.log(Party[Name].Equipment)
+                            $("#StatusMessageHolder").html("<div class='animated bounceIn StatusMessage'> "+Party[Name].Name+" has been equipped with " + Item.Name + " !</div>");
+                           Party[0].Inventory.splice(index, 1);
+                            Character = Party[0];
+                            localStorage.setItem('_character', JSON.stringify(Character));
+                           localStorage.setItem('_Party', JSON.stringify(Party));
+                           setTimeout(function () {
+                                $("#InventoryDialog").html("");
+                                PlaceInventory();
+                            }, Character.PlayerTextSpeed);
+                                
+                            };
+                            
+                            
+                            
+                            
+                            
+            
+                        });
+                        $("#No").click(function () {
+                            $("#StatusMessageHolder").html("");
+                            $("#InventoryContainer").html("");
+                            $("#InventoryDialog").html("");
+                            PlaceInventory();
+                        });
                     }
                     else if (Item.Type == "Misc") {
+                        // IF ITEM IS MISC
                         $("#InventoryDialog").html("<div class='animated rubberBand StatusMessage'> You Can't Use A " + Item.Name + " On " + Party[this.id.substr(1, 1)].Name + " ? What are you even thinking? It has no effect...</div>");
                         setTimeout(function () {
                             $("#InventoryDialog").html("");

@@ -174,6 +174,17 @@ $("#Confirm").click(function () {
          Total:25,
         }
         , Inventory: []
+        ,Weight: Math.round((Attack / 2) *  25)
+        , Equipment:{
+            Head:"",
+            Torso:"",
+            Legs:"",
+            Belt:"",
+            LeftHand:"",
+            RightHand:"",
+            Ring1:"",
+            Ring2:"",
+        }
         , Spells: []
         , Moves: []
         , Triggers:{

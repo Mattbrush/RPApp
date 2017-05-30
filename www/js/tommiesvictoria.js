@@ -19,6 +19,7 @@ var StoreInventory = [
                 , Avatar: "./img/SprinkledDoughnut.png"
                 , Type: "Food"
                 , Index: 0
+        ,Weight: 2
                 , Stats: {
                     Health: 5
                 , }
@@ -31,6 +32,7 @@ var StoreInventory = [
                 , Avatar: "./img/Apple.png"
                 , Type: "Food"
                 , Index: 0
+         ,Weight: 2
                 , Stats: {
                     Health: 10
                 , }
@@ -43,6 +45,7 @@ var StoreInventory = [
                 , Avatar: "./img/KaleSmoothie.png"
                 , Type: "Food"
                 , Index: 0
+        ,Weight: 5
                 , Stats: {
                     Health: 35
                 , }

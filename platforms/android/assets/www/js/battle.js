@@ -87,6 +87,7 @@ function StartBattle() {
                     , Avatar: "./img/Limpit.png"
                     , Type: "Food"
                     , Index: 0
+                    ,Weight: 1
                     , Stats: {
                         Health: 5
                     }
@@ -147,6 +148,7 @@ function StartBattle() {
                     , Avatar: "./img/GrassBundle.png"
                     , Type: "Misc"
                     , Index: 0
+                    ,Weight: 2
                     , Stats: {}
                     , Worth: 2
                     , DropRate: 0.65
@@ -204,6 +206,7 @@ function StartBattle() {
                     , Avatar: "./img/BallOfSand.png"
                     , Type: "Misc"
                     , Index: 0
+                    ,Weight: 2
                     , Stats: {}
                     , Worth: 1
                     , DropRate: 0.35

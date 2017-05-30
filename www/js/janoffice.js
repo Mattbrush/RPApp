@@ -285,6 +285,7 @@ function JanOffice() {
                 , Avatar: "./img/TemporaryPassport.png"
                 , Type: "Key"
                 , Index: 0
+                    ,Weight: 1
                 , Stats: {
                     Health: 0
                 , }

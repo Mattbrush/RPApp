@@ -29,6 +29,7 @@ function StartStore() {
                 , Avatar: "./img/HealthPotion.png"
                 , Type: "Status"
                 , Index: 0
+                ,Weight: 2
                 , Stats: {
                     Health: 50
                     , Mana: 0
@@ -42,6 +43,7 @@ function StartStore() {
                 , Avatar: "./img/SuperHealthPotion.png"
                 , Type: "Status"
                 , Index: 0
+                ,Weight: 5
                 , Stats: {
                     Health: 250
                     , Mana: 0
@@ -54,6 +56,7 @@ function StartStore() {
                 , Avatar: "./img/ManaPotion.png"
                 , Type: "Status"
                 , Index: 0
+        ,Weight: 2
                 , Stats: {
                     Health: 0
                     , Mana: 50
@@ -67,6 +70,7 @@ function StartStore() {
                 , Avatar: "./img/SuperManaPotion.png"
                 , Type: "Status"
                 , Index: 0
+                ,Weight: 5
                 , Stats: {
                     Health: 0
                     , Mana: 250
@@ -80,6 +84,7 @@ function StartStore() {
                 , Avatar: "./img/FreshwaterSplash.png"
                 , Type: "Spell"
                 , Index: 0
+            ,Weight: 1
                 , Stats: {
                     Cost: 5
                     , Damage: 10
@@ -93,6 +98,7 @@ function StartStore() {
                 , Avatar: "./img/LoafOfBread.png"
                 , Type: "Food"
                 , Index: 0
+        ,Weight: 5
                 , Stats: {
                     Health: 10
                 , }

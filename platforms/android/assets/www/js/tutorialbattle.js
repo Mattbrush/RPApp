@@ -114,6 +114,7 @@ function InitializeBattle() {
                     , Avatar: "./img/Seaweed.png"
                     , Type: "Misc"
                     , Index: 0
+                    ,Weight: 1
                     , Stats: {}
                     , Worth: 2
                     , DropRate: .01
@@ -1106,7 +1107,7 @@ function InitializeBattle() {
                 localStorage.setItem('_character', JSON.stringify(Character));
                  setTimeout(function () {
                 ThirdDialog()
-                }, Character.PlayerTextSpeed);
+                }, 2500);
             }
             else {
                 $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
@@ -1114,7 +1115,7 @@ function InitializeBattle() {
                 localStorage.setItem('_character', JSON.stringify(Character));
                  setTimeout(function () {
                 ThirdDialog()
-                }, Character.PlayerTextSpeed);
+                }, 2500);
             };
         };
         //localStorage.setItem('_character', JSON.stringify(Character));
@@ -1462,11 +1463,11 @@ function InitializeBattle() {
         }
             , {
                 Name: "Attack"
-                , Value:1
+                , Value:2
             }
             , {
                 Name: "Defense"
-                , Value: 0
+                , Value: 1
             }
             , {
                 Name: "Wisdom"
@@ -1493,6 +1494,17 @@ function InitializeBattle() {
                 , Value: 10
             , }
                  ]
+                     ,Weight: Math.round((2 / 2) *  25)
+        , Equipment:{
+            Head:"",
+            Torso:"",
+            Legs:"",
+            Belt:"",
+            LeftHand:"",
+            RightHand:"",
+            Ring1:"",
+            Ring2:"",
+        }
         , Spells: [
             {
                 Name: " Leafy Wind"
@@ -1500,6 +1512,7 @@ function InitializeBattle() {
                 , Avatar: "./img/LeafyWind.png"
                 , Type: "Spell"
                 , Index: 0
+                ,Weight: 1
                 , Stats: {
                     Cost: 5
                     , Damage: 10
@@ -1522,7 +1535,7 @@ function InitializeBattle() {
         , Experience: {
             Total: 0
             , ToNextLevel: 25
-            , SkillPoints: 3
+            , SkillPoints: 0
         , }
      };
                  

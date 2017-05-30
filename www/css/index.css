@@ -27,6 +27,16 @@ body {
     background: black;
 }
 
+.OverlayBlanket{
+        background: rgba(0, 0, 0, 0.69);
+    height: 101%;
+    width: 101%;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    position: fixed;
+}
+
 #Overlay {
     position: fixed;
     top: 0;
@@ -57,7 +67,25 @@ body {
 .ObtainedItem{
     width:10%;
 }
+.NoneEquipment{
+    background:grey;
+}
 
+.ActiveEquipment{
+    background:rgba(0, 186, 255, 0.81);
+}
+
+.EquipmentOverview{
+        width: 100%;
+    position: fixed;
+    z-index: 10;
+    text-align: center;
+    left: 0;
+    top: 25%;
+    background: #f14141;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
 .NewStatClass {
     position: fixed;
     font-size: large;
@@ -180,20 +208,23 @@ body {
     font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
 }
 
-.MenuButtonDisabled {
+
+
+.MenuButton2 {
     margin: 5px;
     box-shadow: 2px 2px 5px #4c4b4b;
-    background: #818181;
+    background: #f14141;
     color: white;
     border: none;
     font-size: larger;
     font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
 }
 
-.MenuButton2 {
+
+.MenuButtonDisabled {
     margin: 5px;
     box-shadow: 2px 2px 5px #4c4b4b;
-    background: #f14141;
+    background: #818181;
     color: white;
     border: none;
     font-size: larger;
