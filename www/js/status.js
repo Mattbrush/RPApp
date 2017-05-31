@@ -86,8 +86,8 @@ function StartApp(Character) {
     $("#Overlay").css("opacity", "1");
     window.setInterval(function () {
         //    $("#Color").html(moment().format("LTS"))
-        //   $("#MenuTitle").html(" <h3 class='animated tada SubMainTitle' > Menu </h3>")
-    }, 5000);
+           $("#MenuTitle").animateCss('bounce');
+    }, 1000);
     PlaceInformation();
 
     function PlaceInformation() {

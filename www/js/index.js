@@ -118,6 +118,18 @@ $("#Overlay").css("background-image","url(img/Canada.jpg)");
     $("#MenuTitle").html("<h3 class='MainTitle animated rubberBand'> ~ The Great Canadian Adventure ~ </h3>");
     }, 5000);
 */
+        
+        
+        $.fn.extend({
+    animateCss: function (animationName) {
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        this.addClass('animated ' + animationName).one(animationEnd, function() {
+            $(this).removeClass('animated ' + animationName);
+        });
+    }
+});
+        
+        
 };
 
 

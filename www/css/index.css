@@ -27,6 +27,10 @@ body {
     background: black;
 }
 
+.Fixed{
+    position:fixed;
+}
+
 .OverlayBlanket{
         background: rgba(0, 0, 0, 0.69);
     height: 101%;
@@ -86,6 +90,27 @@ body {
     padding-top: 50px;
     padding-bottom: 50px;
 }
+
+
+.AlertPlayerMessage{
+    border: 5px;
+    border-style: double;
+    border-color: #b7fcff;
+    position: fixed;
+    z-index: 10;
+    top: 25%;
+    text-align: center;
+    background: #f14141;
+    box-shadow: 4px 5px 10px #2e2e2e;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.AlertPlayerText{
+      text-align: center;
+    font-size: x-large;
+    color: aliceblue;  
+};
 .NewStatClass {
     position: fixed;
     font-size: large;
@@ -99,7 +124,7 @@ body {
 
 .CharacterAvatar {
     display: grid;
-        position: fixed;
+     /*   position: fixed; */
     z-index: 5;
 }
 

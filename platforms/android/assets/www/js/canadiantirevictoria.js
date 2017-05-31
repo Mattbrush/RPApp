@@ -125,7 +125,7 @@ function StartStore() {
         /* Add dialog from Ben here */
         setTimeout(function () {
            $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
-        $("#App").prepend("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+        $("#App").prepend("<div id='CharacterAvatar' class='CharacterAvatar Fixed animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
          $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
      $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Whoa! What the heck? Let's get outta here "+Character.Name+" ! Come on, I will take you to Tommie's for a drink!  '</div>");
       $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Leave'> Okay.. </button>");
