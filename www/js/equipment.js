@@ -151,7 +151,12 @@ function StartApp() {
         $("#EquipmentContainer").css("border-color", "" + Party[PartyIndex].Color + "");
         $("#CurrentPartyMember").html("<span>" + Party[PartyIndex].Name + "</span><div id='Head' class='" + CurrentHead.Class + " Equipment'> Head  " + CurrentHead.Name + " </div><div id='Torso' class='" + CurrentTorso.Class + " Equipment'> Torso  " + CurrentTorso.Name + " </div><div id='LeftHand' class='" + CurrentLeftHand.Class + " Equipment'> Left Hand  " + CurrentLeftHand.Name + " </div><div id='RightHand' class='" + CurrentRightHand.Class + " Equipment'> Right Hand  " + CurrentRightHand.Name + " </div><div id='Belt' class='" + CurrentBelt.Class + " Equipment'> Belt  " + CurrentBelt.Name + " </div><div id='Legs' class='" + CurrentLegs.Class + " Equipment'> Legs  " + CurrentLegs.Name + " </div><br><div id='Ring1' class='" + CurrentRing1.Class + " Equipment'> Ring 1  " + CurrentRing1.Name + " </div><div id='Ring2' class='" + CurrentRing2.Class + " Equipment'> Ring 2  " + CurrentRing2.Name + " </div>");
         // Place buttons for Previous and next //
-        $("#CurrentPartyMember").append("<br><div id='PartySwitcher'><button class='MenuButton' id='Prev'> Previous </button><button class='MenuButton' id='Next'> Next </button></div>");
+        $("#CurrentPartyMember").append("<br><div id='PartySwitcher'></div>");
+        // Only display if there are more than 1 party member..
+            if (Party.length > 1){
+            $("#PartySwitcher").append("<button class='MenuButton' id='Prev'> Previous </button><button class='MenuButton' id='Next'> Next </button>");
+        };
+           
         // Button functionality // Must be inside this function to work..
         $("#Next").click(function () {
             if (PartyIndex == Party.length - 1) {

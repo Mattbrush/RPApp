@@ -99,6 +99,8 @@ body {
 
 .CharacterAvatar {
     display: grid;
+        position: fixed;
+    z-index: 5;
 }
 
 .Avatar {
@@ -335,7 +337,7 @@ body {
 
 .MenuWrapperStatusMessage {
     padding: 5px;
-    z-index: 2;
+    z-index: 5;
     position: fixed;
     bottom: 0;
     width: 100%;

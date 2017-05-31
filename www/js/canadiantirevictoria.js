@@ -87,9 +87,73 @@ function StartStore() {
     console.log("~~~~~Starting StorePage!~~~~~~")
     var Character = JSON.parse(localStorage.getItem('_character'));
     $("#MessageHolder").html("<h4 class='animated pulse  Message' id='Dialog'> Welcome to Canadian Tire ! </h4>");
-    setTimeout(function () {
+    
+    
+    
+    if (Character.Triggers.Victoria4 == false){
+        // Player has not beaten the fighting tutorial yet
+         setTimeout(function () {
+        StoreBusy();
+             }, 1000); 
+    } else if (Character.Triggers.Victoria5 == false){
+        // Player has not beaten the fighting tutorial yet
+         setTimeout(function () {
+        StoreBusy2();
+             }, 1000); 
+    } else {
+           setTimeout(function () {
         StoreFront();
-    }, 1000);
+    }, 1000); 
+    };
+    
+      function StoreBusy() {
+         $("#Options").html("<div class='animated bounceIn MenuWrapper'> (There are deer running around in the store.. You see a lot of people yelling and scrambling.. Maybe you should come back later?) </div><br><button class='MenuButton2 animated fadeInDown' id='Leave'>Leave</button>");
+          
+          
+           $("#Leave").click(function () {
+            localStorage.setItem('_character', JSON.stringify(Character));
+            audio.pause();
+            audio.currentTime = 0;
+            $("#App").load("./temp/ShoppingDistrictVictoria.html")
+        });
+      };
+    
+    function StoreBusy2() {
+         $("#Options").html("<div class='animated bounceIn MenuWrapper'> (A man who looks like the Manager is facing off against a large buck, they both look exhausted..)  </div><br>");
+        
+        
+        /* Add dialog from Ben here */
+        setTimeout(function () {
+           $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
+        $("#App").prepend("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Whoa! What the heck? Let's get outta here "+Character.Name+" ! Come on, I will take you to Tommie's for a drink!  '</div>");
+      $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Leave'> Okay.. </button>");
+            
+                //<button class='MenuButton2 animated fadeInDown' id='Leave'>Leave</button>
+           $("#Leave").click(function () {
+            localStorage.setItem('_character', JSON.stringify(Character));
+            audio.pause();
+            audio.currentTime = 0;
+            $("#App").load("./temp/ShoppingDistrictVictoria.html")
+        });
+            }, 4500); 
+        
+        //////////////////////////////
+        
+        
+        
+        
+        
+        
+          
+      
+      };
+    
+    
+    
+    
+
 
     function StoreFront() {
         $("#Logo").html("<img class='width50' src='./img/CanadianTire.png'>");

@@ -32,7 +32,7 @@ function PierVictoria2() {
         $("#Overlay").css("background-size", "cover");
     $("#Locationtitle").html(" The Pier, Victoria,  B.C");
     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
-     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' I think it's a little too dangerous to come back here right now. Maybe we should go grab some equipment at the Shopping District first ?  '</div>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' I think it's a little too dangerous to come back here right now. Maybe we should go to the Shopping District ?  '</div>");
       $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Accept3'> Okay. </button>");
     
     

@@ -171,7 +171,7 @@ $("#Confirm").click(function () {
             , }
                  ]
         , Wallet: {
-         Total:25,
+         Total:0,
         }
         , Inventory: []
         ,Weight: Math.round((Attack / 2) *  25)

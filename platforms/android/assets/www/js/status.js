@@ -92,7 +92,10 @@ function StartApp(Character) {
 
     function PlaceInformation() {
         $("#Color").css("background", "" + Party[PartyIndex].Color + "");
-        $("#PartyStatus").html("<div class='MenuWrapper' id='CharacterStats'><div class='MenuWrapper'><h3 class='SubSubMainTitle animated rubberBand'>Stats</h3> Player Name : <strong>" + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName + "</strong></div><div class='MenuWrapper' id='Stats'></div><div class='MenuWrapper' id='Level'>Level :  " + Party[PartyIndex].Level + "</div><div class='MenuWrapper' id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><div class='MenuWrapper' id='ToNext'> To Next Level : " + Party[PartyIndex].Experience.ToNextLevel + "</div><div class='MenuWrapper' id='Spells'><span>Spells : </span></div><div class='MenuWrapper' id='Moves'><span>Moves : </span></div><div class='MenuWrapper' id='PartySwitch'><button class='MenuButton' id='PrevParty'> Previous </button><button class='MenuButton' id='NextParty'> Next </button></div></div><br><div class='MenuWrapper' id='Wallet'> <h4 class='SubSubMainTitle'> Wallet : </h4><span class='Money'>$" + Character.Wallet.Total + "</span><br><span> Party Weight :  " + PartyWeightCurrent + " / " + PartyWeightTotal + "</span><br></div><br><br>");
+        $("#PartyStatus").html("<div class='MenuWrapper' id='CharacterStats'><div class='MenuWrapper'><h3 class='SubSubMainTitle animated rubberBand'>Stats</h3> Player Name : <strong>" + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName + "</strong></div><div class='MenuWrapper' id='Stats'></div><div class='MenuWrapper' id='Level'>Level :  " + Party[PartyIndex].Level + "</div><div class='MenuWrapper' id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><div class='MenuWrapper' id='ToNext'> To Next Level : " + Party[PartyIndex].Experience.ToNextLevel + "</div><div class='MenuWrapper' id='Spells'><span>Spells : </span></div><div class='MenuWrapper' id='Moves'><span>Moves : </span></div><div class='MenuWrapper' id='PartySwitch'></div></div><br><div class='MenuWrapper' id='Wallet'> <h4 class='SubSubMainTitle'> Wallet : </h4><span class='Money'>$" + Character.Wallet.Total + "</span><br><span> Party Weight :  " + PartyWeightCurrent + " / " + PartyWeightTotal + "</span><br></div><br><br>");
+        if (Party.length > 1){
+            $("#PartySwitch").append("<button class='MenuButton' id='PrevParty'> Previous </button><button class='MenuButton' id='NextParty'> Next </button>");
+        };
         $("#CharacterStats").css("border-color", "" + Party[PartyIndex].Color + "");
         $("#Wallet").css("border-color", "" + Party[PartyIndex].Color + "");
         if (Party[PartyIndex].Spells.length == 0) {
@@ -231,34 +234,27 @@ function StartApp(Character) {
         AttackStrength = Math.round(( PartyMember.Stats[1].Value + .25) *  AttackStrength);
         };
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        Party[PartyIndex].BattleStats.AttackStrength = AttackStrength;
+        Party[PartyIndex].BattleStats.DefenseStrength = DefenseStrength;
+        Character = Party[0];
+         localStorage.setItem('_character', JSON.stringify(Character));
+        localStorage.setItem('_Party', JSON.stringify(Party));
         
         
        
         console.log("~~~~~~~~~~")
             /* ~~~~~End Of Stats~~~~~  */
-        $("#Stats").append("<br><span>Attack Strength : " + AttackStrength + "</span>");
-        $("#Stats").append("<br><span>Defense Strength : " + DefenseStrength + "</span>");
+        $("#Stats").append("<br><span>Attack Strength : " + Party[PartyIndex].BattleStats.AttackStrength + "</span>");
+        $("#Stats").append("<br><span>Defense Strength : " + Party[PartyIndex].BattleStats.DefenseStrength + "</span>");
         // Changing Party Member Button
         $("#NextParty").click(function () {
             PartyIndex++
             if (Party[PartyIndex] == undefined) {
                 PartyIndex = 0;
                 PlaceInformation();
-                console.log(Party[PartyIndex])
             }
             else {
                 PlaceInformation();
-                console.log(Party[PartyIndex])
             }
         })
         $("#PrevParty").click(function () {
@@ -266,11 +262,9 @@ function StartApp(Character) {
                 if (Party[PartyIndex] == undefined) {
                     PartyIndex = Party.length - 1;
                     PlaceInformation();
-                    console.log(Party[PartyIndex])
                 }
                 else {
                     PlaceInformation();
-                    console.log(Party[PartyIndex])
                 }
             })
             ////////////////////////////

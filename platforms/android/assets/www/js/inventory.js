@@ -6,15 +6,25 @@ StartApp();
 function StartApp() {
       $("#MessageHolder").remove();
     var Character = JSON.parse(localStorage.getItem('_character'));
+    Character.Inventory.sort(function(a, b){
+    if(a.Name < b.Name) return -1;
+    if(a.Name > b.Name) return 1;
+    return 0;
+})
+      localStorage.setItem('_character', JSON.stringify(Character));
+     var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     Party[0] = Character
-        //    console.log(Party);
     if (Character.Inventory.length <= 0) {
         console.log('emptyInventory');
         $("#InventoryContainer").html("<h3 class='SubSubMainTitle animated rubberBand'> Inventory </h3>  You have no items");
         $("#InventoryContainer").css("border-color", "" + Party[0].Color + "");
     }
     else {
+        
+        console.log(Character.Inventory)
+        
+        
         for (i = 0; i < Character.Inventory.length; i++) {
             PlaceInventory();
 

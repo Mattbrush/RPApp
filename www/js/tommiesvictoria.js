@@ -62,6 +62,12 @@ var StoreInventory = [
 
 
 
+
+
+
+
+
+
 StartStore();
 $("#Logo").html("<img class='width50' src='./img/TommiesLogo.png'>");
 $("#Overlay").css("background-image","url(img/TommiesInside.jpg)");
@@ -70,13 +76,128 @@ function StartStore() {
     console.log("~~~~~Starting StorePage!~~~~~~")
     var Character = JSON.parse(localStorage.getItem('_character'));
     $("#MessageHolder").html("<h4 class='animated pulse  Message' id='Dialog'> Welcome to Tommie's </h4>");
-    setTimeout(function () {
+    
+    
+    if (Character.Triggers.Victoria4 == true){
+        /* Ben gets you a drink! */
+      setTimeout(function () {
+        StoreStory1();
+    }, 1250);  
+    } else {
+        setTimeout(function () {
         StoreFront();
     }, 1250);
+    };
+      function StoreStory1() {
+          
+           $("#Options").html("<div class='animated bounceIn MenuWrapper'> ( The smell of coffee and donuts fills the air.. You want to eat everything ! )  </div><br>");
+        
+        
+        /* Add dialog from Ben here */
+        setTimeout(function () {
+           $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
+        $("#App").prepend("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : 'Wow, You look hungry... Here I will grab us some sandwhiches and coffee! '</div>");
+      $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Coffee'> Thank you </button>");
+            
+            
+            
+            $("#Coffee").click(function(){
+                $("#Logo").remove();
+                $("#MessageHolder").remove();
+                $("#Options").remove();
+                $("#OverlayContainer").html("");
+            });
+            
+             
+            }, 2000); 
+          
+          
+         
+     // Set Dialog Back to Zero !
+    var DialogOrderNumber = 0;
+
+    function ClickDialog() {
+        DialogOrder = [
+           
+         ]
+        $("#Next").click(function () {
+            var DialogSelect = DialogOrder[DialogOrderNumber]
+            var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
+            console.log('Click');
+            console.log(Dialog)
+            console.log(DialogOrderNumber);
+            DialogOrderNumber++
+            if (DialogSelect.Button == "No") {
+  
+                if (DialogSelect.ChangeCharacter == "No") {
+                    $("#Avatar").attr("src", " " + DialogSelect.Avatar + " ")
+                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                }
+                else {
+                     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='" + DialogSelect.Avatar + "'><div id='StatusMessageHolder'><br>");
+                     $("#ContinueMessageHolder").html("");
+                    setTimeout(function () {
+                        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                        $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                         ClickDialog();
+                    }, 1000);
+                }
+                if (DialogSelect.Music != "No" || DialogSelect.Sound != "No") {
+                    if (DialogSelect.MusicControl == "Stop") {
+                        DialogSelect.Music.pause();
+                        DialogSelect.Music.currentTime = 0;
+                    }
+                    else if (DialogSelect.SoundControl == "Stop") {
+                        DialogSelect.Sound.pause();
+                        DialogSelect.Sound.currentTime = 0;
+                    };
+                    if (DialogSelect.MusicControl == "Play") {
+                        console.log("Playing " + DialogSelect.Music);
+                        DialogSelect.Music.play();
+                    }
+                    else if (DialogSelect.SoundControl == "Play") {
+                        console.log("Playing " + DialogSelect.Sound);
+                        DialogSelect.Sound.play();
+                    }
+                };
+            }
+            else {
+
+                Dialog = " " + DialogSelect.Name + " :  " + DialogSelect.Dialog + "   ";
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper '>" + Dialog + "</div>");
+                DialogOption(DialogSelect);
+                $("#ContinueMessageHolder").html("");
+            }
+        });
+    };
+
+
+
+        function DialogOption(DialogSelect) {
+  
+    
+
+
+          
+        
+        //////////////////////////////
+          
+      };
+    
+    
+    
+    
+    
+      };
+    
+    
 
     function StoreFront() {
       //  $("#Logo").html("<img src='./img/tommieslogo.png'>");
         var Character = JSON.parse(localStorage.getItem('_character'));
+        
         
         $("#Options").html("<br><button class='MenuButton2 animated fadeInDown' id='Buy'>Buy</button><button class='MenuButton2 animated fadeInDown' id='Leave'>Leave</button>");
         // BUYING Items Function
@@ -276,6 +397,7 @@ function StartStore() {
             });
         });
         function PurchaseItem(Character, index) {
+            var Party = JSON.parse(localStorage.getItem('_Party'));
             Sale.play();
             $("#Dialog").html("Thank you so much for your patronage");
             Character.Wallet.Total = Character.Wallet.Total - StoreInventory[index].Worth;
@@ -284,10 +406,12 @@ function StartStore() {
             var Orignalworth = StoreInventory[index].Worth;
             StoreInventory[index].Worth = Math.round(StoreInventory[index].Worth * 0.75);
             Character.Inventory.push(StoreInventory[index]);
-            console.log(StoreInventory[index].Worth)
+            Party[0] = Character;
             RefreshMoney();
             $("#Inventory").html("");
+            
             localStorage.setItem('_character', JSON.stringify(Character));
+            localStorage.setItem('_Party', JSON.stringify(Party));
             if (StoreInventory[index].Type == "Spell") {
                 StoreInventory[index].Worth = Orignalworth
                 StoreInventory.splice(index, 1);
