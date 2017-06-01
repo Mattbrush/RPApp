@@ -5,27 +5,25 @@ StartApp();
 /*~~~~~~~~~~~~~~~~~~~~ --------------------- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
-function CheckLevel(Character) {
+function CheckLevel() {
     console.log("~~~Configuring Character Experience and Level~~~");
-    var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     console.log("Character Experience and Level : ");
-    console.log(Character.Experience);
-    console.log("Level : " + Character.Level);
+    console.log(Party[0].Experience);
+    console.log("Level : " + Party[0].Level);
     /* Experience System WHILE Statements //// Make More Concise Later! /////// */
-    while (Character.Experience.Total >= Character.Experience.ToNextLevel) {
-        Character.Experience.ToNextLevel = Math.round(Character.Experience.ToNextLevel * 1.25);
-        Character.Level = Character.Level + 1;
-        Character.Experience.Total = 0;
+    while (Party[0].Experience.Total >= Party[0].Experience.ToNextLevel) {
+        Party[0].Experience.ToNextLevel = Math.round(Party[0].Experience.ToNextLevel * 1.25);
+        Party[0].Level = Party[0].Level + 1;
+        Party[0].Experience.Total = 0;
     }
     
     
-    localStorage.setItem('_character', JSON.stringify(Character));
     localStorage.setItem('_Party', JSON.stringify(Party));
      console.log("~~~~~~~~~~~~~~~~~~~")
 };
 
-function StartApp(Character) {
+function StartApp() {
     /* Place Main Character First ALWAYS. Allow to swipe and change through array of party */
     var i = 0;
     var Character = JSON.parse(localStorage.getItem('_character'));
@@ -155,7 +153,6 @@ function StartApp(Character) {
             $("#Confirm").html("");
             PlaceStats(Party[PartyIndex]);
             CheckSkillPoints(Party[PartyIndex]);
-            localStorage.setItem('_character', JSON.stringify(Character));
             localStorage.setItem('_Party', JSON.stringify(Party));
         });
         CheckSkillPoints(Party[PartyIndex]);
@@ -248,7 +245,6 @@ function StartApp(Character) {
             $("#Confirm").html("");
             PlaceStats(Party[PartyIndex]);
             CheckSkillPoints(Party[PartyIndex]);
-            localStorage.setItem('_character', JSON.stringify(Character));
             localStorage.setItem('_Party', JSON.stringify(Party));
         });
         

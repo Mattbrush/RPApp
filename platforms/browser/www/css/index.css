@@ -92,13 +92,19 @@ body {
 }
 
 
+.StoreInventory{
+ display: flex;
+}
+
 .AlertPlayerMessage{
     border: 5px;
     border-style: double;
     border-color: #b7fcff;
     position: fixed;
     z-index: 10;
+        right: 0;
     top: 25%;
+    left: 0;
     text-align: center;
     background: #f14141;
     box-shadow: 4px 5px 10px #2e2e2e;

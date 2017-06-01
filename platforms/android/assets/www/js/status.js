@@ -9,30 +9,34 @@ console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     /*~~~~~~~~~~~~~~~~~~~~ --------------------- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 function CheckWallet() {
     var Character = JSON.parse(localStorage.getItem('_character'));
+    var Party = JSON.parse(localStorage.getItem('_Party'));
     console.log("~~~Configuring Wallet~~~");
     console.log("Wallet : ");
-    console.log(Character.Wallet);
+    console.log(Party[0].Wallet);
     localStorage.setItem('_character', JSON.stringify(Character));
+    localStorage.setItem('_Party', JSON.stringify(Party));
     console.log("~~~~~~~~~~~~~~~~~~~")
 };
 
-function CheckLevel(Character) {
+function CheckLevel() {
     console.log("~~~Configuring Character Experience and Level~~~");
     var Character = JSON.parse(localStorage.getItem('_character'));
+    var Party = JSON.parse(localStorage.getItem('_Party'));
     console.log("Character Experience and Level : ");
-    console.log(Character.Experience);
-    console.log("Level : " + Character.Level);
+    console.log(Party[0].Experience);
+    console.log("Level : " + Party[0].Level);
     /* Experience System WHILE Statements //// Make More Concise Later! /////// */
-    while (Character.Experience.Total >= Character.Experience.ToNextLevel) {
-        Character.Experience.ToNextLevel = Math.round(Character.Experience.ToNextLevel * 1.25);
-        Character.Level = Character.Level + 1;
-        Character.Experience.Total = 0;
+    while (Party[0].Experience.Total >= Party[0].Experience.ToNextLevel) {
+        Party[0].Experience.ToNextLevel = Math.round(Party[0].Experience.ToNextLevel * 1.25);
+        Party[0].Level = Party[0].Level + 1;
+        Party[0].Experience.Total = 0;
     }
     localStorage.setItem('_character', JSON.stringify(Character));
+     localStorage.setItem('_Party', JSON.stringify(Party));
     console.log("~~~~~~~~~~~~~~~~~~~")
 };
 
-function StartApp(Character) {
+function StartApp() {
     var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     // Set Player to be looking at //
@@ -86,13 +90,13 @@ function StartApp(Character) {
     $("#Overlay").css("opacity", "1");
     window.setInterval(function () {
         //    $("#Color").html(moment().format("LTS"))
-           $("#MenuTitle").animateCss('bounce');
+         //  $("#MenuTitle").animateCss('bounce');
     }, 1000);
     PlaceInformation();
 
     function PlaceInformation() {
         $("#Color").css("background", "" + Party[PartyIndex].Color + "");
-        $("#PartyStatus").html("<div class='MenuWrapper' id='CharacterStats'><div class='MenuWrapper'><h3 class='SubSubMainTitle animated rubberBand'>Stats</h3> Player Name : <strong>" + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName + "</strong></div><div class='MenuWrapper' id='Stats'></div><div class='MenuWrapper' id='Level'>Level :  " + Party[PartyIndex].Level + "</div><div class='MenuWrapper' id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><div class='MenuWrapper' id='ToNext'> To Next Level : " + Party[PartyIndex].Experience.ToNextLevel + "</div><div class='MenuWrapper' id='Spells'><span>Spells : </span></div><div class='MenuWrapper' id='Moves'><span>Moves : </span></div><div class='MenuWrapper' id='PartySwitch'></div></div><br><div class='MenuWrapper' id='Wallet'> <h4 class='SubSubMainTitle'> Wallet : </h4><span class='Money'>$" + Character.Wallet.Total + "</span><br><span> Party Weight :  " + PartyWeightCurrent + " / " + PartyWeightTotal + "</span><br></div><br><br>");
+        $("#PartyStatus").html("<div class='MenuWrapper' id='CharacterStats'><div class='MenuWrapper'><h3 class='SubSubMainTitle animated rubberBand'>Stats</h3> Player Name : <strong>" + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName + "</strong></div><div class='MenuWrapper' id='Stats'></div><div class='MenuWrapper' id='Level'>Level :  " + Party[PartyIndex].Level + "</div><div class='MenuWrapper' id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><div class='MenuWrapper' id='ToNext'> To Next Level : " + Party[PartyIndex].Experience.ToNextLevel + "</div><div class='MenuWrapper' id='Spells'><span>Spells : </span></div><div class='MenuWrapper' id='Moves'><span>Moves : </span></div><div class='MenuWrapper' id='PartySwitch'></div></div><br><div class='MenuWrapper' id='Wallet'> <h4 class='SubSubMainTitle'> Wallet : </h4><span class='Money'>$" + Party[0].Wallet.Total + "</span><br><span> Party Weight :  " + PartyWeightCurrent + " / " + PartyWeightTotal + "</span><br></div><br><br>");
         if (Party.length > 1){
             $("#PartySwitch").append("<button class='MenuButton' id='PrevParty'> Previous </button><button class='MenuButton' id='NextParty'> Next </button>");
         };
@@ -300,7 +304,7 @@ function StartApp(Character) {
     $("#Close").click(function () {
         $("#Overlay").css("opacity", "0.85");
         console.log("Before Character");
-        console.log(Character);
+        console.log(Party[0]);
         $("#Overlay").css("z-index", "-1");
         $("#Overlay").html("");
         $("#Overlay").removeClass("Open");

@@ -8,8 +8,10 @@ var MainTheme = new Audio('./music/MainTheme.mp3');
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 var ReturningParliament = false;
     var Character = JSON.parse(localStorage.getItem('_character'));
+    var Party = JSON.parse(localStorage.getItem('_Party'));
+
 /* Check Story Progress */
-if (Character.Triggers.Victoria2 == true){
+if (Party[0].Triggers.Victoria2 == true){
 ReturningParliament = true;
 };
 console.log("~~~~~Victoria Parliament Building~~~~~~");
@@ -24,7 +26,7 @@ console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 function VictoriaParliament() {
     console.clear();
     console.log("Character :");
-    console.log(Character);
+    console.log(Party[0]);
     $("#OverlayContainer").append("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
     $("#Overlay").css("opacity", "0.65");
     $("#Overlay").css("background-image", "url(img/VictoriaParliament.jpg)");
@@ -53,7 +55,7 @@ function VictoriaParliament() {
             , }
             , {
                 Name: " Secretary "
-                , Dialog: " Okay, looking here I see that Jan Levingson has an appointment with a " + Character.Name + " " + Character.FamilyName + "  "
+                , Dialog: " Okay, looking here I see that Jan Levingson has an appointment with a " + Party[0].Name + " " + Party[0].FamilyName + "  "
                 , Button: "No"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/SecretaryAvatar.png"
@@ -64,7 +66,7 @@ function VictoriaParliament() {
             , }
             , {
                 Name: " Secretary "
-                , Dialog: "' Are you " + Character.Name + " " + Character.FamilyName + " ?  ' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Accept1'>Yes that is me! </button><br><button class='MenuButton animated flipInY' id='Decline1'> I don't know who that is.. </button>  "
+                , Dialog: "' Are you " + Party[0].Name + " " + Party[0].FamilyName + " ?  ' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Accept1'>Yes that is me! </button><br><button class='MenuButton animated flipInY' id='Decline1'> I don't know who that is.. </button>  "
                 , Button: "Yes"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/SecretaryAvatar.png"
@@ -108,7 +110,7 @@ function VictoriaParliament() {
             , }
             , {
                 Name: " Ben "
-                , Dialog: " 'My name is Ben' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Honest2'> Hi Ben, My name is " + Character.Name + "  </button><br><button class='MenuButton animated flipInY' id='Hostile2'> Please don't talk to me.. </button>  "
+                , Dialog: " 'My name is Ben' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Honest2'> Hi Ben, My name is " + Party[0].Name + "  </button><br><button class='MenuButton animated flipInY' id='Hostile2'> Please don't talk to me.. </button>  "
                 , Button: "Yes"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/BenAvatar.png"
@@ -152,7 +154,7 @@ function VictoriaParliament() {
             , }
             , {
                 Name: " Secretary "
-                , Dialog: " " + Character.Name + " ?   "
+                , Dialog: " " + Party[0].Name + " ?   "
                 , Button: "No"
                 , ChangeCharacter: "Yes"
                 , Avatar: "./img/SecretaryAvatar.png"
@@ -247,7 +249,7 @@ function VictoriaParliament() {
             ClickDialog();
         });
         $("#Accept2").click(function () {
-            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' No Problem, Good luck " + Character.Name + " !   '</div>");
+            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' No Problem, Good luck " + Party[0].Name + " !   '</div>");
             $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='JanRoom'> *Go To Jan's Room* </button>");
             $("#JanRoom").click(function () {
                 $("#ContinueMessageHolder").html("");
@@ -264,7 +266,7 @@ function VictoriaParliament() {
             ClickDialog();
         });
         $("#Honest2").click(function () {
-            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' Nice to meet you " + Character.Name + " ! '</div>");
+            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' Nice to meet you " + Party[0].Name + " ! '</div>");
             $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
             ClickDialog();
         });
@@ -296,7 +298,7 @@ function ReturningVictoriaParliament() {
      var Character = JSON.parse(localStorage.getItem('_character'));
     console.clear();
     console.log("Character :");
-    console.log(Character);
+    console.log(Party[0]);
     $("#OverlayContainer").append("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
     $("#Overlay").css("opacity", "0.65");
     $("#Overlay").css("background-image", "url(img/VictoriaParliament.jpg)");
@@ -316,7 +318,7 @@ function ReturningVictoriaParliament() {
         DialogOrder = [
              {
                 Name: " Secretary "
-                , Dialog: " How can I help you "+Character.Name+" ? ' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Question11'> What is there to do around here? </button><br><button class='MenuButton animated flipInY' id='Question21'> Can I talk to Jan? </button><br><button class='MenuButton2 animated flipInY' id='Exit'> Leave </button><br></div> "
+                , Dialog: " How can I help you "+Party[0].Name+" ? ' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Question11'> What is there to do around here? </button><br><button class='MenuButton animated flipInY' id='Question21'> Can I talk to Jan? </button><br><button class='MenuButton2 animated flipInY' id='Exit'> Leave </button><br></div> "
                 , Button: "Yes"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/SecretaryAvatar.png"
@@ -396,7 +398,7 @@ function ReturningVictoriaParliament() {
         
         
           $("#Question21").click(function () {
-            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' No I'm sorry "+Character.Name+" , Jan is busy right now.. '</div>");
+            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' No I'm sorry "+Party[0].Name+" , Jan is busy right now.. '</div>");
             $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Back'> Back </button>");
           $("#Back").click(function () {
                DialogOrderNumber = 0;
@@ -412,7 +414,7 @@ function ReturningVictoriaParliament() {
 
         /* HOSTILE */
 $("#Exit").click(function () {
-$("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' Goodbye "+Character.Name+" ! '</div>");
+$("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' Goodbye "+Party[0].Name+" ! '</div>");
                 $("#ContinueMessageHolder").html("");
                 $("#TravelContainer").removeClass("MenuWrapper");
                 $("#OverlayContainer").html("<div id='Overlay' class='animated fadeIn'></div>");

@@ -61,15 +61,16 @@ function InitApp() {
     
     
     //* Checking If There Is A User Account *//
-    if (localStorage.getItem('_character')) {
+    if (localStorage.getItem('_Party')) {
         //* If YES *//
-        var Character = JSON.parse(localStorage.getItem('_character'));
+        var Party = JSON.parse(localStorage.getItem('_Party'));
         console.log("Player Is Recognized")
-        console.log(Character)
+        console.log(Party)
+        console.log(Party[0])
         $("#NewGame").html("Continue")
         $("#NewGame").attr("id","Continue");
-        $("#MenuWrapper").append("<br><div id='ContinueInfo'><br><h4><span>Name : " + Character.Name + " " + Character.FamilyName+ "</span><br><span>Level : " + Character.Level + "</span><br><span>Date Created : " + Character.DateCreated + "</span></h4></div>")
-        $("#MenuWrapper").css("border-color",""+Character.Color+"");
+        $("#MenuWrapper").append("<br><div id='ContinueInfo'><br><h4><span>Name : " + Party[0].Name + " " + Party[0].FamilyName+ "</span><br><span>Level : " + Party[0].Level + "</span><br><span>Date Created : " + Party[0].DateCreated + "</span></h4></div>")
+        $("#MenuWrapper").css("border-color",""+Party[0].Color+"");
      //   $(".MenuButton").css("color","white");
      //   $(".MenuButton").css("background","#f14141");
     }

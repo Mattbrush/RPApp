@@ -6,27 +6,27 @@ function StartApp() {
     var Party = JSON.parse(localStorage.getItem('_Party'));
     console.clear();
     console.log("Character :");
-    console.log(Character);
+    console.log(Party[0]);
     console.log("Party : ");
     console.log(Party);
     $("#Overlay").css("opacity","0.85");
     $("#Message").html(" Welcome To Victoria ! ");
     $("#Locationtitle").html(" Victoria, B.C");
     $("#Overlay").css("background-image","url(img/BritishColumbiaVictoria.jpg)");
-    $("#ProvinceList").html("<div>Player Name : "  + Character.Name + " " + Character.FamilyName+"</div><br><div id='Level'>Level :  " + Character.Level + "</div>"/*"<br><button class='MenuButton animated flipInY ' id='StatusPage'>Menu</button><br><button class='MenuButton animated flipInY'  id='Battle'>Battle</button><br>"*/+"");
-    $("#ProvinceList").css("border-color",""+Character.Color+"");
+    $("#ProvinceList").html("<div>Player Name : "  + Party[0].Name + " " + Party[0].FamilyName+"</div><br><div id='Level'>Level :  " + Party[0].Level + "</div>"/*"<br><button class='MenuButton animated flipInY ' id='StatusPage'>Menu</button><br><button class='MenuButton animated flipInY'  id='Battle'>Battle</button><br>"*/+"");
+    $("#ProvinceList").css("border-color",""+Party[0].Color+"");
     
     
     
     /* Check Story Progress */
     
-    if(Character.Triggers.Victoria3 == true){
+    if(Party[0].Triggers.Victoria3 == true){
           $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='Pier'>Victoria Pier</button>");
           $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='ShoppingDistrict'>Shopping District</button>");
   $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='VictoriaParliamentBuilding'>Victoria Parliament Building</button>  ");
     $("#ProvinceList").append("<br><br><button id='StatusPage' class='MenuButton'> Menu </button>");
     }
-    else if (Character.Triggers.Victoria2 == true){
+    else if (Party[0].Triggers.Victoria2 == true){
     // PLAYER AFTER GETTING PASSPORT
   $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='ShoppingDistrict'>Shopping District</button>");
   $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='VictoriaParliamentBuilding'>Victoria Parliament Building</button>  ");
@@ -35,7 +35,7 @@ function StartApp() {
 Victoria1();
 };
    function  Victoria1(){
-if (Character.Triggers.Victoria1 == true){
+if (Party[0].Triggers.Victoria1 == true){
   setTimeout(function () {
     // PLAYER FIRST ENTERS VICTORIA !!
     $("#ProvinceList").css("display","none");
@@ -62,8 +62,8 @@ if (Character.Triggers.Victoria1 == true){
     
     
     
-    for (i = 0; i < Character.Inventory.length; i++) {
-    $("#Inventory").append(""+Character.Inventory[i].Name+" <br>");
+    for (i = 0; i < Party[0].Inventory.length; i++) {
+    $("#Inventory").append(""+Party[0].Inventory[i].Name+" <br>");
     };
     $("#Battle").click(function () {
         $("#App").load("./temp/Battle.html");
@@ -89,11 +89,11 @@ if (Character.Triggers.Victoria1 == true){
         }else{
             clearInterval(OverlayChecker);
             console.clear();
-            console.log("Character :");
+            console.log("Character : ");
              $("#App").css("display","block")
     
             var Character = JSON.parse(localStorage.getItem('_character'));
-            console.log(Character);
+            console.log(Party[0]);
         };
             }
         };

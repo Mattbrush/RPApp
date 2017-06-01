@@ -23,9 +23,10 @@ console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
 function JanOffice() {
     var Character = JSON.parse(localStorage.getItem('_character'));
+    var Party = JSON.parse(localStorage.getItem('_Party'));
     console.clear();
     console.log("Character :");
-    console.log(Character);
+    console.log(Party[0]);
 
         
      
@@ -40,7 +41,7 @@ function JanOffice() {
         $("#Overlay").css("background-size", "cover");
     $("#Locationtitle").html(" Jan Levingson's Office, Victoria,  B.C");
     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/JanAvatar.png'><div id='StatusMessageHolder'><br>");
-     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Jan : ' Hi "+Character.Name+" ! '</div>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Jan : ' Hi "+Party[0].Name+" ! '</div>");
       $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
     
     
@@ -252,7 +253,7 @@ function JanOffice() {
                 });
             
             $("#Accept2").click(function () {
-                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' It was nice meeting you "+Character.Name+"  '</div>");
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' It was nice meeting you "+Party[0].Name+"  '</div>");
                 $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Victoria'> *Back to Victoria* </button>");
                 
                   $("#Victoria").click(function () {
@@ -272,7 +273,7 @@ function JanOffice() {
                 });
             /* HOSTILE */
               $("#Hostile1").click(function () {
-                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' It isn't me you should be worried about "+Character.Name+"   ... '</div>");
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' It isn't me you should be worried about "+Party[0].Name+"   ... '</div>");
                 $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
                 ClickDialog();
                 });
@@ -292,10 +293,11 @@ function JanOffice() {
                 , Worth: 0
                 , DropRate: 0.00
                 };
-                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'><img class='ObtainedItem' src='./img/TemporaryPassport.png'></img><br> Obtained a Temporary Passport</div>");
-                Character.Triggers.Victoria2 = true;
-                Character.Inventory.push(TemporaryPassport);
+                $("#StatusMessageHolder").html("<div class='AlertPlayerText'><div  id='StatusMessage' class='AlertPlayerMessage animated flipInX'><img class='ObtainedItem' src='./img/TemporaryPassport.png'></img><br> Obtained a Temporary Passport</div></div>");
+                Party[0].Triggers.Victoria2 = true;
+                Party[0].Inventory.push(TemporaryPassport);
                  localStorage.setItem('_character', JSON.stringify(Character));
+                 localStorage.setItem('_Party', JSON.stringify(Party));
                  setTimeout(function () {
                 
                   $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' We can give you a permanant passport soon, we just need to give it  a few days first.  '</div>");

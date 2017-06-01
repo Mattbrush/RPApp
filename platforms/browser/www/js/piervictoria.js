@@ -14,8 +14,9 @@ console.clear();
 
 
  var Character = JSON.parse(localStorage.getItem('_character'));
+ var Party = JSON.parse(localStorage.getItem('_Party'));
 console.log("~~~~~Victoria Pier~~~~~~");
-if (Character.Triggers.Victoria4 == true){
+if (Party[0].Triggers.Victoria4 == true){
 PierVictoria2();
 }else {
 PierVictoria();
@@ -54,7 +55,7 @@ function PierVictoria() {
    
     console.clear();
     console.log("Character :");
-    console.log(Character);
+    console.log(Party[0]);
 
         
      
@@ -69,7 +70,7 @@ function PierVictoria() {
         $("#Overlay").css("background-size", "cover");
     $("#Locationtitle").html(" The Pier, Victoria,  B.C");
     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
-     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' "+Character.Name+" , You made it! '</div>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' "+Party[0].Name+" , You made it! '</div>");
       $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
     
     
@@ -244,6 +245,8 @@ function PierVictoria() {
                  $("#StatusMessageHolder").html("");
                 $("#ContinueMessageHolder").html("");
                 $("#CharacterAvatar").html("");
+             var Party = JSON.parse(localStorage.getItem('_Party'));
+                localStorage.setItem('_Party', JSON.stringify(Party));
                 $("#App").load("./temp/TutorialBattle.html");
                     
                 });

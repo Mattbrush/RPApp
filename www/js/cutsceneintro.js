@@ -24,7 +24,7 @@ function StartScene() {
         console.log("Character Introduction Cutscene");
         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BorderGuardAvatar.png'><div id='StatusMessageHolder'></div><br>");
         setTimeout(function () {
-            $("#StatusMessageHolder").html("<div class='MenuWrapper animated fadeIn'> Border Guard: ' Ok Friend, so it looks like your name is " + Character.Name + " " + Character.FamilyName + " eh? ' </div>");
+            $("#StatusMessageHolder").html("<div class='MenuWrapper animated fadeIn'> Border Guard: ' Ok Friend, so it looks like your name is " + Party[0].Name + " " + Party[0].FamilyName + " eh? ' </div>");
             setTimeout(function () {
                 $("#StatusMessageHolder").html("<div class='MenuWrapper animated fadeIn'> Border Guard Mark: ' Well my name is Mark and I am the Border Guard here at the Peace Arch in beautful British Columbia !'</div>");
                 setTimeout(function () {
@@ -49,7 +49,7 @@ function StartScene() {
                             }, 6000);
                         });
                         $("#apologize").click(function () {
-                            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='MenuWrapper animated fadeIn'> Border Guard Mike : ' Now don't you worry " + Character.Name + ". We are going to straighten this all out for you. ' </div>");
+                            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='MenuWrapper animated fadeIn'> Border Guard Mike : ' Now don't you worry " + Party[0].Name + ". We are going to straighten this all out for you. ' </div>");
                             setTimeout(function () {
                                 TravelOnwards();
                             }, 6000);
@@ -64,7 +64,7 @@ function StartScene() {
             PaperShuffle.play();
             $("#StatusMessageHolder").html("<div  id='StatusMessage' class='MenuWrapper animated fadeIn'> Border Guard Mike : ' Give me a few seconds while I look over some documents.. ' </div>");
             setTimeout(function () {
-                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='MenuWrapper animated fadeIn'> Border Guard Mike : 'Alright, Good news! Everything seems in order for you " + Character.Name + " ! ' </div>");
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='MenuWrapper animated fadeIn'> Border Guard Mike : 'Alright, Good news! Everything seems in order for you " + Party[0].Name + " ! ' </div>");
                 PaperShuffle.pause();
                 PaperShuffle.currentTime = 0;
                 setTimeout(function () {
@@ -77,13 +77,13 @@ function StartScene() {
                                 $("#DialogOptions").append("<button class='MenuButton animated flipInY' id='honest'> No, thank you for all of your help. I will head to Victoria now! </button>")
                                 $("#DialogOptions").append("<button class='MenuButton animated flipInY' id='confused'> How do I get to victoria? I don't know my way around very well.</button>")
                                 $("#honest").click(function () {
-                                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='MenuWrapper animated fadeIn'> Border Guard Mike : ' Great! Have an amazing time in Victora " + Character.Name + " and I hope I see you again soon!' </div>");
+                                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='MenuWrapper animated fadeIn'> Border Guard Mike : ' Great! Have an amazing time in Victora " + Party[0].Name + " and I hope I see you again soon!' </div>");
                                     setTimeout(function () {
                                         Victoria();
                                     }, 6000);
                                 });
                                 $("#confused").click(function () {
-                                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='MenuWrapper animated fadeIn'> Border Guard Mike : ' Don't you worry " + Character.Name + " you will be fine. Just catch the bus from down the street here and the bus driver can get you there. If you get lost on the way just ask someone, people here are very willing to help! Have fun " + Character.Name + " I hope I see you again soon.' </div>");
+                                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='MenuWrapper animated fadeIn'> Border Guard Mike : ' Don't you worry " + Party[0].Name + " you will be fine. Just catch the bus from down the street here and the bus driver can get you there. If you get lost on the way just ask someone, people here are very willing to help! Have fun " + Party[0].Name + " I hope I see you again soon.' </div>");
                                     setTimeout(function () {
                                         Victoria();
                                     }, 15000);

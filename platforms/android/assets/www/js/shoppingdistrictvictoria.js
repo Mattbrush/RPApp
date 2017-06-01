@@ -3,20 +3,21 @@ StartApp();
 
 function StartApp() {
     var Character = JSON.parse(localStorage.getItem('_character'));
+    var Party = JSON.parse(localStorage.getItem('_Party'));
     console.clear();
     console.log("Character :");
-    console.log(Character);
+    console.log(Party[0]);
     $("#Overlay").css("opacity","0.85");
     $("#Message").html(" Let's Go Shopping ! ");
     $("#Locationtitle").html(" Victoria Shopping District ");
     $("#Overlay").css("background-image","url(img/shoppingdistrictvictoria.jpg)");
     $("#StoreList").html("");
-    $("#StoreList").css("border-color",""+Character.Color+"");
+    $("#StoreList").css("border-color",""+Party[0].Color+"");
     
     
     
     /* Check Story Progress */
-    if (Character.Triggers.Victoria3 == true){
+    if (Party[0].Triggers.Victoria3 == true){
             /* Stores Available */
     $("#StoreList").append("<button id='Tommies' class='MenuButton'> Tommie's </button><br><button id='CanadianTire' class='MenuButton'> Canadian Tire </button><br><br><button id='Leave' class='MenuButton2'> Leave </button><br>");
     ////////////////////
@@ -46,7 +47,7 @@ function StartApp() {
         DialogOrder = [
              {
                 Name: " Ben  "
-                , Dialog: " '"+Character.Name+" right ?' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Honest1'> Hey Ben ! </button><br><button class='MenuButton animated flipInY' id='Confused1'> Who are you ? </button>  "
+                , Dialog: " '"+Party[0].Name+" right ?' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Honest1'> Hey Ben ! </button><br><button class='MenuButton animated flipInY' id='Confused1'> Who are you ? </button>  "
                 , Button: "Yes"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/BenAvatar.png"
@@ -294,14 +295,15 @@ function StartApp() {
                 });
             
             $("#Accept3").click(function () {
-                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' No problem at all, see you around sometime "+Character.Name+" !  '</div>");
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' No problem at all, see you around sometime "+Party[0].Name+" !  '</div>");
                 $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
                 ClickDialog();
                 });
             
             $("#Accept4").click(function () {
-                Character.Triggers.Victoria3 = true;
+                Party[0].Triggers.Victoria3 = true;
                 localStorage.setItem('_character', JSON.stringify(Character));
+                localStorage.setItem('_Party', JSON.stringify(Party));
                   $("#StatusMessageHolder").html("");
                 $("#ContinueMessageHolder").html("");
                 $("#CharacterAvatar").html("");
@@ -364,8 +366,8 @@ function StartApp() {
             console.log("Character :");
              $("#App").css("display","block")
     
-            var Character = JSON.parse(localStorage.getItem('_character'));
-            console.log(Character);
+            var Party = JSON.parse(localStorage.getItem('_Party'));
+            console.log(Party[0]);
         };
             }
         };

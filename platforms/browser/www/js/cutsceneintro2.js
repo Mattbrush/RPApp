@@ -15,6 +15,7 @@ function StartScene() {
     
        //////// *    ///// Returning after Creating your charatcer profile  *//////
      var Character = JSON.parse(localStorage.getItem('_character'));
+     var Party = JSON.parse(localStorage.getItem('_Party'));
     
         $("#OverlayContainer").append("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
         $("#Overlay").css("opacity", "0.65");
@@ -37,7 +38,7 @@ function StartScene() {
         DialogOrder = [
             {
                 Name: " Border Guard "
-                , Dialog: " So it says here that your name is "+Character.Name+" eh?"
+                , Dialog: " So it says here that your name is "+Party[0].Name+" eh?"
                 , Button: "No"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/BorderGuardAvatar.png"
@@ -70,7 +71,7 @@ function StartScene() {
             , }
             , {
                 Name: " Border Guard - Bryan "
-                , Dialog: "' Alright "+Character.Name+" , Now that we know a little bit about you. What is your purpose into Canada today?' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Honest1'> To be honest, I think I just want to help in any way I can. </button><br><button class='MenuButton animated flipInY' id='Hostile1'> Does it matter? </button><br><button class='MenuButton animated flipInY' id='Confused1'> I have no idea.. </button>"
+                , Dialog: "' Alright "+Party[0].Name+" , Now that we know a little bit about you. What is your purpose into Canada today?' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Honest1'> To be honest, I think I just want to help in any way I can. </button><br><button class='MenuButton animated flipInY' id='Hostile1'> Does it matter? </button><br><button class='MenuButton animated flipInY' id='Confused1'> I have no idea.. </button>"
                 , Button: "Yes"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/BorderGuardAvatar.png"
@@ -125,7 +126,7 @@ function StartScene() {
             , }
               ,{
                 Name: " Border Guard - Bryan "
-                , Dialog: " Well I have a person here named "+Character.Name+" who has no identification but just wants to come into Canada. I figure we should go through the process to confirm of any criminal history or anything..  "
+                , Dialog: " Well I have a person here named "+Party[0].Name+" who has no identification but just wants to come into Canada. I figure we should go through the process to confirm of any criminal history or anything..  "
                 , Button: "No"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/BorderGuardAvatar.png"
@@ -147,7 +148,7 @@ function StartScene() {
             , }
               ,{
                 Name: " Border Guard - Bryan "
-                , Dialog: " Well, that works for me! Thanks Jan, I will let "+Character.Name+" know right away  "
+                , Dialog: " Well, that works for me! Thanks Jan, I will let "+Party[0].Name+" know right away  "
                 , Button: "No"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/BorderGuardAvatar.png"
@@ -169,7 +170,7 @@ function StartScene() {
             , }
               ,{
                 Name: " Border Guard - Bryan "
-                , Dialog: " Okay "+Character.Name+" , You are in luck!  "
+                , Dialog: " Okay "+Party[0].Name+" , You are in luck!  "
                 , Button: "No"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/BorderGuardAvatar.png"
@@ -224,7 +225,7 @@ function StartScene() {
             , }
              ,{
                 Name: " Border Guard - Bryan "
-                , Dialog: " Go now "+Character.Name+" before it is too late! Have fun and give my best to Jan  !"
+                , Dialog: " Go now "+Party[0].Name+" before it is too late! Have fun and give my best to Jan  !"
                 , Button: "No"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/BorderGuardAvatar.png"
@@ -315,7 +316,7 @@ function StartScene() {
           
             /* ACCEPT */
                 $("#Accept1").click(function () {
-                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' Great! "+Character.Name+" "+Character.FamilyName+" it is then ! '</div>");
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' Great! "+Party[0].Name+" "+Party[0].FamilyName+" it is then ! '</div>");
                 $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
                 ClickDialog();
                 });
@@ -325,8 +326,9 @@ function StartScene() {
                     $("#CharacterAvatar").html("");
                     $("#ContinueMessageHolder").html("");
                     $("#Overlay").css("background","white");
-                    Character.Triggers.Victoria1 = true;
+                     Party[0].Triggers.Victoria1 = true;
                      localStorage.setItem('_character', JSON.stringify(Character));
+                     localStorage.setItem('_Party', JSON.stringify(Party));
                     $("#App").load("/temp/TravelBus.html");
                 });
            
