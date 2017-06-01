@@ -120,15 +120,15 @@ function StartStore() {
                 $("#Options").remove();
                     
                 $("#App").append("<div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>");         
-                $("#App").prepend("<div id='Alert' class='AlertPlayerMessage'><span class='AlertPlayerText animated fadeIn'> You and Ben enjoy a nice meal together ! </span><br><input class='BattleItem' type='image' src='./img/SprinkledDoughnut.png'></input></div>");   
+                $("#App").prepend("<div id='Alert' class='AlertPlayerMessage animated flipInX '><span class='AlertPlayerText'> You and Ben enjoy a nice meal together ! </span><br><input class='BattleItem' type='image' src='./img/SprinkledDoughnut.png'></input></div>");   
                       setTimeout(function () {
                  $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Next </button>");
                           
                           $("#Next").click(function(){
-                              $("#Alert").html("<span class='AlertPlayerText animated fadeIn'> Your health is replenished from eating food. </span><br><input class='BattleItem' type='image' src='./img/KaleSmoothie.png'></input>");
+                              $("#Alert").html("<span class='AlertPlayerText'> Your health is replenished from eating food. </span><br><input class='BattleItem' type='image' src='./img/KaleSmoothie.png'></input>");
                               $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next2'> Next </button>");
                               $("#Next2").click(function(){
-                                  $("#Alert").remove();
+                                  $("#Alert").remove(); 
                                   $("#ContinueMessageHolder").remove();
                                   BenDialog();
                               });
@@ -558,7 +558,7 @@ function StartStore() {
                 
                 setTimeout(function () {
                   //  $("#Alert").animateCss("flipInX");
-                $("#Alert").html("<div class='animated flipInX AlertPlayerText'><br> Ben is a Forester who enjoys the <strong>Boreal Forest</strong> most of all. He is <strong>smart</strong>,  <strong>charming</strong> and  <strong>brave</strong>. He will make a great addition to the team ! </div>");
+                $("#Alert").html("<div class='animated flipInX AlertPlayerText'><br> Ben is a Forester who enjoys the <strong>Boreal Forest</strong> most of all. He is <strong>Smart</strong>,  <strong>Charming</strong> and  <strong>Brave</strong>. He will make a great addition to the team ! </div>");
                     
                     $("#App").append("<div id='ContinueMessageHolder' class='MenuWrapperStatusMessage' ><button class='DialogNextButton animated flipInX' id='Continue'> Continue </button></div>");
                     
