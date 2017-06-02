@@ -187,7 +187,7 @@ function PierVictoria() {
                         $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
                         $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
                          ClickDialog();
-                    }, 1000);
+                    }, 750);
                 }
                 if (DialogSelect.Music != "No" || DialogSelect.Sound != "No") {
                     if (DialogSelect.MusicControl == "Stop") {

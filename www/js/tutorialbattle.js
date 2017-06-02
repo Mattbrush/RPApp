@@ -157,15 +157,17 @@ function InitializeBattle() {
     BattleAnimation();
 
     function BattleAnimation() {
-        $("#MessageHolder").html("<h4 class='animated lightSpeedIn  Message' id='StatusMSG'> Enemy Approaching ! </div>");
-        $("#MessageHolder").append("<img id='Transition' class='width75' src='./img/BattleTransition.gif'></img>");
-        setTimeout(function () {
+        $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
+        $("#App").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage'></div>");
+        $("#AlertPlayerMessage").html("<div class='animated bounceIn  AlertPlayerText' id='StatusMSG'> Enemy Approaching ! </div>");
+        $("#AlertPlayerMessage").append("<img id='Transition' class='width75' src='./img/BattleTransition.gif'></img>");
             StartBattle(Party[0])
-        }, 2000);
+
     };
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     /*~~~~~~~~~~~~~~~~~~~~ Battle Functions    /2/~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     function StartBattle() {
+       
         /* Randomize The Enemy Encounter */
         EnemyPicker();
 
@@ -215,6 +217,10 @@ function InitializeBattle() {
                 //  $("#App").css("opacity",".3");
                 // Sets up the Charatcer Talking Environment
                 $("#App").prepend("<div class='CharacterMessageContainer' id='CharacterMessageContainer'><div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div></div>")
+                // Remove BattleAnimation
+                 $("#OverlayBlanket").remove();
+                 $("#AlertPlayerMessage").remove();
+                
                     // Sets up the character themselves and their dialog
                 $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
                 $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' " + Party[0].Name + " , Are you okay!  That Seagull is trying to fight you !? '</div>");
@@ -407,7 +413,7 @@ function InitializeBattle() {
                     });
                 }
                 ////// END OF DIALOG FUNCTIONALITY /////////
-            }, Party[0].PlayerTextSpeed);
+            }, 5000);
         }; // End of CreateBattel()
     }; // End of StartBattle()
     /////////////////////////////////////////////
@@ -487,7 +493,7 @@ function InitializeBattle() {
                     $("#MessageHolder").html("<h4 class='animated rubberBand  Message' id='StatusMSG'> " + Party[0].Name + " could not release from the " + Enemy.Name + "'s grasp! </div>");
                     setTimeout(function () {
                         EnemyTurn(Enemy, TempHealth);
-                    }, Party[0].PlayerTextSpeed + 1000);
+                    }, Party[0].PlayerTextSpeed);
                 }
             });
             $("#RBack").click(function () {
@@ -540,25 +546,25 @@ function InitializeBattle() {
                                 $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'> " + Party[0].Name + " Attacks at " + Enemy.Name + "'s Weakness so " + Party[0].Spells[index].Name + "  did an insane  " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
                                     SpellMoveOn()
-                                }, Party[0].PlayerTextSpeed + 1500);
+                                }, Party[0].PlayerTextSpeed);
                             }
                             else if (ElementStrength == 0.75) {
                                 $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'> " + Party[0].Name + " Attacks at " + Enemy.Name + "'s Strength so " + Party[0].Spells[index].Name + " only did  " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
                                     SpellMoveOn()
-                                }, Party[0].PlayerTextSpeed + 1500);
+                                }, Party[0].PlayerTextSpeed);
                             }
                             else if (ElementStrength == 1) {
                                 $("#MessageHolder").html("<h4 class='animated flash  Message' id='StatusMSG'> " + Party[0].Name + " Used " + Party[0].Spells[index].Name + " And Does " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
                                     SpellMoveOn()
-                                }, Party[0].PlayerTextSpeed + 1500);
+                                }, Party[0].PlayerTextSpeed);
                             }
                             else if (ElementStrength == 0.65) {
                                 $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'> " + Party[0].Name + " Attacks at " + Enemy.Name + "'s same type so " + Party[0].Spells[index].Name + " barely effected it with   " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
                                     SpellMoveOn()
-                                }, Party[0].PlayerTextSpeed + 1500);
+                                }, Party[0].PlayerTextSpeed);
                             }
 
                             function SpellMoveOn() {
@@ -684,7 +690,7 @@ function InitializeBattle() {
                                         $("#OptionsHolder").html("<div id='Options' class='MenuWrapper animated rubberBand'>You Can't Use A " + Item.Name + " On " + Party[this.id.substr(1, 1)].Name + " ? What are you even thinking? It has no effect...</div>");
                                         setTimeout(function () {
                                             PlayerTurn(Enemy, TempHealth);
-                                        }, Party[0].PlayerTextSpeed + 2000);
+                                        }, Party[0].PlayerTextSpeed );
                                     }
                                     else if (Item.Type == "Spell") {
                                         if (Party[0].Spells.length == 4) {
@@ -727,13 +733,13 @@ function InitializeBattle() {
                                                 $("#OptionsHolder").html("<div id='Options' class='MenuWrapper animated swing'>  " + Party[ThisId.substr(1, 1)].Name + " Thought it was just okay... </div>");
                                                 setTimeout(function () {
                                                     DoneEating();
-                                                }, Party[0].PlayerTextSpeed + 1000);
+                                                }, Party[0].PlayerTextSpeed);
                                             }
                                             else if (Item.Stats.Health < 100) {
                                                 $("#OptionsHolder").html("<div id='Options' class='MenuWrapper animated jello'>  " + Party[ThisId.substr(1, 1)].Name + " Thought it was not bad! </div>");
                                                 setTimeout(function () {
                                                     DoneEating();
-                                                }, Party[0].PlayerTextSpeed + 1000);
+                                                }, Party[0].PlayerTextSpeed);
                                             };
 
                                             function DoneEating() {
@@ -749,9 +755,9 @@ function InitializeBattle() {
                                                     localStorage.setItem('_Party', JSON.stringify(Party));
                                                     $("#PartyStatus").load("./temp/Status.html");
                                                     PlayerTurn(Enemy, TempHealth);
-                                                }, Party[0].PlayerTextSpeed + 1000);
+                                                }, Party[0].PlayerTextSpeed);
                                             };
-                                        }, Party[0].PlayerTextSpeed + 1000);
+                                        }, Party[0].PlayerTextSpeed);
                                     }
                                 });
                             };
@@ -903,14 +909,14 @@ function InitializeBattle() {
                     setTimeout(function () {
                         //    PlayerTurn(Enemy,  TempHealth);
                         SecondDialog(Enemy,  TempHealth);
-                    }, Party[0].PlayerTextSpeed + 1500);
+                    }, Party[0].PlayerTextSpeed);
                 }
                 else if (EnemyElementStrength == 0.75) {
                     $("#MessageHolder").html("<h4 class='animated bounce  Message' id='StatusMSG'>It attacked " + Party[0].Name + "'s strength so it only did  " + DamageEarned + " damage </div>");
                     setTimeout(function () {
                         //    PlayerTurn(Enemy, TempHealth);
                         SecondDialog(Enemy, TempHealth);
-                    }, Party[0].PlayerTextSpeed + 1500);
+                    }, Party[0].PlayerTextSpeed);
                 }
                 else {
                     BattleDamage()
@@ -979,7 +985,7 @@ function InitializeBattle() {
                 setTimeout(function () {
                     localStorage.setItem('_character', JSON.stringify(Character));
                     BattleWon(Enemy,  TempHealth);
-                }, Party[0].PlayerTextSpeed + 1000);
+                }, Party[0].PlayerTextSpeed);
             }
 
             function AttackInfo() {
@@ -995,7 +1001,7 @@ function InitializeBattle() {
                                 localStorage.setItem('_Party[0]', JSON.stringify(Party[0]));
                                 BattleWon(Enemy, TempHealth);
                             }, Party[0].PlayerTextSpeed);
-                        }, Party[0].PlayerTextSpeed + 1000);
+                        }, Party[0].PlayerTextSpeed);
                     }, Party[0].PlayerTextSpeed);
                 }, Party[0].PlayerTextSpeed);
             };
@@ -1091,6 +1097,7 @@ function InitializeBattle() {
     };
 
     function SecondDialog(Enemy, TempHealth) {
+        console.log("Second Dialog")
         $("#App").prepend("<div class='CharacterMessageContainer' id='CharacterMessageContainer'><div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div></div>")
             // Sets up the character themselves and their dialog
         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
@@ -1141,9 +1148,9 @@ function InitializeBattle() {
             $("#Next").click(function () {
                 var DialogSelect = DialogOrder[DialogOrderNumber]
                 var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
-                console.log('Click');
-                console.log(Dialog)
-                console.log(DialogOrderNumber);
+        //        console.log('Click');
+         //       console.log(Dialog)
+         //       console.log(DialogOrderNumber);
                 DialogOrderNumber++
                 if (DialogSelect.Button == "No") {
                     if (DialogSelect.ChangeCharacter == "No") {
@@ -1169,11 +1176,11 @@ function InitializeBattle() {
                             DialogSelect.Sound.currentTime = 0;
                         };
                         if (DialogSelect.MusicControl == "Play") {
-                            console.log("Playing " + DialogSelect.Music);
+                 //           console.log("Playing " + DialogSelect.Music);
                             DialogSelect.Music.play();
                         }
                         else if (DialogSelect.SoundControl == "Play") {
-                            console.log("Playing " + DialogSelect.Sound);
+                 //           console.log("Playing " + DialogSelect.Sound);
                             DialogSelect.Sound.play();
                         }
                     };

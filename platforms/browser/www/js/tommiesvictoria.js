@@ -91,10 +91,32 @@ function StartStore() {
     } else {
         // Regular storefront
         setTimeout(function () {
-        StoreFront();
+        StoreBusy();
     }, 1250);
     };
-      function StoreStory1() {
+    
+    function StoreBusy() {
+    
+         $("#Options").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
+       $("#Options").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage'></div>");
+         $("#AlertPlayerMessage").html("<div class='animated bounceIn AlertPlayerText'> Someone has spilled coffee all over the floor to the entrance.Maybe you should come back later? </div><br><button class='MenuButton2 animated fadeInDown' id='Leave'>Leave</button>");
+          
+          
+           $("#Leave").click(function () {
+            localStorage.setItem('_character', JSON.stringify(Character));
+            audio.pause();
+            audio.currentTime = 0;
+            $("#App").load("./temp/ShoppingDistrictVictoria.html")
+        });
+    
+    
+    };
+
+
+    function StoreStory1() {
+    
+    
+    
           
            $("#Options").html("<div id='Alert' class='animated bounceIn AlertPlayerMessage'><span class='AlertPlayerText'> The smell of coffee and donuts fills the air.. You want to eat everything !  </span><br></div><br>");
         $("#App").prepend("<div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'><button class='DialogNextButton animated flipInX' id='Continue'> Continue </button></div>")
