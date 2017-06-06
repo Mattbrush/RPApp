@@ -153,7 +153,7 @@ function StartStore() {
                  $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Next </button>");
                           
                           $("#Next").click(function(){
-                              $("#Alert").html("<span class='AlertPlayerText'> Your health is replenished from eating food. </span><br><input class='BattleItem' type='image' src='./img/KaleSmoothie.png'></input>");
+                              $("#Alert").html("<span class='AlertPlayerText animated flipInY'> Your health is replenished from eating food. </span><br><input class='BattleItem' type='image' src='./img/KaleSmoothie.png'></input>");
                               $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next2'> Next </button>");
                               Party[0].Stats[0].Value = Party[0].Stats[6].Value;
                               $("#Next2").click(function(){
@@ -901,7 +901,7 @@ $("#Accept3").click(function () {
         var Party = JSON.parse(localStorage.getItem('_Party'));
         console.log("~~~Configuring Wallet~~~");
         console.log("Wallet : ");//
-    //     Party[0].Wallet.Total = Party[0].Wallet.Total + 10;
+     //    Party[0].Wallet.Total = Party[0].Wallet.Total + 10;
         $("#Total").html(""+Party[0].Wallet.Total+"");
         console.log(Party[0].Wallet);
      //   localStorage.setItem('_character', JSON.stringify(Character));

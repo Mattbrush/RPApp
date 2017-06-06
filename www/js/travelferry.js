@@ -16,7 +16,8 @@ console.log("~~~~~~~~~~~FERRY STARTED~~~~~~~~~~");
 
  /* Create Scene */
 
-     var Character = JSON.parse(localStorage.getItem('_character'));
+  //   var Character = JSON.parse(localStorage.getItem('_character'));
+     var Party = JSON.parse(localStorage.getItem('_Party'));
     
         $("#OverlayContainer").append("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
         $("#Overlay").css("opacity", "0.65");
@@ -208,9 +209,26 @@ function StartBus() {
             
             
             $("#Accept2").click(function () {
+                var Party = JSON.parse(localStorage.getItem('_Party'));
                 $("#TravelContainer").removeClass("MenuWrapper");
                 $("#OverlayContainer").html("<div id='Overlay' class='animated fadeIn'></div>");
+                
+                $("#App").prepend("<div class='OverlayBlanket' id='OverlayBlanket'></div>");
+                $("#App").prepend("<div class='AlertPlayerMessage' id='AlertPlayerMessage'></div>");
+                 $("#AlertPlayerMessage").html("<div class='AlertPlayerText'><div  id='StatusMessage' class='AlertPlayerMessage animated flipInX'><img class='ObtainedItem' src='./img/Journal.png'></img><br> Obtained a Journal Entry for Victoria ! <br><button class='MenuButton animated flipInX' id='Back'> Back </button></div></div>");
+                    for (i = 0; i < Party[0].Journal[3].Entries.length; i++) {
+                        if (Party[0].Journal[3].Entries[i].Name == "British Columbia") {
+                            Party[0].Journal[3].Entries[i].Hidden = false;
+                        }
+                    };
+                    localStorage.setItem('_Party', JSON.stringify(Party));
+       $("#Back").click(function(){
+            $("#OverlayBlanket").remove();
+                    $("#AlertPlayerMessage").remove();
                 $("#App").load("./temp/Victoria.html");
+       });
+                   
+          
                 });
            
             /* HONEST */

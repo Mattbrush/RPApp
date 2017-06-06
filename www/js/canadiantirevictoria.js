@@ -31,6 +31,7 @@ var StoreInventory = [
                 Name: " Lumber Axe"
                 , IDName: "LumberAxe"
                 , Avatar: "./img/LumberAxe.png"
+                , Description: " A sturdy handaxe made for a moutaineer ."
                 , Type: "Weapon"
                 , Index: 0
                 ,Weight: 7
@@ -41,6 +42,27 @@ var StoreInventory = [
                 , Worth: 3
                 , DropRate: 0.65
     },
+   /* 
+     {
+                Name: " Imp's Bane "
+                , IDName: "ImpsBane"
+                , Avatar: "./img/ImpsBane.jpg"
+                , Type: "Weapon"
+                , Description: " A <strong>dagger</strong> ripped from the roots of the life tree <strong>Yggdrasil</strong>. "
+                , Index: 0
+                ,Weight: 1.5
+                ,Equip:"RightHand"
+                , Stats: {
+                    Attack: [1,3],
+                    CriticalAttack: 4,
+                    Enchanted : false,
+                    Durability: 100,
+                 }
+                , Worth: 3
+                , DropRate: 0.65
+    },*/
+    
+    
      {
                 Name: " Lumber Pants "
                 , IDName: "LumberPants"
@@ -89,9 +111,17 @@ function StartStore() {
     var Party = JSON.parse(localStorage.getItem('_Party'));
     $("#MessageHolder").html("<h4 class='animated pulse  Message' id='Dialog'> Welcome to Canadian Tire ! </h4>");
     
-    
-    
-    if (Party[0].Triggers.Victoria4 == false){
+    if (Party[0].Triggers.Victoria6 == true){
+        // Player has ben in their party
+         setTimeout(function () {
+        StoreFront();
+         }, 1000); 
+    } else if (Party[0].Triggers.Victoria5 == true){
+        // Player has ben in their party
+         setTimeout(function () {
+        StoreTutorial1();
+         }, 1000); 
+    } else if (Party[0].Triggers.Victoria4 == false){
         // Player has not beaten the fighting tutorial yet
          setTimeout(function () {
         StoreBusy();
@@ -141,24 +171,59 @@ function StartStore() {
             
                 //<button class='MenuButton2 animated fadeInDown' id='Leave'>Leave</button>
            $("#Leave").click(function () {
-            localStorage.setItem('_character', JSON.stringify(Character));
+           localStorage.setItem('_Party', JSON.stringify(Party));
             audio.pause();
             audio.currentTime = 0;
             $("#App").load("./temp/ShoppingDistrictVictoria.html")
         });
             };
         
-        //////////////////////////////
-        
-        
-        
-        
-        
-        
+        //////////////////////////////  
           
       
       };
     
+    
+      function StoreTutorial1() {
+       $("#Options").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
+       $("#Options").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage'></div>");
+         $("#AlertPlayerMessage").html("<div class='animated bounceIn AlertPlayerText'> The store smells of hardware and paint, You can see boxes of nails and lightbulbs on the shelves nearby.  </div><br><button class='MenuButton2 animated fadeInDown' id='Continue'> Continue </button>");
+        $("#Continue").click(function () {
+          BenTalks();
+        });
+        
+        /* Add dialog from Ben here */
+        function BenTalks(){
+            $("#OverlayBlanket").remove();
+            $("#AlertPlayerMessage").remove();
+           $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
+        $("#App").prepend("<div id='CharacterAvatar' class='CharacterAvatar Fixed animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Alright, It's time to get some Weapons and Armour! What should we defend ourselves with?  '</div>");
+      $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Conitnue </button>");
+            
+                //<button class='MenuButton2 animated fadeInDown' id='Leave'>Leave</button>
+           $("#Next").click(function () {
+            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' We don't have much money yet, but we will get some more after fighting some enemies. For now maybe we should look at some armour? ' </div>");
+               $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Shop'> Shop </button>");
+               
+                $("#Shop").click(function () {
+                    Party[0].Triggers.Victoria6 = true;
+                    localStorage.setItem('_Party', JSON.stringify(Party));
+                    $("#ContinueMessageHolder").remove();
+                    $("#CharacterAvatar").remove();
+                    $("#DiaogWrapper").remove();
+                    $("#OverlayBlanket").remove();
+                    $("#AlertPlayerMessage").remove();
+          StoreFront();
+        });
+        });
+            };
+        
+        //////////////////////////////  
+          
+      
+      };
     
     
     
@@ -166,7 +231,7 @@ function StartStore() {
 
     function StoreFront() {
         $("#Logo").html("<img class='width50' src='./img/CanadianTire.png'>");
-        var Character = JSON.parse(localStorage.getItem('_character'));
+      //  var Character = JSON.parse(localStorage.getItem('_character'));
         var Party = JSON.parse(localStorage.getItem('_Party'));
 
         
@@ -182,7 +247,7 @@ function StartStore() {
         });
 
         $("#Leave").click(function () {
-            localStorage.setItem('_character', JSON.stringify(Character));
+        //    localStorage.setItem('_character', JSON.stringify(Character));
             localStorage.setItem('_Party', JSON.stringify(Party));
             audio.pause();
             audio.currentTime = 0;
@@ -318,7 +383,7 @@ function StartStore() {
                     var index = this.id
                     ShopkeeperPurchaseDialog();
                     $("#StatusMessageHolder").css("display", "block");
-                    $("#AlertPlayerMessage").html("<h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'><img class='Width75' src='"+StoreInventory[this.id].Avatar+"'></img><br> <span class='animated flipInY '>" + StoreInventory[this.id].Name + " </span><br> <span class='animated flipInY '>$ " + StoreInventory[this.id].Worth + "</span> <br><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> No </button>");
+                    $("#AlertPlayerMessage").html("<h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'><img class='Width75' src='"+StoreInventory[this.id].Avatar+"'></img><br> <span class='animated flipInY '>" + StoreInventory[this.id].Name + " </span><br><span class='animated flipInY '>" + StoreInventory[this.id].Description + " </span> <br> <span class='animated flipInY '>$ " + StoreInventory[this.id].Worth + "</span> <br><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> No </button>");
                     $("#StatusMessageHolder").css("border-color", "" + Party[0].Color + "");
                     $("#Accept").click(function () {
                        
@@ -637,7 +702,7 @@ function StartStore() {
             $("#Inventory").html("");
               // Reset Party[0] to reflect chnages 
             Character = Party[0];
-            localStorage.setItem('_character', JSON.stringify(Character));
+       //     localStorage.setItem('_character', JSON.stringify(Character));
             localStorage.setItem('_Party', JSON.stringify(Party));
             if (StoreInventory[index].Type == "Spell") {
                 StoreInventory[index].Worth = Orignalworth

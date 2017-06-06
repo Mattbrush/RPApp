@@ -4,6 +4,7 @@ StartApp();
 function StartApp() {
     var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
+    var JournalNotification = 0;
     console.clear();
     console.log("Character :");
     console.log(Party[0]);
@@ -18,19 +19,52 @@ function StartApp() {
     
     
     
+    // Check Item's Viewed in Journal
+    
+    // Counts all Notifications of New Journal Entries!
+            for (i = 0; i < Party[0].Journal.length; i++) {
+                for (e = 0; e < Party[0].Journal[i].Entries.length; e++) {
+                   if (Party[0].Journal[i].Entries[e].Hidden == false){
+                       console.log(Party[0].Journal[i].Entries[e]);
+                       if (Party[0].Journal[i].Entries[e].Viewed == false){
+                           JournalNotification++; 
+                       };   
+                   };
+                };
+            };
+    
+    
+    function AppendJournal(){
+        if (JournalNotification == 0){
+          $("#ProvinceList").append("<br><br><button id='StatusPage' class='MenuButton'> Menu </button><button id='Journal' class='MenuButton'> Journal </button>");
+        } else {
+              $("#ProvinceList").append("<br><br><button id='StatusPage' class='MenuButton'> Menu </button><button id='Journal' class='MenuButton'> Journal ( "+JournalNotification+" ) </button>");
+        }
+    };
+    
+    
+    
+    ///////////////
+    
+    
+    
+    
+    
+    
+    
     /* Check Story Progress */
     
     if(Party[0].Triggers.Victoria3 == true){
           $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='Pier'>Victoria Pier</button>");
           $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='ShoppingDistrict'>Shopping District</button>");
   $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='VictoriaParliamentBuilding'>Victoria Parliament Building</button>  ");
-    $("#ProvinceList").append("<br><br><button id='StatusPage' class='MenuButton'> Menu </button>");
+      AppendJournal();
     }
     else if (Party[0].Triggers.Victoria2 == true){
     // PLAYER AFTER GETTING PASSPORT
   $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='ShoppingDistrict'>Shopping District</button>");
   $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='VictoriaParliamentBuilding'>Victoria Parliament Building</button>  ");
-    $("#ProvinceList").append("<br><br><button id='StatusPage' class='MenuButton'> Menu </button>");
+  AppendJournal();
 } else {
 Victoria1();
 };
@@ -62,9 +96,9 @@ if (Party[0].Triggers.Victoria1 == true){
     
     
     
-    for (i = 0; i < Party[0].Inventory.length; i++) {
-    $("#Inventory").append(""+Party[0].Inventory[i].Name+" <br>");
-    };
+   $("#Journal").click(function () {
+        $("#App").load("./temp/Journal.html");
+    });
     $("#Battle").click(function () {
         $("#App").load("./temp/Battle.html");
     });

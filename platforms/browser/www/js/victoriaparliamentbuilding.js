@@ -7,12 +7,11 @@ var PaperShuffle = new Audio('./sound/PaperShuffle.mp3');
 var MainTheme = new Audio('./music/MainTheme.mp3');
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 var ReturningParliament = false;
-    var Character = JSON.parse(localStorage.getItem('_character'));
-    var Party = JSON.parse(localStorage.getItem('_Party'));
-
+// var Character = JSON.parse(localStorage.getItem('_character'));
+var Party = JSON.parse(localStorage.getItem('_Party'));
 /* Check Story Progress */
-if (Party[0].Triggers.Victoria2 == true){
-ReturningParliament = true;
+if (Party[0].Triggers.Victoria2 == true) {
+    ReturningParliament = true;
 };
 console.log("~~~~~Victoria Parliament Building~~~~~~");
 if (ReturningParliament == false) {
@@ -286,16 +285,9 @@ function VictoriaParliament() {
     }
 };
 
-
-
-
-
-
 function ReturningVictoriaParliament() {
-    
-    
-    
-     var Character = JSON.parse(localStorage.getItem('_character'));
+    //   var Character = JSON.parse(localStorage.getItem('_character'));
+    var Party = JSON.parse(localStorage.getItem('_Party'));
     console.clear();
     console.log("Character :");
     console.log(Party[0]);
@@ -311,23 +303,48 @@ function ReturningVictoriaParliament() {
     ClickDialog();
     // Set Dialog Back to Zero !
     var DialogOrderNumber = 0;
-    
-    
-    
+
     function ClickDialog() {
-        DialogOrder = [
-             {
-                Name: " Secretary "
-                , Dialog: " How can I help you "+Party[0].Name+" ? ' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Question11'> What is there to do around here? </button><br><button class='MenuButton animated flipInY' id='Question21'> Can I talk to Jan? </button><br><button class='MenuButton2 animated flipInY' id='Exit'> Leave </button><br></div> "
-                , Button: "Yes"
-                , ChangeCharacter: "No"
-                , Avatar: "./img/SecretaryAvatar.png"
-                , Sound: "No"
-                , SoundControl: "None"
-                , Music: "No"
-                , MusicControl: "None"
-            , }
+        var Party = JSON.parse(localStorage.getItem('_Party'));
+        var JournalTrigger = false;
+        for (i = 0; i < Party[0].Journal[5].Entries.length; i++) {
+            console.log(Party[0].Journal[5].Entries[i].Name)
+            if (Party[0].Journal[5].Entries[i].Name == "Victoria") {
+                if (Party[0].Journal[5].Entries[i].Hidden == false) {
+                JournalTrigger = true;
+                };
+            }
+        };
+        if (JournalTrigger == true) {
+            DialogOrder = [
+                {
+                    Name: " Secretary "
+                    , Dialog: " How can I help you " + Party[0].Name + " ? ' <div id='DialogOptions'><br><button class='MenuButton animated flipInY' id='Question21'> Can I talk to Jan? </button><br><button class='MenuButton2 animated flipInY' id='Exit'> Leave </button><br></div> "
+                    , Button: "Yes"
+                    , ChangeCharacter: "No"
+                    , Avatar: "./img/SecretaryAvatar.png"
+                    , Sound: "No"
+                    , SoundControl: "None"
+                    , Music: "No"
+                    , MusicControl: "None"
+                , }
         ]
+        }
+        else {
+            DialogOrder = [
+                {
+                    Name: " Secretary "
+                    , Dialog: " How can I help you " + Party[0].Name + " ? ' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Question11'> What is there to do around here? </button><br><button class='MenuButton animated flipInY' id='Question21'> Can I talk to Jan? </button><br><button class='MenuButton2 animated flipInY' id='Exit'> Leave </button><br></div> "
+                    , Button: "Yes"
+                    , ChangeCharacter: "No"
+                    , Avatar: "./img/SecretaryAvatar.png"
+                    , Sound: "No"
+                    , SoundControl: "None"
+                    , Music: "No"
+                    , MusicControl: "None"
+                , }
+        ]
+        };
         $("#Next").click(function () {
             var DialogSelect = DialogOrder[DialogOrderNumber]
             var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
@@ -383,53 +400,50 @@ function ReturningVictoriaParliament() {
             $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' Well, There is plenty of stuff to do here in Victoria! . '</div>");
             $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
             $("#Next").click(function () {
-                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' GO OUTSIDE !!  '</div>");
-                 $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Back'> Back </button>");
-                $("#Back").click(function () {
-               DialogOrderNumber = 0;
-                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Secretary : ' Hi! '</div>");
-    $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
-                ClickDialog();
-              
-          });
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' Here, let me update your travel journal with some information on Victoria! '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Continue'> Continue </button>");
+                $("#Continue").click(function () {
+                    $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
+                    $("#App").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage'></div>");
+                    $("#AlertPlayerMessage").html("<div class='AlertPlayerText'><div  id='StatusMessage' class='AlertPlayerMessage animated flipInX'><img class='ObtainedItem' src='./img/Journal.png'></img><br> Obtained a Journal Entry for Victoria ! <br><button class='MenuButton animated flipInX' id='Back'> Back </button></div></div>");
+                    for (i = 0; i < Party[0].Journal[5].Entries.length; i++) {
+                        if (Party[0].Journal[5].Entries[i].Name == "Victoria") {
+                            Party[0].Journal[5].Entries[i].Hidden = false;
+                        }
+                    };
+                    localStorage.setItem('_Party', JSON.stringify(Party));
+                    $("#Back").click(function () {
+                        $("#OverlayBlanket").remove();
+                        $("#AlertPlayerMessage").remove();
+                        DialogOrderNumber = 0;
+                        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Secretary : ' Hi! '</div>");
+                        $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                        ClickDialog();
+                    });
+                });
             });
         });
-        
-        
-        
-          $("#Question21").click(function () {
-            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' No I'm sorry "+Party[0].Name+" , Jan is busy right now.. '</div>");
+        $("#Question21").click(function () {
+            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' No I'm sorry " + Party[0].Name + " , Jan is busy right now.. '</div>");
             $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Back'> Back </button>");
-          $("#Back").click(function () {
-               DialogOrderNumber = 0;
-                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Secretary : ' Hi! '</div>");
-    $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+            $("#Back").click(function () {
+                DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Secretary : ' Hi! '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
                 ClickDialog();
-              
-          });
+            });
         });
         /* ACCEPT */
-  
         /* HONEST */
-
         /* HOSTILE */
-$("#Exit").click(function () {
-$("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' Goodbye "+Party[0].Name+" ! '</div>");
-                $("#ContinueMessageHolder").html("");
-                $("#TravelContainer").removeClass("MenuWrapper");
-                $("#OverlayContainer").html("<div id='Overlay' class='animated fadeIn'></div>");
-                $("#App").load("./temp/Victoria.html");
-
-    
-});
-        
-        
-        
+        $("#Exit").click(function () {
+            $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' Goodbye " + Party[0].Name + " ! '</div>");
+            $("#ContinueMessageHolder").html("");
+            $("#TravelContainer").removeClass("MenuWrapper");
+            $("#OverlayContainer").html("<div id='Overlay' class='animated fadeIn'></div>");
+            $("#App").load("./temp/Victoria.html");
+        });
         /* CONFUSED */
         // End of Global Buttons
     }
-    
-    
-    
-    
 };

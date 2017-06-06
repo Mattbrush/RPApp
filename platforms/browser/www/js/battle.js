@@ -62,6 +62,23 @@ function StartBattle() {
     var Party = JSON.parse(localStorage.getItem('_Party'));
     $("#Player").css("background", "" + Party[0].Color + "");
     ////// ENEMY CREATOR /////
+    
+   
+    
+    /*
+    Spirit Bear
+    Armour sets for spirit animals
+      // Mudman
+    // Piranna
+    // Alligator
+    // Jellyfish
+     // Spriggen
+    // Boss Spirit Animals
+    */
+    
+    
+  
+    
     var Enemies = [
             {
                 Name: 'Sea Otter'
@@ -92,8 +109,26 @@ function StartBattle() {
                         Health: 5
                     }
                     , Worth: 5
-                    , DropRate: 0.65
-                }, ]
+                    , DropRate: 0.85
+                },
+                         {
+                Name: " Imp's Bane "
+                , IDName: "ImpsBane"
+                , Avatar: "./img/ImpsBane.jpg"
+                , Type: "Weapon"
+                , Description: " A <strong>dagger</strong> ripped from the roots of the life tree <strong>Yggdrasil</strong>. "
+                , Index: 0
+                ,Weight: 1.5
+                ,Equip:"RightHand"
+                , Stats: {
+                    Attack: [1,3],
+                    CriticalAttack: 4,
+                    Enchanted : false,
+                    Durability: 100,
+                 }
+                , Worth: 3
+                , DropRate: 0.03
+    },]
                 , MoveSet: [
 
                     {
@@ -117,7 +152,7 @@ function StartBattle() {
 
             ]
                 , Earnings: {
-                    Bronze: Math.floor(Math.random() * 6) + 2
+                    Total: Math.floor(Math.random() * 6) + 2
                 , }
                 , Experience: {
                     ExperienceEarned: Math.floor(Math.random() * 13) + 4
@@ -176,7 +211,7 @@ function StartBattle() {
 
             ]
                 , Earnings: {
-                    Bronze: Math.floor(Math.random() * 8) + 2
+                    Total: Math.floor(Math.random() * 8) + 2
                 , }
                 , Experience: {
                     ExperienceEarned: Math.floor(Math.random() * 9) + 2
@@ -234,7 +269,7 @@ function StartBattle() {
 
             ]
                 , Earnings: {
-                    Bronze: Math.floor(Math.random() * 3) + 2
+                    Total: Math.floor(Math.random() * 3) + 2
                 , }
                 , Experience: {
                     ExperienceEarned: Math.floor(Math.random() * 8) + 2

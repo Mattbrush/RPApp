@@ -118,10 +118,10 @@ $(".Minus").click(function () {
 })
 $("#Confirm").click(function () {
     VitalityCalculation = Vitality * 1.75;
-    var Health = 25 + VitalityCalculation;
+    var Health = Math.floor(Math.random() * 20) + 5 + VitalityCalculation;
     Health = Math.round(Health);
     WisdomCalculation = Wisdom * 2.75;
-    var Mana = 5 + WisdomCalculation;
+    var Mana = Math.floor(Math.random() * 15) + 5 + WisdomCalculation;
     Mana = Math.round(Mana);
     var Character = {
         Name: $("#Name").val().capitalize()
@@ -155,7 +155,7 @@ $("#Confirm").click(function () {
             }
             , {
                 Name: "Accuracy"
-                , Value: 0.95
+                , Value: Math.floor(Math.random() * 0.99) + 0.75
             }
         , {
                 Name: "FullHealth"
@@ -174,7 +174,7 @@ $("#Confirm").click(function () {
          Total:0,
         }
         , Inventory: []
-        ,Weight: Math.round((Attack / 2) *  25)
+        ,Weight: Math.round((Attack / 2) *  Math.floor(Math.random() * 25) + 5)
         , Equipment:{
             Head:"",
             Torso:"",
@@ -197,12 +197,88 @@ $("#Confirm").click(function () {
             Victoria3:false,
             Victoria4:false,
             Victoria5:false,
+            Victoria6:false,
+            Victoria7:false,
+            Victoria8:false,
+            Victoria9:false,
+            Victoria10:false,
                    }
         , Experience: {
             Total: 0
             , ToNextLevel: 25
             , SkillPoints: SkillPoints
         , }
+        , Journal:[
+            {
+            Name:"Enemies",
+            Entries:[],
+            },
+             {
+            Name:"Recipes",
+            Entries:[],
+            },
+             {
+            Name:"Blueprints",
+            Entries:[],
+            },
+             {
+            Name:"Provinces & Territories ",
+            Entries:[
+                    {
+                        Name:"British Columbia",
+                           Avatar:"./img/BritishColumbiaVictoria.jpg",
+                        Description:" Ben Wengel is an adventurous person living in Victoria, B.C. He loves to go hiking and exploring all across Vancouver Island. Ben is a forester in his day job and cares a lot about the environment. ",
+                        Hidden: true,
+                        Viewed: false,
+                    },
+            ],
+            },
+             {
+            Name:"Characters",
+            Entries:[
+                {
+                        Name:"Ben Wengel",
+                       Avatar:"./img/BenAvatar.png",
+                        Description:" Ben Wengel is an adventurous person living in Victoria, B.C. He loves to go hiking and exploring all across Vancouver Island. Ben is a forester in his day job and cares a lot about the environment. ",
+                    Hidden: true,
+                    Viewed: false,
+                    },
+            ],
+            },
+             {
+            Name:"Cities",
+            Entries:[
+                {
+                        Name:"Victoria",
+                        Avatar:"./img/BritishColumbiaVictoria.jpg",
+                        Description:"Victoria, capital of British Columbia, sits on the craggy southern end of Vancouver Island. With abundant parkland, it’s known for outdoor activities. The city's British colonial past shows in its Victorian architecture, including stately Craigdarroch Castle mansion. Butchart Gardens, with 55 acres of vivid floral displays, plus statuary, water features and a carousel, is one of many formal gardens in the city.",
+                    Hidden: true,
+                    Viewed: false,
+                    },
+                {
+                        Name:"Vancouver",
+                       Avatar:"./img/BritishColumbiaVictoria.jpg",
+                        Description:"Victoria, capital of British Columbia, sits on the craggy southern end of Vancouver Island. With abundant parkland, it’s known for outdoor activities. The city's British colonial past shows in its Victorian architecture, including stately Craigdarroch Castle mansion. Butchart Gardens, with 55 acres of vivid floral displays, plus statuary, water features and a carousel, is one of many formal gardens in the city.",
+                     Hidden: true,
+                    Viewed: false,
+                    },
+                {
+                        Name:"Whistler",
+                       Avatar:"./img/BritishColumbiaVictoria.jpg",
+                        Description:"Victoria, capital of British Columbia, sits on the craggy southern end of Vancouver Island. With abundant parkland, it’s known for outdoor activities. The city's British colonial past shows in its Victorian architecture, including stately Craigdarroch Castle mansion. Butchart Gardens, with 55 acres of vivid floral displays, plus statuary, water features and a carousel, is one of many formal gardens in the city.",
+                     Hidden: true,
+                    Viewed: false,
+                    },
+                {
+                        Name:"Kelowna",
+                       Avatar:"./img/BritishColumbiaVictoria.jpg",
+                        Description:"Victoria, capital of British Columbia, sits on the craggy southern end of Vancouver Island. With abundant parkland, it’s known for outdoor activities. The city's British colonial past shows in its Victorian architecture, including stately Craigdarroch Castle mansion. Butchart Gardens, with 55 acres of vivid floral displays, plus statuary, water features and a carousel, is one of many formal gardens in the city.",
+                     Hidden: true,
+                    Viewed: false,
+                    }
+            ],
+            },
+        ]
         , DateCreated: moment().format("LLL")
         , PlayerTextSpeed: 2000,
      }
@@ -383,7 +459,7 @@ function saveChanges(Character) {
     
     
     var FirstMove = {  Name:"Punch",
-                Damage:5,
+                Damage:[4,8],
                 Cost: 0,
                     Type:"Physical"};
     Character.Moves.push(FirstMove)
@@ -391,7 +467,7 @@ function saveChanges(Character) {
     $("#Color").css("background-color", "" + Character.Color + "");
     var Party = [];
     Party.push(Character);
-    localStorage.setItem('_character', JSON.stringify(Character));
+   // localStorage.setItem('_character', JSON.stringify(Character));
     localStorage.setItem('_Party', JSON.stringify(Party));
     $("#App").load("./temp/CutSceneIntro2.html")
 }

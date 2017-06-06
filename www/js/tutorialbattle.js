@@ -75,9 +75,9 @@ function InitializeBattle() {
         
         
         */
-    var Character = JSON.parse(localStorage.getItem('_character'));
+    //var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
-    $("#Player").css("background", "" + Character.Color + "");
+    $("#Player").css("background", "" + Party[0].Color + "");
     $("#OverlayContainer").html("<div id='Overlay' class='animated fadeIn'></div>")
     $("#Overlay").css("opacity", "0.65");
     $("#Overlay").css("background-image", "url(img/PierVictoria.jpg)");
@@ -102,7 +102,7 @@ function InitializeBattle() {
                     , Defense: Math.floor(Math.random() * 0) + 0
                     , Magic: 0
                     , Vitality: Math.floor(Math.random() * 2) + 0
-                    , Accuracy: Math.floor(Math.random() * 0.96) + 0.60
+                    , Accuracy: Math.floor(Math.random() * 0.96) + 0.80
                 , }
                 , Loot: [{
                     Name: "Seaweed"
@@ -413,13 +413,14 @@ function InitializeBattle() {
                     });
                 }
                 ////// END OF DIALOG FUNCTIONALITY /////////
-            }, 5000);
+            }, 3000);
         }; // End of CreateBattel()
     }; // End of StartBattle()
     /////////////////////////////////////////////
     //////////////////// ENEMY TURN   //////////////////////////
     function EnemyTurn(Enemy, TempHealth) {
         var Character = JSON.parse(localStorage.getItem('_character'));
+        var Party = JSON.parse(localStorage.getItem('_Party'));
         $("#OptionsHolder").html("<div id='Options' class='animated flipInY'><button class='MenuButtonDisabled' disabled id='Attack'>Attack</button><button class='MenuButtonDisabled' disabled id='Items'>Items</button><button class='MenuButtonDisabled' id='Status' disabled>Status</button><button class='MenuButtonDisabled' disabled id='SpellsAttack'>Spells</button><br><button class='MenuButtonDisabled' disabled id='Run'>Run Away</button></div>");
         $("#MessageHolder").html("<h4 class='animated rubberBand  Message' id='StatusMSG'>It is now " + Enemy.Name + "'s Turn </div>");
         setTimeout(function () {
@@ -465,9 +466,10 @@ function InitializeBattle() {
     function PlayerTurn(Enemy, TempHealth) {
         /* Setting Up Party */
         var Party = JSON.parse(localStorage.getItem('_Party'));
-        Party[0] = Character;
-        localStorage.setItem('_Party', JSON.stringify(Party));
-        var Party = JSON.parse(localStorage.getItem('_Party'));
+        
+        console.log(Party[0].Stats[0].Value)
+        
+        
         //////////////////////////////
         $("#PlayerHealth").html("Health : " + Party[0].Stats[0].Value + " / " + Party[0].Stats[6].Value + "");
         $("#PlayerMana").html("Mana : " + Party[0].Stats[7].Value + " / " + Party[0].Stats[8].Value + "");
@@ -857,11 +859,13 @@ function InitializeBattle() {
         setTimeout(function () {
             /* ENEMY MISSES */
             if (Math.random() >= Enemy.Stats.Accuracy) {
-                var Character = JSON.parse(localStorage.getItem('_character'));
+                //var Character = JSON.parse(localStorage.getItem('_character'));
+                var Party = JSON.parse(localStorage.getItem('_Party'));
                 setTimeout(function () {
                     $("#MessageHolder").html("<h4 class='animated tada  Message' id='StatusMSG'>" + Enemy.Name + " Missed!!!! </div>");
                     setTimeout(function () {
                         // PlayerTurn(Enemy,  TempHealth);
+                         localStorage.setItem('_Party', JSON.stringify(Party));
                         SecondDialog(Enemy, TempHealth);
                     }, Party[0].PlayerTextSpeed);
                 }, Party[0].PlayerTextSpeed);
@@ -877,7 +881,8 @@ function InitializeBattle() {
         console.log(Enemy)
         var DamageEarned = 0
         var EnemyElementStrength = 0;
-        var Character = JSON.parse(localStorage.getItem('_character'));
+        //var Character = JSON.parse(localStorage.getItem('_character'));
+         var Party = JSON.parse(localStorage.getItem('_Party'));
         Party[0].Stats[0].Value = Party[0].Stats[0].Value + Party[0].Stats[2].Value;
         if (EnemyAttackOption.Stats.Element == Party[0].Weakness1 || EnemyAttackOption.Stats.Element == Party[0].Weakness2) {
             var EnemyElementStrength = 1.25;
@@ -891,16 +896,17 @@ function InitializeBattle() {
         console.log(EnemyElementStrength)
         if (Party[0].Stats[2].Value < Math.round((Enemy.Stats.Attack + EnemyAttackOption.Stats.Damage) * (EnemyElementStrength))) {
             Party[0].Stats[0].Value = Party[0].Stats[0].Value - Math.round((Enemy.Stats.Attack + EnemyAttackOption.Stats.Damage) * (EnemyElementStrength));
-            DamageEarned = Math.round((Enemy.Stats.Attack + EnemyAttackOption.Stats.Damage) * (EnemyElementStrength));
+            DamageEarned = Math.round((Enemy.Stats.Attack + EnemyAttackOption.Stats.Damage) * (EnemyElementStrength)) - Party[0].Stats[2].Value;
         }
         else {
             Party[0].Stats[0].Value = Party[0].Stats[0].Value - Party[0].Stats[2].Value;
             Party[0].Stats[0].Value = Party[0].Stats[0].Value - 1;
             DamageEarned = 1 * EnemyElementStrength;
         };
-        localStorage.setItem('_character', JSON.stringify(Character));
+      //  localStorage.setItem('_character', JSON.stringify(Character));
+     //   localStorage.setItem('_character', JSON.stringify(Character));
         if (Party[0].Stats[0].Value > 0) {
-            var Character = JSON.parse(localStorage.getItem('_character'));
+    //        var Party = JSON.parse(localStorage.getItem('_Party'));
             /* If Player Loses health */
             //    $("#StatusMSG").html("" + Enemy.Name + " did "++" !");
             setTimeout(function () {
@@ -908,6 +914,10 @@ function InitializeBattle() {
                     $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'>It attacked " + Party[0].Name + "'s weakness and did " + DamageEarned + " damage </div>");
                     setTimeout(function () {
                         //    PlayerTurn(Enemy,  TempHealth);
+                        $("#PlayerHealth").html("Health : " + Party[0].Stats[0].Value + " / " + Party[0].Stats[6].Value + "");
+        $("#PlayerMana").html("Mana : " + Party[0].Stats[7].Value + " / " + Party[0].Stats[8].Value + "");
+                          console.log(Party[0].Stats[0].Value )
+                           localStorage.setItem('_Party', JSON.stringify(Party));
                         SecondDialog(Enemy,  TempHealth);
                     }, Party[0].PlayerTextSpeed);
                 }
@@ -915,25 +925,33 @@ function InitializeBattle() {
                     $("#MessageHolder").html("<h4 class='animated bounce  Message' id='StatusMSG'>It attacked " + Party[0].Name + "'s strength so it only did  " + DamageEarned + " damage </div>");
                     setTimeout(function () {
                         //    PlayerTurn(Enemy, TempHealth);
+                        console.log(Party[0].Stats[0].Value )
+                        $("#PlayerHealth").html("Health : " + Party[0].Stats[0].Value + " / " + Party[0].Stats[6].Value + "");
+        $("#PlayerMana").html("Mana : " + Party[0].Stats[7].Value + " / " + Party[0].Stats[8].Value + "");
+                          console.log(Party[0].Stats[0].Value )
+                           localStorage.setItem('_Party', JSON.stringify(Party));
                         SecondDialog(Enemy, TempHealth);
                     }, Party[0].PlayerTextSpeed);
                 }
                 else {
+                      console.log(Party[0].Stats[0].Value )
                     BattleDamage()
                 };
 
                 function BattleDamage() {
+                      console.log(Party[0].Stats[0].Value )
                     $("#PlayerHealth").html("Health : " + Party[0].Stats[0].Value + " / " + Party[0].Stats[6].Value + "");
                     $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'>It did " + DamageEarned + " damage </div>");
                     setTimeout(function () {
                         //  PlayerTurn(Enemy, empHealth);
+                          localStorage.setItem('_Party', JSON.stringify(Party));
                         SecondDialog(Enemy, TempHealth);
                     }, Party[0].PlayerTextSpeed);
                 };
             }, Party[0].PlayerTextSpeed);
         }
         else {
-            var Character = JSON.parse(localStorage.getItem('_character'));
+      //         var Party = JSON.parse(localStorage.getItem('_Party'));
             /* PLAYER DIES */
             Party[0].Stats[0].Value = 0;
             $("#PlayerHealth").html("Health : " + Party[0].Stats[0].Value + " / " + Party[0].Stats[6].Value + "");
@@ -961,11 +979,13 @@ function InitializeBattle() {
                 $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + Party[0].Name + " attacks using " + Move.Name + " </div>");
             }
             setTimeout(function () {
+                console.log(TempHealth)
+                console.log( Enemy.Stats.Health)
                 $("#EnemyHealth").html("Health : " + TempHealth + " / " + Enemy.Stats.Health);
                 $("#PlayerMana").html("Mana : " + Party[0].Stats[7].Value + " / " + Party[0].Stats[8].Value);
                 $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + Party[0].Name + " attacks " + Enemy.Name + " with " + FullAttack + " damage </div>");
                 setTimeout(function () {
-                    localStorage.setItem('_character', JSON.stringify(Character));
+                    localStorage.setItem('_Party', JSON.stringify(Party));
                     EnemyTurn(Enemy, TempHealth);
                 }, Party[0].PlayerTextSpeed);
             }, Party[0].PlayerTextSpeed);
@@ -983,13 +1003,17 @@ function InitializeBattle() {
             else {
                 $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'>" + Party[0].Name + " destroys " + Enemy.Name + " using " + Move.Name + " </div>");
                 setTimeout(function () {
-                    localStorage.setItem('_character', JSON.stringify(Character));
+                    $("#EnemyHealth").html("Health : " + 0 + " / " + Enemy.Stats.Health);
+               //     localStorage.setItem('_character', JSON.stringify(Character));
+                    localStorage.setItem('_Party', JSON.stringify(Party));
                     BattleWon(Enemy,  TempHealth);
                 }, Party[0].PlayerTextSpeed);
             }
 
             function AttackInfo() {
                 setTimeout(function () {
+                    console.log("Enemy Died")
+                    
                     $("#EnemyHealth").html("Health : " + 0 + " / " + Enemy.Stats.Health);
                     $("#PlayerMana").html("Mana : " + Party[0].Stats[7].Value + " / " + Party[0].Stats[8].Value);
                     $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + Party[0].Name + " attacks " + Enemy.Name + " with " + FullAttack + " damage</div>");
@@ -1036,6 +1060,7 @@ function InitializeBattle() {
             var DidGainLevel = false;
             console.log("Configuring Character Experience and Level");
             var Character = JSON.parse(localStorage.getItem('_character'));
+            var Party = JSON.parse(localStorage.getItem('_Party'));
             console.log(Party[0].Experience);
             console.log("Level : " + Party[0].Level);
             /* Experience System WHILE Statements //// Make More Concise Later! /////// */
@@ -1097,7 +1122,9 @@ function InitializeBattle() {
     };
 
     function SecondDialog(Enemy, TempHealth) {
+        var Party = JSON.parse(localStorage.getItem('_Party'));
         console.log("Second Dialog")
+        console.log(Party[0].Stats[0].Value);
         $("#App").prepend("<div class='CharacterMessageContainer' id='CharacterMessageContainer'><div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div></div>")
             // Sets up the character themselves and their dialog
         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
@@ -1201,6 +1228,7 @@ function InitializeBattle() {
                 $("#StatusMessageHolder").html("");
                 $("#ContinueMessageHolder").html("");
                 $("#CharacterMessageContainer").remove();
+                   console.log(Party[0].Stats[0].Value);
                 PlayerTurn(Enemy, TempHealth);
             });
         }
@@ -1289,7 +1317,7 @@ function InitializeBattle() {
                 , }
                 , {
                     Name: " Ben "
-                    , Dialog: " Let's head to the shopping district, I want to buy you an <strong>Avalanche</strong> at Tommie's ! <br> <button id='Accept4' class='MenuButton'> Great! </button> "
+                    , Dialog: " Let's head to the shopping district, I want to buy you an <strong>Icebergg</strong> at Tommie's ! <br> <button id='Accept4' class='MenuButton'> Great! </button> "
                     , Button: "Yes"
                     , ChangeCharacter: "No"
                     , Avatar: "./img/BenAvatar.png"

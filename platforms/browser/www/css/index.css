@@ -179,6 +179,10 @@ body {
     width: 50%
 }
 
+.Width25 {
+    width: 25%
+}
+
 .Overlay {
     background-image: url("../img/BritishColumbia.gif");
     background-position: bottom;

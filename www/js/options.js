@@ -24,13 +24,18 @@ function StartOptions() {
     $("#Triggers").append("<br><span id='3' class='animated fadeInDown' > Victoria 3 : </span><button id='3On' class='MenuButton'> True </button><button id='3Off' class='MenuButton'> False </button>");
     $("#Triggers").append("<br><span id='4' class='animated fadeInDown' > Victoria 4 : </span><button id='4On' class='MenuButton'> True </button><button id='4Off' class='MenuButton'> False </button>");
     $("#Triggers").append("<br><span id='5' class='animated fadeInDown' > Victoria 5 : </span><button id='5On' class='MenuButton'> True </button><button id='5Off' class='MenuButton'> False </button>");
+    $("#Triggers").append("<br><span id='6' class='animated fadeInDown' > Victoria 6 : </span><button id='6On' class='MenuButton'> True </button><button id='6Off' class='MenuButton'> False </button>");
+    $("#Triggers").append("<br><span id='7' class='animated fadeInDown' > Victoria 7 : </span><button id='7On' class='MenuButton'> True </button><button id='7Off' class='MenuButton'> False </button>");
+    $("#Triggers").append("<br><span id='8' class='animated fadeInDown' > Victoria 8 : </span><button id='8On' class='MenuButton'> True </button><button id='8Off' class='MenuButton'> False </button>");
+    $("#Triggers").append("<br><span id='9' class='animated fadeInDown' > Victoria 9 : </span><button id='9On' class='MenuButton'> True </button><button id='9Off' class='MenuButton'> False </button>");
+    $("#Triggers").append("<br><span id='10' class='animated fadeInDown' > Victoria 10 : </span><button id='10On' class='MenuButton'> True </button><button id='10Off' class='MenuButton'> False </button>");
 
          TriggerOnOff()
           
           function TriggerOnOff(){
                 var Party = JSON.parse(localStorage.getItem('_Party'));
               console.log(Party[0].Triggers)
-      for (i = 1; i < 6; i++) {
+      for (i = 1; i <11; i++) {
              
               
                
@@ -44,7 +49,7 @@ function StartOptions() {
           
  };     
         
-              for (i = 1; i < 6; i++) {  
+              for (i = 1; i < 11; i++) {  
           $("#"+i+"On").click(function(){
               if (Party[0].Triggers["Victoria"+this.id.substr(0,1)] == true){
                   Party[0].Triggers["Victoria"+this.id.substr(0,1)] = true

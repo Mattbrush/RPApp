@@ -13,7 +13,7 @@ console.clear();
 
 
 
- var Character = JSON.parse(localStorage.getItem('_character'));
+ //var Character = JSON.parse(localStorage.getItem('_character'));
  var Party = JSON.parse(localStorage.getItem('_Party'));
 console.log("~~~~~Victoria Pier~~~~~~");
 if (Party[0].Triggers.Victoria4 == true){
@@ -127,7 +127,7 @@ function PierVictoria() {
                 , MusicControl: "None"
             , },{
                 Name: " Ben "
-                , Dialog: " It looks aggresive, It's coming right for you "+Character.Name+" !  "
+                , Dialog: " It looks aggresive, It's coming right for you "+Party[0].Name+" !  "
                 , Button: "No"
                 , ChangeCharacter: "Yes"
                 , Avatar: "./img/BenAvatar.png"

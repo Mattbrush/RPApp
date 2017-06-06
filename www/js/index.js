@@ -85,7 +85,13 @@ function InitApp() {
         $("#App").load("./temp/CutSceneIntro.html");
     });
     $("#Continue").click(function () {
+        if (Party[0].Triggers.Victoria2 == true){
+         $("#App").load("./temp/Victoria.html");   
+        }else if (Party[0].Triggers.Victoria1 == true){
+         $("#App").load("./temp/TravelFerry.html");   
+        }else{
         $("#App").load("./temp/Victoria.html");
+        };
     });
     $("#Load").click(function () {
         $("#App").load("./temp/Load.html");
