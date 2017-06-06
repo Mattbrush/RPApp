@@ -87,13 +87,6 @@ function StartOptions() {
 
           });
               };
-         
-          
-          
-           
-          
-          
-          
       };
     
     

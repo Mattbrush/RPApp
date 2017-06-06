@@ -16,12 +16,152 @@ console.clear();
  //var Character = JSON.parse(localStorage.getItem('_character'));
  var Party = JSON.parse(localStorage.getItem('_Party'));
 console.log("~~~~~Victoria Pier~~~~~~");
-if (Party[0].Triggers.Victoria4 == true){
+if (Party[0].Triggers.Victoria6 == true){
+PierVictoria3();
+}else if (Party[0].Triggers.Victoria4 == true){
 PierVictoria2();
 }else {
 PierVictoria();
 };
 console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+function PierVictoria3() {
+         var Party = JSON.parse(localStorage.getItem('_Party'));
+    
+        $("#OverlayContainer").append("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+        $("#Overlay").css("opacity", "0.65");
+        $("#Overlay").css("background-image", "url(img/PierVictoria.jpg)");
+        $("#Overlay").css("background-position-x", "770px");
+        $("#Overlay").css("background-size", "cover");
+    $("#Locationtitle").html(" The Pier, Victoria,  B.C");
+    $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Alright! I'm feeling ready for a fight, We can do this "+Party[0].Name+" !  '</div>");
+      $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+       ClickDialog();
+
+     
+     // Set Dialog Back to Zero !
+    var DialogOrderNumber = 0;
+
+    function ClickDialog() {
+        DialogOrder = [
+             {
+                Name: " Ben "
+                , Dialog: " Remember, This is going to be our first time actually battling. We should probably take it a little bit easy at first right? Then we can recover at tommie's afterwards !  "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },
+             {
+                Name: " Ben "
+                , Dialog: " 'Are you ready to find some infected animals "+Party[0].Name+" ?'    <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Accept1'> Let's do this ! </button> <br> <button class='MenuButton animated flipInY' id='Decline1'> Not yet.. </button>  "
+                , Button: "Yes"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+        , ]
+        $("#Next").click(function () {
+            var DialogSelect = DialogOrder[DialogOrderNumber]
+            var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
+            console.log('Click');
+            console.log(Dialog)
+            console.log(DialogOrderNumber);
+            DialogOrderNumber++
+            if (DialogSelect.Button == "No") {
+  
+                if (DialogSelect.ChangeCharacter == "No") {
+                    $("#Avatar").attr("src", " " + DialogSelect.Avatar + " ")
+                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                }
+                else {
+                     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='" + DialogSelect.Avatar + "'><div id='StatusMessageHolder'><br>");
+                     $("#ContinueMessageHolder").html("");
+                    setTimeout(function () {
+                        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                        $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                         ClickDialog();
+                    }, 750);
+                }
+                if (DialogSelect.Music != "No" || DialogSelect.Sound != "No") {
+                    if (DialogSelect.MusicControl == "Stop") {
+                        DialogSelect.Music.pause();
+                        DialogSelect.Music.currentTime = 0;
+                    }
+                    else if (DialogSelect.SoundControl == "Stop") {
+                        DialogSelect.Sound.pause();
+                        DialogSelect.Sound.currentTime = 0;
+                    };
+                    if (DialogSelect.MusicControl == "Play") {
+                        console.log("Playing " + DialogSelect.Music);
+                        DialogSelect.Music.play();
+                    }
+                    else if (DialogSelect.SoundControl == "Play") {
+                        console.log("Playing " + DialogSelect.Sound);
+                        DialogSelect.Sound.play();
+                    }
+                };
+            }
+            else {
+
+                Dialog = " " + DialogSelect.Name + " :  " + DialogSelect.Dialog + "   ";
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper '>" + Dialog + "</div>");
+                DialogOption(DialogSelect);
+                $("#ContinueMessageHolder").html("");
+            }
+        });
+    };
+
+
+
+        function DialogOption(DialogSelect) {
+  
+          
+            /* DECLINE */
+                $("#Decline4").click(function () {
+                 $("#StatusMessageHolder").html("");
+                $("#ContinueMessageHolder").html("");
+                $("#CharacterAvatar").html("");
+                $("#App").load("./temp/Victoria.html");
+                });
+            /* ACCEPT */       
+                 $("#Accept4").click(function () {
+                 $("#StatusMessageHolder").html("");
+                $("#ContinueMessageHolder").html("");
+                $("#CharacterAvatar").html("");
+             var Party = JSON.parse(localStorage.getItem('_Party'));
+                localStorage.setItem('_Party', JSON.stringify(Party));
+                $("#App").load("./temp/TutorialBattle2.html");
+                    
+                });
+            
+
+           
+            /* HONEST */
+
+            /* HOSTILE */
+
+            /* CONFUSED */
+       
+            
+            // End of Global Buttons
+        }
+    
+    
+    
+};
+
+
+
+
+
 
 function PierVictoria2() {
         
