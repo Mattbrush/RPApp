@@ -2,6 +2,7 @@
 console.clear();
 console.log("~~~~~~~~~~~~~~~~~~~MAIN MENU~~~~~~~~~~~~~~~~~~~")
 $("#MessageHolder").remove();
+$("#ContinueMessageHolder").remove();
 CheckWallet()
 CheckLevel();
 StartApp();

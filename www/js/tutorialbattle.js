@@ -90,7 +90,7 @@ function InitializeBattle() {
                 Name: 'Seagull'
                 , Avatar: "./img/Seagull.png"
                 , Type: "Mountain"
-                , SpawnRate: 0.35
+                , SpawnRate: 0.99
                 , Strength1: "Boreal Forest"
                 , Strength2: "Desert"
                 , Weakness1: "Saltwater"

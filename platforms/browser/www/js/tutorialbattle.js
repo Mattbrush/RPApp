@@ -138,7 +138,7 @@ function InitializeBattle() {
 
             ]
                 , Earnings: {
-                    Bronze: Math.floor(Math.random() * 8) + 2
+                    Total: Math.floor(Math.random() * 8) + 2
                 , }
                 , Experience: {
                     ExperienceEarned: Math.floor(Math.random() * 15) + 2
@@ -1049,7 +1049,7 @@ function InitializeBattle() {
                 LootName = " Also " + Party[0].Name + " obtained a " + Loot.Name + " !";
             }
         }
-        Party[0].Wallet.Total = Party[0].Wallet.Total + Enemy.Earnings.Bronze;
+        Party[0].Wallet.Total = Party[0].Wallet.Total + Enemy.Earnings.Total;
         Party[0].Experience.Total = Party[0].Experience.Total + Enemy.Experience.ExperienceEarned;
         $("#PlayerXP").html("XP : " + Party[0].Experience.Total + " / " + Party[0].Experience.ToNextLevel + "");
         localStorage.setItem('_character', JSON.stringify(Character));
@@ -1079,7 +1079,7 @@ function InitializeBattle() {
             }
             if (DidGainLevel == true) {
                 $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
-                $("#MessageHolder").html("<h4 class='animated bounceIn  Message' id='StatusMSG'><span>" + Party[0].Name + "  Earned " + Enemy.Earnings.Bronze + " Coins and Gained " + Enemy.Experience.ExperienceEarned + " XP " + LootName + " and gained " + GainedLevel + " level!</span><br></div>");
+                $("#MessageHolder").html("<h4 class='animated bounceIn  Message' id='StatusMSG'><span>" + Party[0].Name + "  Earned " + Enemy.Earnings.Total + " Coins and Gained " + Enemy.Experience.ExperienceEarned + " XP " + LootName + " and gained " + GainedLevel + " level!</span><br></div>");
                 localStorage.setItem('_character', JSON.stringify(Character));
                 setTimeout(function () {
                     ThirdDialog()
@@ -1087,7 +1087,7 @@ function InitializeBattle() {
             }
             else {
                 $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
-                $("#MessageHolder").html("<h4 class='animated bounceIn  Message' id='StatusMSG'><span>" + Party[0].Name + "  Earned " + Enemy.Earnings.Bronze + " Coins and Gained " + Enemy.Experience.ExperienceEarned + " XP " + LootName + "</span><br> </div>");
+                $("#MessageHolder").html("<h4 class='animated bounceIn  Message' id='StatusMSG'><span>" + Party[0].Name + "  Earned " + Enemy.Earnings.Total + " Coins and Gained " + Enemy.Experience.ExperienceEarned + " XP " + LootName + "</span><br> </div>");
                 localStorage.setItem('_character', JSON.stringify(Character));
                 setTimeout(function () {
                     ThirdDialog()

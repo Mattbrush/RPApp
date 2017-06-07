@@ -9,7 +9,9 @@ function StartApp() {
     console.log("Character :");
     console.log(Party[0]);
     console.log("Party : ");
-    console.log(Party);
+     for (i = 0; i < Party.length; i++) {
+    console.log(Party[i].Name);
+     };
     $("#Overlay").css("opacity","0.85");
     $("#Message").html(" Welcome To Victoria ! ");
     $("#Locationtitle").html(" Victoria, B.C");
@@ -25,7 +27,6 @@ function StartApp() {
             for (i = 0; i < Party[0].Journal.length; i++) {
                 for (e = 0; e < Party[0].Journal[i].Entries.length; e++) {
                    if (Party[0].Journal[i].Entries[e].Hidden == false){
-                       console.log(Party[0].Journal[i].Entries[e]);
                        if (Party[0].Journal[i].Entries[e].Viewed == false){
                            JournalNotification++; 
                        };   

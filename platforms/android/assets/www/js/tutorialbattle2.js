@@ -93,7 +93,7 @@ function InitializeBattle() {
                 Name: 'Seagull'
                 , Avatar: "./img/Seagull.png"
                 , Type: "Mountain"
-                , SpawnRate: 0.99
+                , SpawnRate: 0.35
                 , Strength1: "Boreal Forest"
                 , Strength2: "Desert"
                 , Weakness1: "Saltwater"
@@ -200,9 +200,11 @@ function InitializeBattle() {
             /* Enemy Animation ? */
             /*Create Battle Scene*/
             if (Enemy.Type == 'Saltwater') {
+                //    $("#Overlay").css("background-image","url(img/OceanBattleBackground.gif)");
                 $("#Enemy").css("background-image", "url(img/OceanBattleBackground.gif)");
             }
             else if (Enemy.Type == 'Mountain') {
+                //    $("#Overlay").css("background-image","url(img/MountainBattleBackground.gif)");
                 $("#Enemy").css("background-image", "url(img/MountainBattleBackground.gif)");
             };
             $("#Enemy").html("<br><div class='SubMainTitle' id='EnemyName'>" + Enemy.Name + "</div><br><div class='SubSubMainTitle' id='EnemyHealth'>Health : " + TempHealth + " / " + Enemy.Stats.Health + "</div><br><img id='EnemyAvatar'>")
@@ -215,6 +217,7 @@ function InitializeBattle() {
             /* Activate Turn Decider */
             setTimeout(function () {
                 /* LEAVES initial battle Setup and head into the turn chooser.*/
+                //  $("#App").css("opacity",".3");
                 // Sets up the Charatcer Talking Environment
                 $("#App").prepend("<div class='CharacterMessageContainer' id='CharacterMessageContainer'><div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div></div>")
                 // Remove BattleAnimation

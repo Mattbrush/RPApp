@@ -107,7 +107,6 @@ $("#Overlay").css("background-image","url(img/CanadianTireInside.jpg)");
 
 function StartStore() {
     console.log("~~~~~Starting StorePage!~~~~~~")
-    var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     $("#MessageHolder").html("<h4 class='animated pulse  Message' id='Dialog'> Welcome to Canadian Tire ! </h4>");
     
@@ -144,7 +143,8 @@ function StartStore() {
           
           
            $("#Leave").click(function () {
-            localStorage.setItem('_character', JSON.stringify(Character));
+            Party[0].Triggers.Victoria6 = true;
+            localStorage.setItem('_Party', JSON.stringify(Party));
             audio.pause();
             audio.currentTime = 0;
             $("#App").load("./temp/ShoppingDistrictVictoria.html")
@@ -168,8 +168,6 @@ function StartStore() {
          $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
      $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Whoa! What the heck? Let's get outta here "+Party[0].Name+" ! Come on, I will take you to Tommie's for a drink!  '</div>");
       $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Leave'> Okay.. </button>");
-            
-                //<button class='MenuButton2 animated fadeInDown' id='Leave'>Leave</button>
            $("#Leave").click(function () {
            localStorage.setItem('_Party', JSON.stringify(Party));
             audio.pause();
@@ -202,7 +200,6 @@ function StartStore() {
      $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Alright, It's time to get some Weapons and Armour! What should we defend ourselves with?  '</div>");
       $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Conitnue </button>");
             
-                //<button class='MenuButton2 animated fadeInDown' id='Leave'>Leave</button>
            $("#Next").click(function () {
             $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' We don't have much money yet, but we will get some more after fighting some enemies. For now maybe we should look at some armour? ' </div>");
                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Shop'> Shop </button>");
@@ -231,7 +228,7 @@ function StartStore() {
 
     function StoreFront() {
         $("#Logo").html("<img class='width50' src='./img/CanadianTire.png'>");
-      //  var Character = JSON.parse(localStorage.getItem('_character'));
+
         var Party = JSON.parse(localStorage.getItem('_Party'));
 
         
@@ -247,7 +244,7 @@ function StartStore() {
         });
 
         $("#Leave").click(function () {
-        //    localStorage.setItem('_character', JSON.stringify(Character));
+
             localStorage.setItem('_Party', JSON.stringify(Party));
             audio.pause();
             audio.currentTime = 0;
@@ -260,7 +257,6 @@ function StartStore() {
         $("#Logo").html("<img class='width50' src='./img/CanadianTire.png'>");
         $("#MessageHolder").html("<h4 class='animated tada  Message' id='Dialog'> Try our new Icebergs today! </h4>");
         console.log("~~~Adding Shop Items~~~");
-    //    var Character = JSON.parse(localStorage.getItem('_character'));
         var Party = JSON.parse(localStorage.getItem('_Party'));
         CheckWallet();
         $("#Options").html("<br><div class='MenuWrapper' id='Wallet'> <h4 class='SubSubMainTitle'> Wallet : </h4><span class='Money'>$" + Party[0].Wallet.Total + "</span><br></div><button id='Back' class='animated fadeInDown MenuButton2'> Back </button>");
@@ -274,13 +270,13 @@ function StartStore() {
             for (i = 0; i < StoreInventory.length; i++) {
                 console.log(StoreInventory[i]);
                 if (StoreInventory[i].Type == "Status") {
-                    /////// IF THE ITEM IS A ST ATUS ITEM
+                    /////// IF THE ITEM IS A STATUS ITEM
                     StoreItemCount++
                     $("#Inventory").append("<br><div><input type='image' src='" + StoreInventory[i].Avatar + "' class='StoreSlot' id='" + i + "' >Name : " + StoreInventory[i].Name + " <br>Type: " + StoreInventory[i].Type + "  <br>Price : $" + StoreInventory[i].Worth + "</input></div>");
                     $("#" + i).css("border-color", "Red");
                 }
                 if (Party[0].Wallet.Total < StoreInventory[i].Worth) {
-                    // PLayer doesn't have enough money..
+                    // Player doesn't have enough money..
                     $("#" + i).css("border-color", "Grey");
                     $("#" + i).css("pointer-events", "none");
                 }
@@ -324,7 +320,7 @@ function StartStore() {
                     $("#" + i).css("border-color", "Green");
                 }
                 if (Party[0].Wallet.Total < StoreInventory[i].Worth) {
-                    // PLayer doesn't have enough money..
+                    // Player doesn't have enough money..
                     $("#" + i).css("border-color", "Grey");
                     $("#" + i).css("pointer-events", "none");
                 }
@@ -373,7 +369,7 @@ function StartStore() {
                     $("#" + i).css("border-color", "#b7b7b7");
                 }
                 if (Party[0].Wallet.Total < StoreInventory[i].Worth) {
-                    // PLayer doesn't have enough money..
+                    // Player doesn't have enough money..
                     $("#" + i).css("border-color", "Grey");
                     $("#" + i).css("pointer-events", "none");
                 }
@@ -455,7 +451,6 @@ function StartStore() {
                             
                             
                         } else {
-                          //  console.log(" Player would be able to equip this item ");
                             $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>" + Party[index2].Name + " Equipped " + StoreInventory[index].Name + "  ! </h4><br><img src='"+StoreInventory[index].Avatar+"'></img></div>");
                             
                            setTimeout(function () {  
@@ -464,7 +459,6 @@ function StartStore() {
                        $("#MessageHolder").html("");
                        $("#StatusMessageHolder").css("display", "none");
                         EquipItem( index , index2, CurrentEquipmentSlot);
-                      // PurchaseItem( index); 
                                 }, 3000);
                             
                             
@@ -530,7 +524,7 @@ function StartStore() {
                     $("#" + i).css("border-color", "#8acad9");
                 }
                 if (Party[0].Wallet.Total < StoreInventory[i].Worth) {
-                    // PLayer doesn't have enough money..
+                    // Player doesn't have enough money..
                     $("#" + i).css("border-color", "Grey");
                     $("#" + i).css("pointer-events", "none");
                 }
@@ -614,7 +608,6 @@ function StartStore() {
                             
                             
                         } else {
-                          //  console.log(" Player would be able to equip this item ");
                             $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>" + Party[index2].Name + " Equipped " + StoreInventory[index].Name + "  ! </h4><br><img src='"+StoreInventory[index].Avatar+"'></img></div>");
                             
                            setTimeout(function () {  
@@ -623,7 +616,6 @@ function StartStore() {
                        $("#MessageHolder").html("");
                        $("#StatusMessageHolder").css("display", "none");
                         EquipItem( index , index2, CurrentEquipmentSlot);
-                      // PurchaseItem( index); 
                                 }, 3000);
                             
                             
@@ -702,7 +694,6 @@ function StartStore() {
             $("#Inventory").html("");
               // Reset Party[0] to reflect chnages 
             Character = Party[0];
-       //     localStorage.setItem('_character', JSON.stringify(Character));
             localStorage.setItem('_Party', JSON.stringify(Party));
             if (StoreInventory[index].Type == "Spell") {
                 StoreInventory[index].Worth = Orignalworth
@@ -722,18 +713,7 @@ function StartStore() {
         ////////////////////////////////////////////////////////////
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         
         
         
@@ -829,15 +809,12 @@ function StartStore() {
 
 
 
-    function CheckWallet() {
-    //    var Character = JSON.parse(localStorage.getItem('_character'));
-        var Party = JSON.parse(localStorage.getItem('_Party'));
+    function CheckWallet() {        var Party = JSON.parse(localStorage.getItem('_Party'));
         console.log("~~~Configuring Wallet~~~");
         console.log("Wallet : ");//
     //     Party[0].Wallet.Total = Party[0].Wallet.Total + 10;
         $("#Total").html(""+Party[0].Wallet.Total+"");
         console.log(Party[0].Wallet);
-     //   localStorage.setItem('_character', JSON.stringify(Character));
         localStorage.setItem('_Party', JSON.stringify(Party));
         console.log("~~~~~~~~~~~~~~~~~~~")
     };

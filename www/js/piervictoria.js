@@ -58,7 +58,7 @@ function PierVictoria3() {
             , },
              {
                 Name: " Ben "
-                , Dialog: " 'Are you ready to find some infected animals "+Party[0].Name+" ?'    <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Accept1'> Let's do this ! </button> <br> <button class='MenuButton animated flipInY' id='Decline1'> Not yet.. </button>  "
+                , Dialog: " 'Are you ready to find some infected animals "+Party[0].Name+" ?'    <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Accept4'> Let's do this ! </button> <br> <button class='MenuButton animated flipInY' id='Decline1'> Not yet.. </button>  "
                 , Button: "Yes"
                 , ChangeCharacter: "No"
                 , Avatar: "./img/BenAvatar.png"

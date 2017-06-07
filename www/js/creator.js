@@ -174,7 +174,7 @@ $("#Confirm").click(function () {
          Total:0,
         }
         , Inventory: []
-        ,Weight: Math.round((Attack / 2) *  Math.floor(Math.random() * 25) + 5)
+        ,Weight: Math.round((Attack / 2) *  Math.floor(Math.random() * 25) + 10)
         , Equipment:{
             Head:"",
             Torso:"",
