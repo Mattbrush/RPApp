@@ -16,7 +16,9 @@ console.clear();
  //var Character = JSON.parse(localStorage.getItem('_character'));
  var Party = JSON.parse(localStorage.getItem('_Party'));
 console.log("~~~~~Victoria Pier~~~~~~");
-if (Party[0].Triggers.Victoria6 == true){
+if (Party[0].Triggers.Victoria7 == true){
+  $("#App").load("./temp/TutorialBattle3.html");
+}else if (Party[0].Triggers.Victoria6 == true){
 PierVictoria3();
 }else if (Party[0].Triggers.Victoria4 == true){
 PierVictoria2();

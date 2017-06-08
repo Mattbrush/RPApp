@@ -346,9 +346,9 @@ function InitializeBattle() {
                     $("#Next").click(function () {
                         var DialogSelect = DialogOrder[DialogOrderNumber]
                         var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
-                        console.log('Click');
-                        console.log(Dialog)
-                        console.log(DialogOrderNumber);
+                     //   console.log('Click');
+                   //     console.log(Dialog)
+                   //     console.log(DialogOrderNumber);
                         DialogOrderNumber++
                         if (DialogSelect.Button == "No") {
                             if (DialogSelect.ChangeCharacter == "No") {
@@ -775,7 +775,8 @@ function InitializeBattle() {
             };
         });
         $("#Attack").click(function () {
-            var Character = JSON.parse(localStorage.getItem('_character'));
+            var Party = JSON.parse(localStorage.getItem('_Party'));
+          //  var Character = JSON.parse(localStorage.getItem('_character'));
             /* PLAYER ATTACK BUTTON */
             $("#Run").prop('disabled', true);
             $("#Attack").prop('disabled', true);
@@ -801,7 +802,9 @@ function InitializeBattle() {
                         $("#OptionsHolder").html("");
                         $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + Party[0].Moves[index].Name + " will add " + Party[0].Moves[index].Damage + " damage to attack and cost " + Party[0].Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
                         $("#Accept").click(function () {
-                            var Move = Party[0].Moves[index];
+                            var Move = PartyMember.Moves[index];
+                            var MoveDamage = Math.floor(Math.random() * Move.Damage[1] - Move.Damage[0]) + Move.Damage[0];
+                            console.log(Move.Damage);
                             PlayerAttack(Enemy, TempHealth, Move);
                         });
                         $("#AttackBack").click(function () {
@@ -817,25 +820,26 @@ function InitializeBattle() {
         });
         /* PLAYER ATTACK */
         function PlayerAttack(Enemy, TempHealth, Move) {
+             var MoveDamage = JSON.parse(localStorage.getItem('_MoveDamage'));
             /* Adding Misses */
-            if (Math.random() >= Party[0].Stats[5].Value) {
-                $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + Party[0].Name + " attacks using " + Move.Name + " </div>");
+            if (Math.random() >= Party[0].Stats[5].Value * 1000) {
+               /* $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + Party[0].Name + " attacks using " + Move.Name + " </div>");
                 setTimeout(function () {
                     $("#MessageHolder").html("<div class='MenuWRapper animated tada  Message' id='StatusMSG'>StatusMSG").html("" + Party[0].Name + " missed! </div>");
                     setTimeout(function () {
                         EnemyTurn(Enemy, TempHealth);
                     }, Party[0].PlayerTextSpeed);
-                }, Party[0].PlayerTextSpeed);
+                }, Party[0].PlayerTextSpeed);*/
             }
             else {
                 //*****CRITICAL HIT CHANCE 1/10****//
-                var CritcalChance = Math.floor((Math.random() * 10) + 1);
+                var CritcalChance = 0;
                 var DidCriticalHit = false;
                 var UsedMagic = false;
                 if (CritcalChance == 10) {
                     CritcalChance = Math.round((Party[0].Stats[1].Value * 1.25) * (Move.Damage * 1.25));
                     DidCriticalHit = true;
-                    console.log("CRITIAL ATTACK")
+                   // console.log("CRITIAL ATTACK")
                 }
                 else {
                     CritcalChance = 0
@@ -844,7 +848,7 @@ function InitializeBattle() {
                 var Spell = "";
                 var RandomAttack = Math.random() + .75;
                 RandomAttack = Math.round(Party[0].Stats[1].Value * RandomAttack);
-                FullAttack = RandomAttack + CritcalChance + Move.Damage
+                FullAttack = RandomAttack + CritcalChance + MoveDamage
                     // Move To Universal Damage Function //
                 EnemyLosesHealth(Enemy,TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move)
             }
@@ -1330,9 +1334,9 @@ function InitializeBattle() {
             $("#Next").click(function () {
                 var DialogSelect = DialogOrder[DialogOrderNumber]
                 var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
-                console.log('Click');
-                console.log(Dialog)
-                console.log(DialogOrderNumber);
+         //       console.log('Click');
+         //       console.log(Dialog)
+         //       console.log(DialogOrderNumber);
                 DialogOrderNumber++
                 if (DialogSelect.Button == "No") {
                     if (DialogSelect.ChangeCharacter == "No") {

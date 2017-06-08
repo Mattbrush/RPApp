@@ -205,7 +205,7 @@ $("#Confirm").click(function () {
                    }
         , Experience: {
             Total: 0
-            , ToNextLevel: 25
+            , ToNextLevel: Math.floor(Math.random() * 25) + 20
             , SkillPoints: SkillPoints
         , }
         , Journal:[

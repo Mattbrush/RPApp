@@ -75,18 +75,20 @@ function InitializeBattle() {
     $("#Overlay").css("background-position-x", "770px");
     $("#Overlay").css("background-size", "cover");
      /* For a real Battle, This would be the Player first and then the party members once it is their turn.. For now it will just be Ben since he is the one fighting this fight! */
-        var PartyMember = Party[1];
+        var PartyMember = Party[0];
      $("#Player").css("background", "" +PartyMember.Color + "");
-    PartyMember.Stats[7].Value = PartyMember.Stats[8].Value;
-    PartyMember.Stats[0].Value = PartyMember.Stats[6].Value;
+    Party[0].Stats[7].Value = Party[0].Stats[8].Value;
+    Party[1].Stats[7].Value =  Party[1].Stats[8].Value;
+    Party[0].Stats[0].Value = Party[0].Stats[6].Value;
+    Party[1].Stats[0].Value =  Party[1].Stats[6].Value;
     
     ////// ENEMY CREATOR /////
     var Enemies = [
 
             {
-                Name: 'Seagull'
-                , Avatar: "./img/Seagull.png"
-                , Type: "Mountain"
+                Name: 'Sea Lion'
+                , Avatar: "./img/SeaLion.png"
+                , Type: "Saltwater"
                 , SpawnRate: 0.99
                 , Strength1: "Boreal Forest"
                 , Strength2: "Desert"
@@ -94,12 +96,12 @@ function InitializeBattle() {
                 , Weakness2: "Freshwater"
                 , Color: "#D7ACAC"
                 , Stats: {
-                    Health: Math.floor(Math.random() * 6) + 10
-                    , Attack: Math.floor(Math.random() * 2) + 1
+                    Health: Math.floor(Math.random() * 20) + 25
+                    , Attack: Math.floor(Math.random() * 4) + 1
                     , Defense: Math.floor(Math.random() * 0) + 0
                     , Magic: 0
-                    , Vitality: Math.floor(Math.random() * 2) + 0
-                    , Accuracy: Math.floor(Math.random() * 0.96) + 0.80
+                    , Vitality: Math.floor(Math.random() * 5) + 0
+                    , Accuracy: Math.floor(Math.random() * 0.96) + 0.85
                 , }
                 , Loot: [{
                     Name: "Seaweed"
@@ -158,12 +160,15 @@ function InitializeBattle() {
         $("#App").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage'></div>");
         $("#AlertPlayerMessage").html("<div class='animated bounceIn  AlertPlayerText' id='StatusMSG'> Enemy Approaching ! </div>");
         $("#AlertPlayerMessage").append("<img id='Transition' class='width75' src='./img/BattleTransition.gif'></img>");
+        localStorage.setItem('_Party', JSON.stringify(Party));
             StartBattle(PartyMember)
 
     };
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     /*~~~~~~~~~~~~~~~~~~~~ Battle Functions    /2/~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     function StartBattle() {
+        
+         var Party = JSON.parse(localStorage.getItem('_Party'));
        
         /* Randomize The Enemy Encounter */
         EnemyPicker();
@@ -217,7 +222,7 @@ function InitializeBattle() {
                 
                     // Sets up the character themselves and their dialog
                 $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
-                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated bounceIn'> Ben : ' Alright! I'm ready to fight!</div>");
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated bounceIn'> Ben : ' Oh no! It's a Sea Lion! I can't do this alone.. I will need your help "+Party[0].Name+" !  '</div>");
                 // Sets up the continue button and the clikcDialog function to move on to the next conversation spot //
                 $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
                 ClickDialog();
@@ -229,7 +234,7 @@ function InitializeBattle() {
                     DialogOrder = [
                         {
                             Name: " Ben "
-                            , Dialog: " It's my turn to show off my fighting skills!"
+                            , Dialog: " We are going to have to battle it together "
                             , Button: "No"
                             , ChangeCharacter: "No"
                             , Avatar: "./img/BenAvatar.png"
@@ -240,7 +245,7 @@ function InitializeBattle() {
                         , }
                         , {
                             Name: " Ben "
-                            , Dialog: " and this time, I'm going to attack it first!  "
+                            , Dialog: " Why don't you go first?"
                             , Button: "No"
                             , ChangeCharacter: "No"
                             , Avatar: "./img/BenAvatar.png"
@@ -248,31 +253,10 @@ function InitializeBattle() {
                             , SoundControl: "None"
                             , Music: "No"
                             , MusicControl: "None"
-                        , }
-            , {
+                        , },
+                        {
                             Name: " Ben "
-                            , Dialog: " ....  "
-                            , Button: "No"
-                            , ChangeCharacter: "No"
-                            , Avatar: "./img/BenAvatar.png"
-                            , Sound: "No"
-                            , SoundControl: "None"
-                            , Music: "No"
-                            , MusicControl: "None"
-                        , }
-             , {
-                            Name: " Ben "
-                            , Dialog: " Do you mind showing me how to do it?  "
-                            , Button: "No"
-                            , ChangeCharacter: "No"
-                            , Avatar: "./img/BenAvatar.png"
-                            , Sound: "No"
-                            , SoundControl: "None"
-                            , Music: "No"
-                            , MusicControl: "None"
-                        , }, {
-                            Name: " Ben "
-                            , Dialog: " ' Just show me how to fight it like you did last time!'  <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Accept1'> Okay. </button>   "
+                            , Dialog: " ' You know what you are doing right ? '  <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Accept1'> Leave it to me ! </button>   "
                             , Button: "Yes"
                             , ChangeCharacter: "No"
                             , Avatar: "./img/BenAvatar.png"
@@ -711,7 +695,7 @@ function InitializeBattle() {
             $("#Items").prop('disabled', true);
             $("#Status").prop('disabled', true);
             $("#SpellsAttack").prop('disabled', true);
-            ////////////////////////////
+            //    
             $("#OptionsHolder").html("");
             for (i = 0; i < 4; i++) {
                 console.log(PartyMember.Moves[i])
@@ -723,7 +707,6 @@ function InitializeBattle() {
                 };
                 $("#" + i + "").click(function () {
                     var index = this.id;
-                    console.log(PartyMember.Moves[index]);
                     if (PartyMember.Moves[index].Cost > PartyMember.Stats[1].Value) {
                         $("#MessageHolder").html("<div class='animated rubberBand  MenuWrapper' id='StatusMSG'>" + PartyMember.Name + " Doesn't Have Enough Health! </div>");
                     }
@@ -731,21 +714,18 @@ function InitializeBattle() {
                         $("#OptionsHolder").html("");
                         
                         if (PartyMember.Moves[index].Cost == 0 ){
-                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add " + PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+" damage to your attack</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add " + PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+ " damage to your attack</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
                         } else {
-                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add " + PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+ " damage to your attack and cost " + PartyMember.Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add " + PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+" damage to your attack and cost " + PartyMember.Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
                         }
                         
                         
                         
                         $("#Accept").click(function () {
-                             var Move = PartyMember.Moves[index];
-                            console.log(Move)
+                            var Move = PartyMember.Moves[index];
                             var MoveDamage = Math.floor(Math.random() * Move.Damage[1] - Move.Damage[0]) + Move.Damage[0];
-                            console.log(Move);
-                            console.log(PartyMember.Moves);
-                            PlayerAttack(Enemy, TempHealth, Move );
-                             localStorage.setItem('_MoveDamage', JSON.stringify(MoveDamage));
+                            console.log(Move.Damage);
+                            PlayerAttack(Enemy, TempHealth, Move);
                         });
                         $("#AttackBack").click(function () {
                             PlayerTurn(Enemy,TempHealth);
@@ -760,7 +740,7 @@ function InitializeBattle() {
         });
         /* PLAYER ATTACK */
         function PlayerAttack(Enemy, TempHealth, Move) {
-            var MoveDamage = JSON.parse(localStorage.getItem('_MoveDamage'));
+               var MoveDamage = JSON.parse(localStorage.getItem('_MoveDamage'));
                 // Regular Attack //
                 var Spell = "";
                 var CritcalChance = 0;
@@ -773,7 +753,8 @@ function InitializeBattle() {
              localStorage.setItem('_Party', JSON.stringify(Party));
                 /////
                 RandomAttack = Math.round(PartyMember.Stats[1].Value * RandomAttack);
-                FullAttack = RandomAttack + CritcalChance + MoveDamage
+                FullAttack = RandomAttack + CritcalChance + MoveDamage;
+            
                     // Move To Universal Damage Function //
                 EnemyLosesHealthCheat(Enemy,TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move)
             
@@ -784,14 +765,14 @@ function InitializeBattle() {
     function PlayerTurn2(Enemy, TempHealth) {
         /* Setting Up Party */
         var Party = JSON.parse(localStorage.getItem('_Party'));
-        
-       
-        
+        var Enemy = JSON.parse(localStorage.getItem('_Enemy'));
+        var TempHealth = JSON.parse(localStorage.getItem('_TempHealth'));
+        PartyMember = Party[1];  
         
         //////////////////////////////
         $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
         $("#PlayerMana").html("Mana : " + PartyMember.Stats[7].Value + " / " + PartyMember.Stats[8].Value + "");
-        $("#OptionsHolder").html("<div id='Options' class='animated flipInY'><button disabled class='MenuButtonDisabled' id='Attack'>Attack</button><button class='MenuButtonDisabled' disabled id='Items'>Items</button><button class='MenuButtonDisabled' disabled id='Status'>Status</button><button class='MenuButton'  id='SpellsAttack'>Spells</button><br><button class='MenuButtonDisabled' disabled id='Run'>Run Away</button></div>");
+        $("#OptionsHolder").html("<div id='Options' class='animated flipInY'><button  class='MenuButton' id='Attack'>Attack</button><button class='MenuButtonDisabled' disabled id='Items'>Items</button><button class='MenuButtonDisabled' disabled id='Status'>Status</button><button class='MenuButton'  id='SpellsAttack'>Spells</button><br><button class='MenuButtonDisabled' disabled id='Run'>Run Away</button></div>");
         $("#MessageHolder").html("<h4 class='animated lightSpeedIn  Message' id='StatusMSG'>It is now " + PartyMember.Name + "'s Turn </div>");
         $("#Run").click(function () {
             $("#MessageHolder").html("<div class='animated pulse  Message' id='StatusMSG'>Are You Sure You Want To Run Away? </div>");
@@ -817,7 +798,7 @@ function InitializeBattle() {
                 }
             });
             $("#RBack").click(function () {
-                PlayerTurn(Enemy,TempHealth);
+                PlayerTurn2(Enemy,TempHealth);
             });
         });
         $("#SpellsAttack").click(function () {
@@ -841,7 +822,9 @@ function InitializeBattle() {
                     else {
                         $("#OptionsHolder").html("");
                         $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Spells[index].Name + " will do " + PartyMember.Spells[index].Stats.Damage + " damage and cost " + PartyMember.Spells[index].Stats.Cost + " MP </div><br>  <button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='SpellBack'> Back </button> ");
+                        console.log(Enemy);
                         $("#Accept").click(function () {
+                              console.log(Enemy);
                             $("#OptionsHolder").html("");
                             var ElementStrength = 0;
                             if (PartyMember.Spells[index].Stats.Element == Enemy.Weakness1 || PartyMember.Spells[index].Stats.Element == Enemy.Weakness2) {
@@ -862,27 +845,32 @@ function InitializeBattle() {
                             var Move = "";
                             PartyMember.Stats[7].Value = PartyMember.Stats[7].Value - PartyMember.Spells[index].Stats.Cost;
                             FullAttack = Math.round(PartyMember.Spells[index].Stats.Damage * ElementStrength);
+                            console.log(FullAttack)
                             if (ElementStrength == 1.25) {
                                 $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s Weakness so " + PartyMember.Spells[index].Name + "  did an insane  " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
+                                     console.log(FullAttack)
                                     SpellMoveOn()
                                 }, Party[0].PlayerTextSpeed);
                             }
                             else if (ElementStrength == 0.75) {
                                 $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s Strength so " + PartyMember.Spells[index].Name + " only did  " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
+                                     console.log(FullAttack)
                                     SpellMoveOn()
                                 }, Party[0].PlayerTextSpeed);
                             }
                             else if (ElementStrength == 1) {
                                 $("#MessageHolder").html("<h4 class='animated flash  Message' id='StatusMSG'> " + PartyMember.Name + " Used " + PartyMember.Spells[index].Name + " And Does " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
+                                     console.log(FullAttack)
                                     SpellMoveOn()
                                 }, Party[0].PlayerTextSpeed);
                             }
                             else if (ElementStrength == 0.65) {
                                 $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s same type so " + PartyMember.Spells[index].Name + " barely effected it with   " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
+                                     console.log(FullAttack)
                                     SpellMoveOn()
                                 }, Party[0].PlayerTextSpeed);
                             }
@@ -892,19 +880,23 @@ function InitializeBattle() {
                                 var Spell = PartyMember.Spells[index]
                                     // Move To Universal Damage Function //
                                 setTimeout(function () {
+                                     console.log(FullAttack)
+                                     console.log(" THealth : ")
+                                     console.log(TempHealth)
+                                      localStorage.setItem('_Enemy', JSON.stringify(Enemy));
                                     EnemyLosesHealth(Enemy,TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move)
                                 }, Party[0].PlayerTextSpeed);
                             }
                         });
                         $("#SpellBack").click(function () {
-                            PlayerTurn(Enemy, TempHealth);
+                            PlayerTurn2(Enemy, TempHealth);
                         });
                     };
                 });
             };
             $("#OptionsHolder").append("<button class='MenuButton animated bounce' id='SBack'> Back </button>");
             $("#SBack").click(function () {
-                PlayerTurn(Enemy,  TempHealth);
+                PlayerTurn2(Enemy,  TempHealth);
             });
         });
         $("#Status").click(function () {
@@ -920,7 +912,7 @@ function InitializeBattle() {
                     if ($("#Overlay").hasClass("Open")) {}
                     else {
                         clearInterval(OverlayChecker);
-                        var Party = JSON.parse(localStorage.getItem('_PArty'));
+                        var Party = JSON.parse(localStorage.getItem('_Party'));
                      //   var Character = JSON.parse(localStorage.getItem('_character'));
                         $("#Overlay").css("opacity", ".5");
                         $("#Player").html("<div class='SubMainTitle' id='PlayerName'>" + PartyMember.Name + " " + PartyMember.FamilyName + "</div><br><div class='HealthMainTitle' id='PlayerHealth'>Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "</div></div><br><div class='ManaMainTitle'  id='PlayerMana'>Mana : " + PartyMember.Stats[7].Value + " / " + PartyMember.Stats[8].Value + "</div><br><div class='XPMainTitle'  id='PlayerXP'>XP : " + PartyMember.Experience.Total + " / " + PartyMember.Experience.ToNextLevel + "</div>");
@@ -997,20 +989,20 @@ function InitializeBattle() {
                                             localStorage.setItem('_Party', JSON.stringify(Party));
                                             setTimeout(function () {
                                                 $("#InventoryDialog").html("");
-                                                PlayerTurn(Enemy, TempHealth);
+                                                PlayerTurn2(Enemy, TempHealth);
                                             }, Party[0].PlayerTextSpeed);
                                         });
                                         $("#No").click(function () {
                                             $("#OptionsHolder").html("");
                                             $("#InventoryContainer").html("");
                                             $("#InventoryDialog").html("");
-                                            PlayerTurn(Enemy, TempHealth);
+                                            PlayerTurn2(Enemy, TempHealth);
                                         });
                                     }
                                     else if (Item.Type == "Misc") {
                                         $("#OptionsHolder").html("<div id='Options' class='MenuWrapper animated rubberBand'>You Can't Use A " + Item.Name + " On " + Party[this.id.substr(1, 1)].Name + " ? What are you even thinking? It has no effect...</div>");
                                         setTimeout(function () {
-                                            PlayerTurn(Enemy, TempHealth);
+                                            PlayerTurn2(Enemy, TempHealth);
                                         }, Party[0].PlayerTextSpeed );
                                     }
                                     else if (Item.Type == "Spell") {
@@ -1028,7 +1020,7 @@ function InitializeBattle() {
                                                 Character = PartyMember;
                                                 localStorage.setItem('_character', JSON.stringify(Character));
                                                 localStorage.setItem('_Party', JSON.stringify(Party));
-                                                PlayerTurn(Enemy,  TempHealth);
+                                                PlayerTurn2(Enemy,  TempHealth);
                                             }, Party[0].PlayerTextSpeed);
                                         };
                                     }
@@ -1075,7 +1067,7 @@ function InitializeBattle() {
                                                     localStorage.setItem('_character', JSON.stringify(Character));
                                                     localStorage.setItem('_Party', JSON.stringify(Party));
                                                     $("#PartyStatus").load("./temp/Status.html");
-                                                    PlayerTurn(Enemy, TempHealth);
+                                                    PlayerTurn2(Enemy, TempHealth);
                                                 }, Party[0].PlayerTextSpeed);
                                             };
                                         }, Party[0].PlayerTextSpeed);
@@ -1089,7 +1081,7 @@ function InitializeBattle() {
                 $("#IBack").click(function () {
                     $("#OptionsHolder").addClass("MenuWrapper")
                     $("#OptionsHolder").removeClass("BattleItemMenuWrapper");
-                    PlayerTurn(Enemy,  TempHealth);
+                    PlayerTurn2(Enemy,  TempHealth);
                 });
             };
         });
@@ -1121,33 +1113,34 @@ function InitializeBattle() {
                         $("#OptionsHolder").html("");
                         
                         if (PartyMember.Moves[index].Cost == 0 ){
-                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add "+ PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+ " damage to your attack</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add " + PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+ " damage to your attack</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
                         } else {
-                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add "+ PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+ " damage to your attack and cost " + PartyMember.Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add "+ PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+" damage to your attack and cost " + PartyMember.Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
                         }
                         
                         
                         
                         $("#Accept").click(function () {
                             var Move = PartyMember.Moves[index];
-                           var MoveDamage = Math.floor(Math.random() * Move.Damage[1] - Move.Damage[0]) + Move.Damage[0];
+                            var MoveDamage = Math.floor(Math.random() * Move.Damage[1] - Move.Damage[0]) + Move.Damage[0];
                             console.log(Move.Damage);
+                           
                             PlayerAttack(Enemy, TempHealth, Move);
                         });
                         $("#AttackBack").click(function () {
-                            PlayerTurn(Enemy,TempHealth);
+                            PlayerTurn2(Enemy,TempHealth);
                         });
                     };
                 });
             };
             $("#OptionsHolder").append("<button class='MenuButton animated bounce' id='AttackBack'> Back </button>");
             $("#AttackBack").click(function () {
-                PlayerTurn(Enemy, TempHealth);
+                PlayerTurn2(Enemy, TempHealth);
             });
         });
         /* PLAYER ATTACK */
         function PlayerAttack(Enemy, TempHealth, Move) {
-             var MoveDamage = JSON.parse(localStorage.getItem('_MoveDamage'));
+            var MoveDamage = JSON.parse(localStorage.getItem('_MoveDamage'));
     // Regular Attack //
                 var Spell = "";
                 var CritcalChance = 0;
@@ -1157,10 +1150,11 @@ function InitializeBattle() {
                 // Remove Cost from PLayer's HP if needed
                 PartyMember.Stats[0].Value = PartyMember.Stats[0].Value - Move.Cost;
              $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
-             localStorage.setItem('_Party', JSON.stringify(Party));
                 /////
                 RandomAttack = Math.round(PartyMember.Stats[1].Value * RandomAttack);
-                FullAttack = RandomAttack + CritcalChance + MoveDamage;
+                FullAttack = RandomAttack + CritcalChance + MoveDamage
+                  localStorage.setItem('_Party', JSON.stringify(Party));
+                  localStorage.setItem('_Enemy', JSON.stringify(Enemy));
                     // Move To Universal Damage Function //
                 EnemyLosesHealth(Enemy,TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move)
         };
@@ -1269,7 +1263,7 @@ function InitializeBattle() {
             /* PLAYER DIES */
             PartyMember.Stats[0].Value = 0;
             $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
-            $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'> " + PartyMember.Name + " passed out ! </div>");
+            $("#MessageHolder").html("<h4 class='animated hinge  Message' id='StatusMSG'> " + PartyMember.Name + " passed out ! </div>");
             setTimeout(function () {
                 BattleLost(Enemy,  TempHealth);
             }, Party[0].PlayerTextSpeed);
@@ -1278,12 +1272,20 @@ function InitializeBattle() {
 
     function EnemyLosesHealth(Enemy,TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move) {
            var Party = JSON.parse(localStorage.getItem('_Party'));
+          var Enemy = JSON.parse(localStorage.getItem('_Enemy'));
         
         $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
+        CriticalChance = 0;
         $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
         //// ENEMY LOSES IT'S HEALTH HERE ////
+         console.log("TempHealth : ")
+         console.log(TempHealth)
+         console.log(FullAttack)
         FullAttack = FullAttack + CritcalChance;
+        console.log(FullAttack)
         TempHealth = TempHealth - FullAttack
+         console.log(FullAttack)
+         console.log(TempHealth)
         if (TempHealth > 0) {
             /* If ENEMY Loses HEALTH */
             if (DidCriticalHit == true) {
@@ -1291,6 +1293,7 @@ function InitializeBattle() {
             }
             else if (UsedMagic == true) {
                 $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + Spell.Name + " costed " + Spell.Stats.Cost + " Mana </div>")
+                 console.log(FullAttack)
             }
             else {
                 $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + PartyMember.Name + " attacks using " + Move.Name + " </div>");
@@ -1303,7 +1306,7 @@ function InitializeBattle() {
                 $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + PartyMember.Name + " attacks " + Enemy.Name + " with " + FullAttack + " damage </div>");
                 setTimeout(function () {
                     localStorage.setItem('_Party', JSON.stringify(Party));
-                    EnemyTurn(Enemy, TempHealth);
+                   ThirdDialog();
                 }, Party[0].PlayerTextSpeed);
             }, Party[0].PlayerTextSpeed);
         }
@@ -1376,7 +1379,9 @@ function InitializeBattle() {
                 $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + PartyMember.Name + " attacks " + Enemy.Name + " with " + FullAttack + " damage </div>");
                 setTimeout(function () {
                     localStorage.setItem('_Party', JSON.stringify(Party));
-                    EnemyTurn(Enemy, TempHealth);
+                    localStorage.setItem('_Enemy', JSON.stringify(Enemy));
+                    localStorage.setItem('_TempHealth', JSON.stringify(TempHealth));
+                   SecondDialog();
                 }, Party[0].PlayerTextSpeed);
             }, Party[0].PlayerTextSpeed);
         }
@@ -1400,7 +1405,10 @@ function InitializeBattle() {
                 $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + PartyMember.Name + " attacks " + Enemy.Name + " with " + FullAttack + " damage </div>");
                 setTimeout(function () {
                     localStorage.setItem('_Party', JSON.stringify(Party));
-                    EnemyTurn(Enemy, TempHealth);
+                    localStorage.setItem('_Enemy', JSON.stringify(Enemy));
+                    localStorage.setItem('_TempHealth', JSON.stringify(TempHealth));
+                   //  EnemyTurn(Enemy, TempHealth);
+                    SecondDialog();
                 }, Party[0].PlayerTextSpeed);
             }, Party[0].PlayerTextSpeed);
         }
@@ -1507,7 +1515,7 @@ function InitializeBattle() {
         $("#App").prepend("<div class='CharacterMessageContainer' id='CharacterMessageContainer'><div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div></div>")
             // Sets up the character themselves and their dialog
         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
-        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Nice! let's try using a spell on it!  '</div>");
+        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Great first attack! Now it's my turn. What should I do?  '</div>");
         // Sets up the continue button and the clikcDialog function to move on to the next conversation spot //
         $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
         ClickDialog(Enemy,TempHealth);
@@ -1519,18 +1527,7 @@ function InitializeBattle() {
             DialogOrder = [
                 {
                     Name: " Ben "
-                    , Dialog: " I learned a few spells last month and this is the perfect time to test them out! "
-                    , Button: "No"
-                    , ChangeCharacter: "No"
-                    , Avatar: "./img/BenAvatar.png"
-                    , Sound: "No"
-                    , SoundControl: "None"
-                    , Music: "No"
-                    , MusicControl: "None"
-                , },
-                {
-                    Name: " Ben "
-                    , Dialog: "  ' Let's use a spell "+Party[0].Name+" '  <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Accept2'> *Use A Spell* </button>  "
+                    , Dialog: "  ' I could use a spell? or how about an attack! '  <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Accept2'> *Ben's turn*</button>  "
                     , Button: "Yes"
                     , ChangeCharacter: "No"
                     , Avatar: "./img/BenAvatar.png"
@@ -1600,7 +1597,7 @@ function InitializeBattle() {
         $("#App").prepend("<div class='CharacterMessageContainer' id='CharacterMessageContainer'><div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div></div>")
             // Sets up the character themselves and their dialog
         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
-        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' You Did It!  '</div>");
+        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Whew, I'm getting tired! '</div>");
       
         // Sets up the continue button and the clikcDialog function to move on to the next conversation spot //
         $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
@@ -1613,7 +1610,7 @@ function InitializeBattle() {
             DialogOrder = [
                 {
                     Name: " Ben "
-                    , Dialog: " That was amazing " + Party[0].Name + " ! "
+                    , Dialog: " Oh no.. "
                     , Button: "No"
                     , ChangeCharacter: "No"
                     , Avatar: "./img/BenAvatar.png"
@@ -1624,7 +1621,7 @@ function InitializeBattle() {
                 , },
                 {
                     Name: " Ben "
-                    , Dialog: " I feel so good! We are making a difference "
+                    , Dialog: " It's Going To Attack Us! "
                     , Button: "No"
                     , ChangeCharacter: "No"
                     , Avatar: "./img/BenAvatar.png"
@@ -1635,40 +1632,7 @@ function InitializeBattle() {
                 , },
                 {
                     Name: " Ben "
-                    , Dialog: " Look! The seagull is already looking  healthy! "
-                    , Button: "No"
-                    , ChangeCharacter: "No"
-                    , Avatar: "./img/BenAvatar.png"
-                    , Sound: "No"
-                    , SoundControl: "None"
-                    , Music: "No"
-                    , MusicControl: "None"
-                , },
-                {
-                    Name: " Seagull "
-                    , Dialog: " Cree, Cree , Cree"
-                    , Button: "No"
-                    , ChangeCharacter: "Yes"
-                    , Avatar: "./img/Seagull.png"
-                    , Sound: "No"
-                    , SoundControl: "None"
-                    , Music: "No"
-                    , MusicControl: "None"
-                , },
-                {
-                    Name: " Ben "
-                    , Dialog: " This is great! We should look for more animals that are infected, I feel like we are making a difference and cleaning up this city!"
-                    , Button: "No"
-                    , ChangeCharacter: "Yes"
-                    , Avatar: "./img/BenAvatar.png"
-                    , Sound: "No"
-                    , SoundControl: "None"
-                    , Music: "No"
-                    , MusicControl: "None"
-                , },
-                {
-                    Name: " Ben "
-                    , Dialog: " ' What do you think? Want to find more infected animals?  '  <br> <button class='MenuButton animated flipInY' id='Accept3'> Let's Do it! </button> "
+                    , Dialog: " ' Look out "+Party[0].Name+" ! '  <br> <button class='MenuButton animated flipInY' id='Accept3'> *Seal Attacks* </button> "
                     , Button: "Yes"
                     , ChangeCharacter: "No"
                     , Avatar: "./img/BenAvatar.png"
@@ -1728,14 +1692,7 @@ function InitializeBattle() {
             /* DECLINE */
             /* ACCEPT */
             $("#Accept3").click(function () {
-                Party[0].Triggers.Victoria7 = true;
-                localStorage.setItem('_Party', JSON.stringify(Party));
-                $("#StatusMessageHolder").html("");
-                $("#ContinueMessageHolder").html("");
-                $("#CharacterMessageContainer").remove();
-                 $("#App").load("./temp/TutorialBattle3.html");
-                
-
+                EnemyTurn();
              
             });
         }

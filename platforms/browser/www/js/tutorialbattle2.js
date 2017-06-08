@@ -10,60 +10,52 @@ InitializeBattle();
 
 function InitializeBattle() {
     /* ~~~~~~~~~~~~
-        
-                                                                                                                         !!  ELEMENTAL CHART CHECKER !!
 
-                                                                                                                            8 Biome
+        !!  ELEMENTAL CHART CHECKER !!
 
-                                                                                                                            Temporary Biome Elements
+        8 Biome
 
-                                                                                                                            Basic Attack - Physical
+        Temporary Biome Elements
+
+        Basic Attack - Physical
 
 
 
-                                                                                                                            Mountain  
-                                                                                                                            STRENGTH: Boreal Forest,Desert---
-                                                                                                                            WEAKNESS SaltWater,Freshwater----
+        Mountain  
+        STRENGTH: Boreal Forest,Desert---
+        WEAKNESS SaltWater,Freshwater----
 
-                                                                                                                            SaltWater
-                                                                                                                            STRENGTH: Mountain, Desert---
-                                                                                                                            WEAKNESS Boreal Forest, Deciduous Forest----
+        SaltWater
+        STRENGTH: Mountain, Desert---
+        WEAKNESS Boreal Forest, Deciduous Forest----
 
-                                                                                                                            Freshwater
-                                                                                                                                STRENGTH: Mountain, Deciduous Forest
-                                                                                                                            WEAKNESS Tundra, Desert----
+        Freshwater
+        STRENGTH: Mountain, Deciduous Forest
+        WEAKNESS Tundra, Desert----
 
-                                                                                                                            Deciduous Forest
-                                                                                                                                STRENGTH: SaltWater, Tundra
-                                                                                                                            WEAKNESS Grassland   Freshwater
+        Deciduous Forest
+        STRENGTH: SaltWater, Tundra
+        WEAKNESS Grassland   Freshwater
 
-                                                                                                                            Boreal Forest
-                                                                                                                                STRENGTH: SaltWater, Tundra------
-                                                                                                                            WEAKNESS Grassland, Mountain-----
+        Boreal Forest
+        STRENGTH: SaltWater, Tundra------
+        WEAKNESS Grassland, Mountain-----
 
-                                                                                                                            Grassland
-                                                                                                                                STRENGTH: Boreal Forest, Deciduous Forest-----
-                                                                                                                            WEAKNESS Tundra,Desert------
+        Grassland
+        STRENGTH: Boreal Forest, Deciduous Forest-----
+        WEAKNESS Tundra,Desert------
 
-                                                                                                                            Tundra
-                                                                                                                                STRENGTH: Grasslands Freshwater
-                                                                                                                            WEAKNESS Boreal Forest, Deciduous Forest
+        Tundra
+        STRENGTH: Grasslands Freshwater
+        WEAKNESS Boreal Forest, Deciduous Forest
 
-                                                                                                                            Desert
-                                                                                                                                STRENGTH: Grasslands , Freshwater-----
-                                                                                                                            WEAKNESS SaltWater, Mountain ------
+        Desert
+        STRENGTH: Grasslands , Freshwater-----
+        WEAKNESS SaltWater, Mountain ------
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
            ***** THIS IS THE SECOND TUTORIAL BATTLE WITH BEN, IN THIS TUTORIAL THE PLAYER WILL BE LEARNING HOW TO USE SPELLS AND HOW TO SWITCH BETWEEN PARTY MEMBERS DURING BATTLE. ALSO AS A SIDE, THE PLAYER WILL BE LEARNING THE EFFECTS OF THE NEW WEAPONS/ARMOUR THAT THEY MAY OR MAY NOT HAVE EQUIPPED IN THE LAST SECTION OF THE GAME    *******
            
            
@@ -85,6 +77,8 @@ function InitializeBattle() {
      /* For a real Battle, This would be the Player first and then the party members once it is their turn.. For now it will just be Ben since he is the one fighting this fight! */
         var PartyMember = Party[1];
      $("#Player").css("background", "" +PartyMember.Color + "");
+    PartyMember.Stats[7].Value = PartyMember.Stats[8].Value;
+    PartyMember.Stats[0].Value = PartyMember.Stats[6].Value;
     
     ////// ENEMY CREATOR /////
     var Enemies = [
@@ -93,14 +87,14 @@ function InitializeBattle() {
                 Name: 'Seagull'
                 , Avatar: "./img/Seagull.png"
                 , Type: "Mountain"
-                , SpawnRate: 0.35
+                , SpawnRate: 0.99
                 , Strength1: "Boreal Forest"
                 , Strength2: "Desert"
                 , Weakness1: "Saltwater"
                 , Weakness2: "Freshwater"
                 , Color: "#D7ACAC"
                 , Stats: {
-                    Health: Math.floor(Math.random() * 2) + 10
+                    Health: Math.floor(Math.random() * 6) + 10
                     , Attack: Math.floor(Math.random() * 2) + 1
                     , Defense: Math.floor(Math.random() * 0) + 0
                     , Magic: 0
@@ -146,7 +140,7 @@ function InitializeBattle() {
                 , Experience: {
                     ExperienceEarned: Math.floor(Math.random() * 15) + 2
                 , }
-                , RunStat: 300
+                , RunStat: 1
             , }
 
 ]
@@ -200,11 +194,9 @@ function InitializeBattle() {
             /* Enemy Animation ? */
             /*Create Battle Scene*/
             if (Enemy.Type == 'Saltwater') {
-                //    $("#Overlay").css("background-image","url(img/OceanBattleBackground.gif)");
                 $("#Enemy").css("background-image", "url(img/OceanBattleBackground.gif)");
             }
             else if (Enemy.Type == 'Mountain') {
-                //    $("#Overlay").css("background-image","url(img/MountainBattleBackground.gif)");
                 $("#Enemy").css("background-image", "url(img/MountainBattleBackground.gif)");
             };
             $("#Enemy").html("<br><div class='SubMainTitle' id='EnemyName'>" + Enemy.Name + "</div><br><div class='SubSubMainTitle' id='EnemyHealth'>Health : " + TempHealth + " / " + Enemy.Stats.Health + "</div><br><img id='EnemyAvatar'>")
@@ -217,7 +209,6 @@ function InitializeBattle() {
             /* Activate Turn Decider */
             setTimeout(function () {
                 /* LEAVES initial battle Setup and head into the turn chooser.*/
-                //  $("#App").css("opacity",".3");
                 // Sets up the Charatcer Talking Environment
                 $("#App").prepend("<div class='CharacterMessageContainer' id='CharacterMessageContainer'><div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div></div>")
                 // Remove BattleAnimation
@@ -295,9 +286,9 @@ function InitializeBattle() {
                     $("#Next").click(function () {
                         var DialogSelect = DialogOrder[DialogOrderNumber]
                         var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
-                        console.log('Click');
-                        console.log(Dialog)
-                        console.log(DialogOrderNumber);
+                   //     console.log('Click');
+                //        console.log(Dialog)
+               //         console.log(DialogOrderNumber);
                         DialogOrderNumber++
                         if (DialogSelect.Button == "No") {
                             if (DialogSelect.ChangeCharacter == "No") {
@@ -374,7 +365,7 @@ function InitializeBattle() {
             if (ScaredChecker <= Enemy.RunStat) {
                 $("#MessageHolder").html("<h4 class='animated shake  Message' id='StatusMSG'>" + Enemy.Name + " is Scared of You! </div>");
                 setTimeout(function () {
-                    $("#MessageHolder").html("<h4 class='animated hinge  Message' id='StatusMSG'>" + Enemy.Name + " Has Run Away!? </div>");
+                    $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + Enemy.Name + " Has Run Away!? </div>");
                     setTimeout(function () {
                         BattleRunAway();
                     }, Party[0].PlayerTextSpeed);
@@ -440,26 +431,26 @@ function InitializeBattle() {
             });
         });
         $("#SpellsAttack").click(function () {
-            $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
+            $("#OptionsHolder").html("<div id='Options' class=''></div>");
             for (i = 0; i < 4; i++) {
                 //  console.log(PartyMember.Spells[i])
                 if (PartyMember.Spells[i] != null) {
-                    $("#OptionsHolder").append("<button class='MenuButton' id='" + i + "'>" + PartyMember.Spells[i].Name + "</button>");
+                    $("#OptionsHolder").append("<button class='MenuButton animated bounceIn' id='" + i + "'>" + PartyMember.Spells[i].Name + "</button>");
                 }
                 else if (PartyMember.Spells.length == 0) {
-                    $("#OptionsHolder").html("<div class='MenuWrapper' id='" + i + "'> No spells learned, Go learn some spells ! </div>");
+                    $("#OptionsHolder").html("<div class='MenuWrapper animated bounceIn' id='" + i + "'> No spells learned, Go learn some spells ! </div>");
                 }
                 else {
-                    $("#OptionsHolder").append("<button class='MenuButtonDisabled' id='" + i + "'> No Spell Available </button>");
+                    $("#OptionsHolder").append("<button class='MenuButtonDisabled animated bounceIn' id='" + i + "'> No Spell Available </button>");
                 };
                 $("#" + i + "").click(function () {
                     var index = this.id;
                     if (PartyMember.Spells[index].Stats.Cost > PartyMember.Stats[7].Value) {
-                        $("#MessageHolder").html("<h4 class='animated lightSpeedIn  Message' id='StatusMSG'>" + PartyMember.Name + " Doesn't Have Enough Mana! </div>");
+                        $("#MessageHolder").html("<h4 class='animated  bounceIn  Message' id='StatusMSG'>" + PartyMember.Name + " Doesn't Have Enough Mana! </div>");
                     }
                     else {
                         $("#OptionsHolder").html("");
-                        $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Spells[index].Name + " will do " + PartyMember.Spells[index].Stats.Damage + " damage and cost " + PartyMember.Spells[index].Stats.Cost + " MP </div><br>  <button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='SpellBack'> Back </button> ");
+                        $("#OptionsHolder").html("<div class=' animated bounceIn  MenuWrapper' id='StatusMSG'>" + PartyMember.Spells[index].Name + " will do " + PartyMember.Spells[index].Stats.Damage + " damage and cost " + PartyMember.Spells[index].Stats.Cost + " MP </div><br>  <button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='SpellBack'> Back </button> ");
                         $("#Accept").click(function () {
                             $("#OptionsHolder").html("");
                             var ElementStrength = 0;
@@ -720,7 +711,7 @@ function InitializeBattle() {
             $("#Items").prop('disabled', true);
             $("#Status").prop('disabled', true);
             $("#SpellsAttack").prop('disabled', true);
-            //    
+            ////////////////////////////
             $("#OptionsHolder").html("");
             for (i = 0; i < 4; i++) {
                 console.log(PartyMember.Moves[i])
@@ -732,15 +723,29 @@ function InitializeBattle() {
                 };
                 $("#" + i + "").click(function () {
                     var index = this.id;
+                    console.log(PartyMember.Moves[index]);
                     if (PartyMember.Moves[index].Cost > PartyMember.Stats[1].Value) {
-                        $("#MessageHolder").html("<div class='animated rubberBand  MenuWrapper' id='StatusMSG'>" + PartyMember.Name + " Doesn't Have Enough Mana! </div>");
+                        $("#MessageHolder").html("<div class='animated rubberBand  MenuWrapper' id='StatusMSG'>" + PartyMember.Name + " Doesn't Have Enough Health! </div>");
                     }
                     else {
                         $("#OptionsHolder").html("");
-                        $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add " + PartyMember.Moves[index].Damage + " damage to attack and cost " + PartyMember.Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                        
+                        if (PartyMember.Moves[index].Cost == 0 ){
+                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add " + PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+" damage to your attack</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                        } else {
+                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add " + PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+ " damage to your attack and cost " + PartyMember.Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                        }
+                        
+                        
+                        
                         $("#Accept").click(function () {
-                            var Move = PartyMember.Moves[index];
-                            PlayerAttack(Enemy, TempHealth, Move);
+                             var Move = PartyMember.Moves[index];
+                            console.log(Move)
+                            var MoveDamage = Math.floor(Math.random() * Move.Damage[1] - Move.Damage[0]) + Move.Damage[0];
+                            console.log(Move);
+                            console.log(PartyMember.Moves);
+                            PlayerAttack(Enemy, TempHealth, Move );
+                             localStorage.setItem('_MoveDamage', JSON.stringify(MoveDamage));
                         });
                         $("#AttackBack").click(function () {
                             PlayerTurn(Enemy,TempHealth);
@@ -755,16 +760,22 @@ function InitializeBattle() {
         });
         /* PLAYER ATTACK */
         function PlayerAttack(Enemy, TempHealth, Move) {
+            var MoveDamage = JSON.parse(localStorage.getItem('_MoveDamage'));
                 // Regular Attack //
                 var Spell = "";
                 var CritcalChance = 0;
                 var DidCriticalHit = false;
                 var UsedMagic = false;
                 var RandomAttack = Math.random() + .75;
+                // Remove Cost from PLayer's HP if needed
+                PartyMember.Stats[0].Value = PartyMember.Stats[0].Value - Move.Cost;
+             $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
+             localStorage.setItem('_Party', JSON.stringify(Party));
+                /////
                 RandomAttack = Math.round(PartyMember.Stats[1].Value * RandomAttack);
-                FullAttack = RandomAttack + CritcalChance + Move.Damage
+                FullAttack = RandomAttack + CritcalChance + MoveDamage
                     // Move To Universal Damage Function //
-                EnemyLosesHealth(Enemy,TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move)
+                EnemyLosesHealthCheat(Enemy,TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move)
             
         };
     };
@@ -909,7 +920,8 @@ function InitializeBattle() {
                     if ($("#Overlay").hasClass("Open")) {}
                     else {
                         clearInterval(OverlayChecker);
-                        var Character = JSON.parse(localStorage.getItem('_character'));
+                        var Party = JSON.parse(localStorage.getItem('_PArty'));
+                     //   var Character = JSON.parse(localStorage.getItem('_character'));
                         $("#Overlay").css("opacity", ".5");
                         $("#Player").html("<div class='SubMainTitle' id='PlayerName'>" + PartyMember.Name + " " + PartyMember.FamilyName + "</div><br><div class='HealthMainTitle' id='PlayerHealth'>Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "</div></div><br><div class='ManaMainTitle'  id='PlayerMana'>Mana : " + PartyMember.Stats[7].Value + " / " + PartyMember.Stats[8].Value + "</div><br><div class='XPMainTitle'  id='PlayerXP'>XP : " + PartyMember.Experience.Total + " / " + PartyMember.Experience.ToNextLevel + "</div>");
                         console.log("After Character")
@@ -1082,7 +1094,7 @@ function InitializeBattle() {
             };
         });
         $("#Attack").click(function () {
-            var Party = JSON.parse(localStorage.getItem('_Party'));
+           var Party = JSON.parse(localStorage.getItem('_Party'));
             
             /* PLAYER ATTACK BUTTON */
             $("#Run").prop('disabled', true);
@@ -1103,13 +1115,23 @@ function InitializeBattle() {
                 $("#" + i + "").click(function () {
                     var index = this.id;
                     if (PartyMember.Moves[index].Cost > PartyMember.Stats[1].Value) {
-                        $("#MessageHolder").html("<div class='animated rubberBand  MenuWrapper' id='StatusMSG'>" + PartyMember.Name + " Doesn't Have Enough Mana! </div>");
+                        $("#MessageHolder").html("<div class='animated rubberBand  MenuWrapper' id='StatusMSG'>" + PartyMember.Name + " Doesn't Have Enough Health! </div>");
                     }
                     else {
                         $("#OptionsHolder").html("");
-                        $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add " + PartyMember.Moves[index].Damage + " damage to attack and cost " + PartyMember.Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                        
+                        if (PartyMember.Moves[index].Cost == 0 ){
+                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add "+ PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+ " damage to your attack</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                        } else {
+                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + PartyMember.Moves[index].Name + " will add "+ PartyMember.Moves[index].Damage[0] +" - "+PartyMember.Moves[index].Damage[1]+ " damage to your attack and cost " + PartyMember.Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                        }
+                        
+                        
+                        
                         $("#Accept").click(function () {
                             var Move = PartyMember.Moves[index];
+                           var MoveDamage = Math.floor(Math.random() * Move.Damage[1] - Move.Damage[0]) + Move.Damage[0];
+                            console.log(Move.Damage);
                             PlayerAttack(Enemy, TempHealth, Move);
                         });
                         $("#AttackBack").click(function () {
@@ -1125,37 +1147,22 @@ function InitializeBattle() {
         });
         /* PLAYER ATTACK */
         function PlayerAttack(Enemy, TempHealth, Move) {
-            /* Adding Misses */
-            if (Math.random() >= PartyMember.Stats[5].Value) {
-                $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + PartyMember.Name + " attacks using " + Move.Name + " </div>");
-                setTimeout(function () {
-                    $("#MessageHolder").html("<div class='MenuWRapper animated tada  Message' id='StatusMSG'>StatusMSG").html("" + PartyMember.Name + " missed! </div>");
-                    setTimeout(function () {
-                        EnemyTurn(Enemy, TempHealth);
-                    }, Party[0].PlayerTextSpeed);
-                }, Party[0].PlayerTextSpeed);
-            }
-            else {
-                //*****CRITICAL HIT CHANCE 1/10****//
-                var CritcalChance = Math.floor((Math.random() * 10) + 1);
+             var MoveDamage = JSON.parse(localStorage.getItem('_MoveDamage'));
+    // Regular Attack //
+                var Spell = "";
+                var CritcalChance = 0;
                 var DidCriticalHit = false;
                 var UsedMagic = false;
-                if (CritcalChance == 10) {
-                    CritcalChance = Math.round((PartyMember.Stats[1].Value * 1.25) * (Move.Damage * 1.25));
-                    DidCriticalHit = true;
-           //         console.log("CRITICAL ATTACK")
-                }
-                else {
-                    CritcalChance = 0
-                };
-                // Regular Attack //
-                var Spell = "";
                 var RandomAttack = Math.random() + .75;
+                // Remove Cost from PLayer's HP if needed
+                PartyMember.Stats[0].Value = PartyMember.Stats[0].Value - Move.Cost;
+             $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
+             localStorage.setItem('_Party', JSON.stringify(Party));
+                /////
                 RandomAttack = Math.round(PartyMember.Stats[1].Value * RandomAttack);
-                FullAttack = RandomAttack + CritcalChance + Move.Damage
+                FullAttack = RandomAttack + CritcalChance + MoveDamage;
                     // Move To Universal Damage Function //
                 EnemyLosesHealth(Enemy,TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move)
-            }
         };
     };
     
@@ -1262,7 +1269,7 @@ function InitializeBattle() {
             /* PLAYER DIES */
             PartyMember.Stats[0].Value = 0;
             $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
-            $("#MessageHolder").html("<h4 class='animated hinge  Message' id='StatusMSG'> " + PartyMember.Name + " passed out ! </div>");
+            $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'> " + PartyMember.Name + " passed out ! </div>");
             setTimeout(function () {
                 BattleLost(Enemy,  TempHealth);
             }, Party[0].PlayerTextSpeed);
@@ -1270,6 +1277,9 @@ function InitializeBattle() {
     }
 
     function EnemyLosesHealth(Enemy,TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move) {
+           var Party = JSON.parse(localStorage.getItem('_Party'));
+        
+        $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
         $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
         //// ENEMY LOSES IT'S HEALTH HERE ////
         FullAttack = FullAttack + CritcalChance;
@@ -1337,6 +1347,67 @@ function InitializeBattle() {
             };
         }
     };
+    
+    
+     function EnemyLosesHealthCheat(Enemy,TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move) {
+           var Party = JSON.parse(localStorage.getItem('_Party'));
+        
+        $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
+        $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
+        //// ENEMY LOSES IT'S HEALTH HERE ////
+        FullAttack = FullAttack + CritcalChance;
+        TempHealth = TempHealth - FullAttack
+        if (TempHealth > 0) {
+            /* If ENEMY Loses HEALTH */
+            if (DidCriticalHit == true) {
+                $("#MessageHolder").html("<h4 class='animated tada  Message' id='StatusMSG'>Critical Hit!</div>");
+            }
+            else if (UsedMagic == true) {
+                $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + Spell.Name + " costed " + Spell.Stats.Cost + " Mana </div>")
+            }
+            else {
+                $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + PartyMember.Name + " attacks using " + Move.Name + " </div>");
+            }
+            setTimeout(function () {
+                console.log(TempHealth)
+                console.log( Enemy.Stats.Health)
+                $("#EnemyHealth").html("Health : " + TempHealth + " / " + Enemy.Stats.Health);
+                $("#PlayerMana").html("Mana : " + PartyMember.Stats[7].Value + " / " + PartyMember.Stats[8].Value);
+                $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + PartyMember.Name + " attacks " + Enemy.Name + " with " + FullAttack + " damage </div>");
+                setTimeout(function () {
+                    localStorage.setItem('_Party', JSON.stringify(Party));
+                    EnemyTurn(Enemy, TempHealth);
+                }, Party[0].PlayerTextSpeed);
+            }, Party[0].PlayerTextSpeed);
+        }
+        else {
+             TempHealth =  1;
+            /* If ENEMY Loses HEALTH */
+            if (DidCriticalHit == true) {
+                $("#MessageHolder").html("<h4 class='animated tada  Message' id='StatusMSG'>Critical Hit!</div>");
+            }
+            else if (UsedMagic == true) {
+                $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + Spell.Name + " costed " + Spell.Stats.Cost + " Mana </div>")
+            }
+            else {
+                $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + PartyMember.Name + " attacks using " + Move.Name + " </div>");
+            }
+            setTimeout(function () {
+                console.log(TempHealth)
+                console.log( Enemy.Stats.Health)
+                $("#EnemyHealth").html("Health : " + TempHealth + " / " + Enemy.Stats.Health);
+                $("#PlayerMana").html("Mana : " + PartyMember.Stats[7].Value + " / " + PartyMember.Stats[8].Value);
+                $("#MessageHolder").html("<h4 class='animated pulse  Message' id='StatusMSG'>" + PartyMember.Name + " attacks " + Enemy.Name + " with " + FullAttack + " damage </div>");
+                setTimeout(function () {
+                    localStorage.setItem('_Party', JSON.stringify(Party));
+                    EnemyTurn(Enemy, TempHealth);
+                }, Party[0].PlayerTextSpeed);
+            }, Party[0].PlayerTextSpeed);
+        }
+    };
+    
+    
+    
 
     function BattleWon(Enemy, TempHealth) {
     //    var Character = JSON.parse(localStorage.getItem('_character'));
@@ -1354,7 +1425,7 @@ function InitializeBattle() {
                 LootName = " Also " + PartyMember.Name + " obtained a " + Loot.Name + " !";
             }
         }
-        PartyMember.Wallet.Total = PartyMember.Wallet.Total + Enemy.Earnings.Total;
+        Party[0].Wallet.Total = Party[0].Wallet.Total + Enemy.Earnings.Total;
         PartyMember.Experience.Total = PartyMember.Experience.Total + Enemy.Experience.ExperienceEarned;
         $("#PlayerXP").html("XP : " + PartyMember.Experience.Total + " / " + PartyMember.Experience.ToNextLevel + "");
       //  localStorage.setItem('_character', JSON.stringify(Character));
@@ -1431,12 +1502,12 @@ function InitializeBattle() {
 
     function SecondDialog(Enemy, TempHealth) {
         var Party = JSON.parse(localStorage.getItem('_Party'));
-        console.log("Second Dialog")
-        console.log(PartyMember.Stats[0].Value);
+    //    console.log("Second Dialog")
+    //    console.log(PartyMember.Stats[0].Value);
         $("#App").prepend("<div class='CharacterMessageContainer' id='CharacterMessageContainer'><div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div></div>")
             // Sets up the character themselves and their dialog
         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
-        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Wow, This is hard! Maybe we should try using a spell? '</div>");
+        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Nice! let's try using a spell on it!  '</div>");
         // Sets up the continue button and the clikcDialog function to move on to the next conversation spot //
         $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
         ClickDialog(Enemy,TempHealth);
@@ -1448,7 +1519,7 @@ function InitializeBattle() {
             DialogOrder = [
                 {
                     Name: " Ben "
-                    , Dialog: " I learned a few spells last month and n=this is the perfect time to test them out! "
+                    , Dialog: " I learned a few spells last month and this is the perfect time to test them out! "
                     , Button: "No"
                     , ChangeCharacter: "No"
                     , Avatar: "./img/BenAvatar.png"
@@ -1542,8 +1613,63 @@ function InitializeBattle() {
             DialogOrder = [
                 {
                     Name: " Ben "
-                    , Dialog: " That was amazing " + PartyMember.Name + " ! "
+                    , Dialog: " That was amazing " + Party[0].Name + " ! "
                     , Button: "No"
+                    , ChangeCharacter: "No"
+                    , Avatar: "./img/BenAvatar.png"
+                    , Sound: "No"
+                    , SoundControl: "None"
+                    , Music: "No"
+                    , MusicControl: "None"
+                , },
+                {
+                    Name: " Ben "
+                    , Dialog: " I feel so good! We are making a difference "
+                    , Button: "No"
+                    , ChangeCharacter: "No"
+                    , Avatar: "./img/BenAvatar.png"
+                    , Sound: "No"
+                    , SoundControl: "None"
+                    , Music: "No"
+                    , MusicControl: "None"
+                , },
+                {
+                    Name: " Ben "
+                    , Dialog: " Look! The seagull is already looking  healthy! "
+                    , Button: "No"
+                    , ChangeCharacter: "No"
+                    , Avatar: "./img/BenAvatar.png"
+                    , Sound: "No"
+                    , SoundControl: "None"
+                    , Music: "No"
+                    , MusicControl: "None"
+                , },
+                {
+                    Name: " Seagull "
+                    , Dialog: " Cree, Cree , Cree"
+                    , Button: "No"
+                    , ChangeCharacter: "Yes"
+                    , Avatar: "./img/Seagull.png"
+                    , Sound: "No"
+                    , SoundControl: "None"
+                    , Music: "No"
+                    , MusicControl: "None"
+                , },
+                {
+                    Name: " Ben "
+                    , Dialog: " This is great! We should look for more animals that are infected, I feel like we are making a difference and cleaning up this city!"
+                    , Button: "No"
+                    , ChangeCharacter: "Yes"
+                    , Avatar: "./img/BenAvatar.png"
+                    , Sound: "No"
+                    , SoundControl: "None"
+                    , Music: "No"
+                    , MusicControl: "None"
+                , },
+                {
+                    Name: " Ben "
+                    , Dialog: " ' What do you think? Want to find more infected animals?  '  <br> <button class='MenuButton animated flipInY' id='Accept3'> Let's Do it! </button> "
+                    , Button: "Yes"
                     , ChangeCharacter: "No"
                     , Avatar: "./img/BenAvatar.png"
                     , Sound: "No"
@@ -1555,9 +1681,6 @@ function InitializeBattle() {
             $("#Next").click(function () {
                 var DialogSelect = DialogOrder[DialogOrderNumber]
                 var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
-                console.log('Click');
-                console.log(Dialog)
-                console.log(DialogOrderNumber);
                 DialogOrderNumber++
                 if (DialogSelect.Button == "No") {
                     if (DialogSelect.ChangeCharacter == "No") {
@@ -1604,6 +1727,17 @@ function InitializeBattle() {
         function DialogOption(DialogSelect) {
             /* DECLINE */
             /* ACCEPT */
+            $("#Accept3").click(function () {
+                Party[0].Triggers.Victoria7 = true;
+                localStorage.setItem('_Party', JSON.stringify(Party));
+                $("#StatusMessageHolder").html("");
+                $("#ContinueMessageHolder").html("");
+                $("#CharacterMessageContainer").remove();
+                 $("#App").load("./temp/TutorialBattle3.html");
+                
+
+             
+            });
         }
     };
    

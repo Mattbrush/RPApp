@@ -383,6 +383,8 @@ function StartStore() {
                 
                    var Party = JSON.parse(localStorage.getItem('_Party'));
                 var Character = JSON.parse(localStorage.getItem('_character'));
+                var Mana = Math.floor(Math.random() * 5) + 5;
+                var Health = Math.floor(Math.random() * 5) + 5;
                 var Ben = {
                     Name: "Ben"
                     , FamilyName: "Wengel"
@@ -395,7 +397,7 @@ function StartStore() {
                     , Weakness2: "Mountain"
                     , Stats: [{
                             Name: "Health"
-                            , Value: 15
+                            , Value: Health
         }
             , {
                             Name: "Attack"
@@ -415,22 +417,22 @@ function StartStore() {
             }
             , {
                             Name: "Accuracy"
-                            , Value: 0.85
+                            , Value: Math.floor(Math.random() * .10) + .80
             }
         , {
                             Name: "FullHealth"
-                            , Value: 15
+                            , Value: Health
                         , }
                    , {
                             Name: "Mana"
-                            , Value: 5
+                            , Value: Mana
                         , }
                   , {
                             Name: "FullMana"
-                            , Value: 5
+                            , Value: Mana
                         , }
                  ]
-                    , Weight: Math.round((2 / 2) * 25)
+                    , Weight: Math.round((2 / 2) * Math.floor(Math.random() * 10) + 20)
                     , Equipment: {
                         Head: ""
                         , Torso: ""
@@ -451,7 +453,7 @@ function StartStore() {
                             , Weight: 1
                             , Stats: {
                                 Cost: 5
-                                , Damage: 10
+                                , Damage: Math.floor(Math.random() * 8) + 8
                                 , Element: "Boreal Forest"
                             }
                             , Worth: 5
@@ -461,13 +463,13 @@ function StartStore() {
                     , Moves: [
                         {
                             Name: "Chop"
-                            , Damage: 4
+                            , Damage: [2,4]
                             , Cost: 0
                             , Type: "Physical"
                         }
                         , {
                             Name: "Slice"
-                            , Damage: 7
+                            , Damage: [2,7]
                             , Cost: 2
                             , Type: "Physical"
                         }
@@ -478,7 +480,7 @@ function StartStore() {
                     }
                     , Experience: {
                         Total: 0
-                        , ToNextLevel: 25
+                        , ToNextLevel: Math.floor(Math.random() * 25) + 20
                         , SkillPoints: 0
                     , }
                 };
@@ -631,7 +633,7 @@ $("#Accept3").click(function () {
     function StoreFront() {
       //  $("#Logo").html("<img src='./img/tommieslogo.png'>");
  
-        var Character = JSON.parse(localStorage.getItem('_character'));
+       // var Character = JSON.parse(localStorage.getItem('_character'));
         var Party = JSON.parse(localStorage.getItem('_Party'));
         
         CheckWallet();

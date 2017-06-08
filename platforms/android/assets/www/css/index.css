@@ -406,6 +406,7 @@ body {
 }
 .CharacterMessageContainer {
         position: fixed;
+    width: 100%;
         z-index: 5;
     background: rgba(0, 0, 0, 0.72);
     padding-bottom: 100%;
@@ -590,6 +591,11 @@ body {
 #PlayerMana {}
 
 #PlayerXP {}
+
+#Battle{
+    width: 90%;
+    margin: 0 auto;
+}
 
 
 /*****************************/
