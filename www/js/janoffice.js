@@ -11,18 +11,318 @@ console.clear();
     var MainTheme = new Audio('./music/MainTheme.mp3');
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-
+var Party = JSON.parse(localStorage.getItem('_Party'));
 
 
 console.log("~~~~~Jan's Office~~~~~~");
-JanOffice();
+if (Party[0].Triggers.Victoria8 == true){
+    JanOffice2();
+} else{
+    JanOffice();
+};
+
+
+
+
 console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
 
+function JanOffice2() {
+  //  var Character = JSON.parse(localStorage.getItem('_character'));
+    var Party = JSON.parse(localStorage.getItem('_Party'));
+    console.clear();
+    console.log("Character :");
+    console.log(Party[0]);
 
+        
+     
+    
+    
+    
+    
+        $("#OverlayContainer").append("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+        $("#Overlay").css("opacity", "0.65");
+        $("#Overlay").css("background-image", "url(img/Office.jpeg)");
+        $("#Overlay").css("background-position-x", "770px");
+        $("#Overlay").css("background-size", "cover");
+    $("#Locationtitle").html(" Jan Levingson's Office, Victoria,  B.C");
+    $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/JanAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Jan : ' You two.. '</div>");
+      $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+    
+    ClickDialog();
+    
+        
+     // Set Dialog Back to Zero !
+    var DialogOrderNumber = 0;
+
+    function ClickDialog() {
+        DialogOrder = [
+             {
+                Name: " Jan "
+                , Dialog: " are unbeleivable... "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/JanAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Jan "
+                , Dialog: " Fighting harmless animals at the docks of Victoria !?"
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/JanAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Jan "
+                , Dialog: " Who do you think you are ? "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/JanAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Ben "
+                , Dialog: " Jan! It's not what you think, the animals are infec.. "
+                , Button: "No"
+                , ChangeCharacter: "Yes"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Jan "
+                , Dialog: " I don't want to hear it Ben, You were on a final warning! I'm sorry but we can't tolerate your behaviour anymore. "
+                , Button: "No"
+                , ChangeCharacter: "Yes"
+                , Avatar: "./img/JanAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Jan "
+                , Dialog: " and you "+Party[0].Name+".. I specifically told you not to do this.. "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/JanAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Jan "
+                , Dialog: " I don't think you are the person we are looking for to help us with cleaning up this country, I think it's better if you go home.."
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/JanAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Ben "
+                , Dialog: " Shut up! You can talk to me however you want but leave "+Party[0].Name+" out of it. "
+                , Button: "No"
+                , ChangeCharacter: "Yes"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Ben "
+                , Dialog: " "+Party[0].Name+" has done nothing but care for this place since they got here! It's people like you that are corrupting our land.  "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Jan "
+                , Dialog: "How dare you! "
+                , Button: "No"
+                , ChangeCharacter: "Yes"
+                , Avatar: "./img/JanAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " Come on "+Party[0].Name+", let's get out of here. she isn't worth our time "
+                , Button: "No"
+                , ChangeCharacter: "Yes"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Ben "
+                , Dialog: " She has clearly given up on trying to help the cause at all "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Jan "
+                , Dialog: " Ben.."
+                , Button: "No"
+                , ChangeCharacter: "Yes"
+                , Avatar: "./img/JanAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " Let's go "+Party[0].Name+" "
+                , Button: "No"
+                , ChangeCharacter: "Yes"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+            ,{
+                Name: " Ben "
+                , Dialog: " Let's go "+Party[0].Name+" <div id='DialogOptions'><br><button class='MenuButton animated flipInY' id='Accept4'> Okay.  </button><br><button class='MenuButton animated flipInY' id='Accept3'> But Ben.. </button>"
+                , Button: "Yes"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+        , ]
+        $("#Next").click(function () {
+            var DialogSelect = DialogOrder[DialogOrderNumber]
+            var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
+            console.log('Click');
+            console.log(Dialog)
+            console.log(DialogOrderNumber);
+            DialogOrderNumber++
+            if (DialogSelect.Button == "No") {
+  
+                if (DialogSelect.ChangeCharacter == "No") {
+                    $("#Avatar").attr("src", " " + DialogSelect.Avatar + " ")
+                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                }
+                else {
+                     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='" + DialogSelect.Avatar + "'><div id='StatusMessageHolder'><br>");
+                     $("#ContinueMessageHolder").html("");
+                    setTimeout(function () {
+                        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                        $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                         ClickDialog();
+                    }, 1500);
+                }
+                if (DialogSelect.Music != "No" || DialogSelect.Sound != "No") {
+                    if (DialogSelect.MusicControl == "Stop") {
+                        DialogSelect.Music.pause();
+                        DialogSelect.Music.currentTime = 0;
+                    }
+                    else if (DialogSelect.SoundControl == "Stop") {
+                        DialogSelect.Sound.pause();
+                        DialogSelect.Sound.currentTime = 0;
+                    };
+                    if (DialogSelect.MusicControl == "Play") {
+                        console.log("Playing " + DialogSelect.Music);
+                        DialogSelect.Music.play();
+                    }
+                    else if (DialogSelect.SoundControl == "Play") {
+                        console.log("Playing " + DialogSelect.Sound);
+                        DialogSelect.Sound.play();
+                    }
+                };
+            }
+            else {
+
+                Dialog = " " + DialogSelect.Name + " :  " + DialogSelect.Dialog + "   ";
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper '>" + Dialog + "</div>");
+                DialogOption(DialogSelect);
+                $("#ContinueMessageHolder").html("");
+            }
+        });
+    };
+
+
+
+        function DialogOption(DialogSelect) {
+  
+          
+            /* DECLINE */
+            /* ACCEPT */       
+            $("#Accept3").click(function () {
+                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' Not Now "+Party[0].Name+" ! We are leaving  '</div>");
+                $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Victoria'> *Back to Victoria* </button>");
+                
+                  $("#Victoria").click(function () {
+                $("#TravelContainer").removeClass("MenuWrapper");
+                $("#OverlayContainer").html("<div id='Overlay' class='animated fadeIn'></div>");
+                      Party[0].Triggers.Victoria9 = true;
+                       localStorage.setItem('_Party', JSON.stringify(Party));
+                $("#App").load("./temp/Victoria.html");
+                });
+                 });
+            
+            $("#Accept4").click(function () {
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : 'We don't need this  '</div>");
+                $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Victoria'> *Back to Victoria* </button>");
+                
+                  $("#Victoria").click(function () {
+                $("#TravelContainer").removeClass("MenuWrapper");
+                $("#OverlayContainer").html("<div id='Overlay' class='animated fadeIn'></div>");
+                         Party[0].Triggers.Victoria9 = true;
+                       localStorage.setItem('_Party', JSON.stringify(Party));
+                $("#App").load("./temp/Victoria.html");
+            });
+                });
+    
+            
+
+           
+            /* HONEST */
+        
+            /* CONFUSED */
+            
+            // End of Global Buttons
+        }
+    
+    
+    
+    
+};
 
 function JanOffice() {
-    var Character = JSON.parse(localStorage.getItem('_character'));
+  //  var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     console.clear();
     console.log("Character :");

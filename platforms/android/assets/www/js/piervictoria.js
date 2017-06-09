@@ -16,7 +16,11 @@ console.clear();
  //var Character = JSON.parse(localStorage.getItem('_character'));
  var Party = JSON.parse(localStorage.getItem('_Party'));
 console.log("~~~~~Victoria Pier~~~~~~");
-if (Party[0].Triggers.Victoria7 == true){
+if (Party[0].Triggers.Victoria10 == true){
+  PierVictoria5();
+}else if (Party[0].Triggers.Victoria8 == true){
+  PierVictoria4();
+}else  if (Party[0].Triggers.Victoria7 == true){
   $("#App").load("./temp/TutorialBattle3.html");
 }else if (Party[0].Triggers.Victoria6 == true){
 PierVictoria3();
@@ -26,6 +30,392 @@ PierVictoria2();
 PierVictoria();
 };
 console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+
+function PierVictoria5() {
+        
+    
+        $("#OverlayContainer").append("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+        $("#Overlay").css("opacity", "0.65");
+        $("#Overlay").css("background-image", "url(img/PierVictoria.jpg)");
+        $("#Overlay").css("background-position-x", "770px");
+        $("#Overlay").css("background-size", "cover");
+    
+    
+    $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket' ></div>");
+    $("#App").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage' ></div>");
+    $("#AlertPlayerMessage").prepend("<div class='AlertPlayerText'>Where would you like to go? <br><button class='MenuButton animated flipInY' id='PierFish'> Pier </button><button class='MenuButton animated flipInY' id='Beach'> Beach </button></div>");
+    
+    $("#Beach").click(function(){
+        $("#ContinueMessageHolder").remove();
+         $("#Locationtitle").html(" The Beach, Victoria,  B.C");
+                $("#StatusMessageHolder").html("");
+                $("#ContinueMessageHolder").html("");
+                $("#CharacterAvatar").html("");
+                $("#App").load("./temp/BeachVictoria.html");
+    });
+    
+    $("#PierFish").click(function(){
+           $("#OverlayBlanket").remove();
+           $("#AlertPlayerMessage").remove();
+        $("#Locationtitle").html(" The Pier, Victoria,  B.C");
+    $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/FishermanAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Fisherman : ' Hi there!  '</div>");
+        $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+       ClickDialog();
+    
+    
+    // Set Dialog Back to Zero !
+    var DialogOrderNumber = 0;
+
+    function ClickDialog() {
+        DialogOrder = [
+             {
+                Name: " Fisherman "
+                , Dialog: " ' What can I do for you ? '    <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Question0'> How much is  a charter boat? </button> <br><button class='MenuButton animated flipInY' id='Question1'> Who are you?  </button> <br> <button class='MenuButton animated flipInY' id='Question2'> Do you like it here? </button> <br> <button class='MenuButton animated flipInY' id='Question3'> Bye  </button>    "
+                , Button: "Yes"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/FishermanAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+        , ]
+        $("#Next").click(function () {
+            var DialogSelect = DialogOrder[DialogOrderNumber]
+            var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
+            console.log('Click');
+            console.log(Dialog)
+            console.log(DialogOrderNumber);
+            DialogOrderNumber++
+            if (DialogSelect.Button == "No") {
+  
+                if (DialogSelect.ChangeCharacter == "No") {
+                    $("#Avatar").attr("src", " " + DialogSelect.Avatar + " ")
+                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                }
+                else {
+                     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='" + DialogSelect.Avatar + "'><div id='StatusMessageHolder'><br>");
+                     $("#ContinueMessageHolder").html("");
+                    setTimeout(function () {
+                        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                        $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                         ClickDialog();
+                    }, 750);
+                }
+                if (DialogSelect.Music != "No" || DialogSelect.Sound != "No") {
+                    if (DialogSelect.MusicControl == "Stop") {
+                        DialogSelect.Music.pause();
+                        DialogSelect.Music.currentTime = 0;
+                    }
+                    else if (DialogSelect.SoundControl == "Stop") {
+                        DialogSelect.Sound.pause();
+                        DialogSelect.Sound.currentTime = 0;
+                    };
+                    if (DialogSelect.MusicControl == "Play") {
+                        console.log("Playing " + DialogSelect.Music);
+                        DialogSelect.Music.play();
+                    }
+                    else if (DialogSelect.SoundControl == "Play") {
+                        console.log("Playing " + DialogSelect.Sound);
+                        DialogSelect.Sound.play();
+                    }
+                };
+            }
+            else {
+
+                Dialog = " " + DialogSelect.Name + " :  " + DialogSelect.Dialog + "   ";
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper '>" + Dialog + "</div>");
+                DialogOption(DialogSelect);
+                $("#ContinueMessageHolder").html("");
+            }
+        });
+    };
+
+
+
+        function DialogOption(DialogSelect) {
+  
+          
+            /* DECLINE */
+                $("#Question3").click(function () {
+                 $("#StatusMessageHolder").html("");
+                $("#ContinueMessageHolder").html("");
+                $("#CharacterAvatar").html("");
+                $("#App").load("./temp/Victoria.html");
+                });
+            /* ACCEPT */       
+             $("#Question0").click(function () {
+                      $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : 'One Charter trip out into the deep blue sea is 100 Bucks! '</div>");
+            $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Next </button>");
+                 
+                  $("#Next").click(function () {
+                 $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' Do you want to buy the Charter trip?  '</div>");
+                      
+                      
+                    $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Buy'> Buy </button><br><button class='DialogNextButton animated flipInX' id='Back'> Back </button>");
+                      
+                      
+                      
+                      $("#Buy").click(function () {
+                          
+                          
+                          if (Party[0].Wallet.Total < 100 ){
+                          DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Fisherman : ' Sorry there, you don't have enough twoonies! </div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();     
+                          } else {
+                DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Fisherman : ' Anything else ?  '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                          };
+                    
+                });
+                      
+                        $("#Back").click(function () {
+                DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Fisherman : ' Anything else ?  '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                    
+                });
+                });
+                 
+                 
+                 
+            $("#Back").click(function () {
+                DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'>  Fisherman : ' Anything else ? '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                    
+                });
+                });
+            
+            
+            
+            
+            
+                 $("#Question1").click(function () {
+                      $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' I'm the best fisherman in all of British Columbia! The name is Morty, nice to meet you !  '</div>");
+            $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Back'> Back </button>");
+            $("#Back").click(function () {
+                DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'>  Fisherman : ' Anything else ? '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                    
+                });
+                });
+            
+               
+                 $("#Question2").click(function () {
+                      $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' I have never found better fishing spots than the ones here on Vancouver Island. This place is where I hang my hat and I never want to change that. '</div>");
+            $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Back'> Back </button>");
+            $("#Back").click(function () {
+                DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'>  Fisherman : ' Anything else ? '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                    
+                });
+                });
+            
+            
+
+           
+            /* HONEST */
+
+            /* HOSTILE */
+
+            /* CONFUSED */
+       
+            
+            // End of Global Buttons
+        }
+    
+    
+   });  
+    
+};
+
+function PierVictoria4() {
+        
+    
+        $("#OverlayContainer").append("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+        $("#Overlay").css("opacity", "0.65");
+        $("#Overlay").css("background-image", "url(img/PierVictoria.jpg)");
+        $("#Overlay").css("background-position-x", "770px");
+        $("#Overlay").css("background-size", "cover");
+    $("#Locationtitle").html(" The Pier, Victoria,  B.C");
+    $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/FishermanAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Fisherman : ' Hi there!  '</div>");
+        $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+       ClickDialog();
+    
+    
+    // Set Dialog Back to Zero !
+    var DialogOrderNumber = 0;
+
+    function ClickDialog() {
+        DialogOrder = [
+             {
+                Name: " Fisherman "
+                , Dialog: " ' What can I do for you ? '    <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Question0'> How much is  a charter boat? </button> <br><button class='MenuButton animated flipInY' id='Question1'> Who are you?  </button> <br> <button class='MenuButton animated flipInY' id='Question2'> Do you like it here? </button> <br> <button class='MenuButton animated flipInY' id='Question3'> Bye  </button>    "
+                , Button: "Yes"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/FishermanAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+        , ]
+        $("#Next").click(function () {
+            var DialogSelect = DialogOrder[DialogOrderNumber]
+            var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
+            console.log('Click');
+            console.log(Dialog)
+            console.log(DialogOrderNumber);
+            DialogOrderNumber++
+            if (DialogSelect.Button == "No") {
+  
+                if (DialogSelect.ChangeCharacter == "No") {
+                    $("#Avatar").attr("src", " " + DialogSelect.Avatar + " ")
+                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                }
+                else {
+                     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='" + DialogSelect.Avatar + "'><div id='StatusMessageHolder'><br>");
+                     $("#ContinueMessageHolder").html("");
+                    setTimeout(function () {
+                        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                        $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                         ClickDialog();
+                    }, 750);
+                }
+                if (DialogSelect.Music != "No" || DialogSelect.Sound != "No") {
+                    if (DialogSelect.MusicControl == "Stop") {
+                        DialogSelect.Music.pause();
+                        DialogSelect.Music.currentTime = 0;
+                    }
+                    else if (DialogSelect.SoundControl == "Stop") {
+                        DialogSelect.Sound.pause();
+                        DialogSelect.Sound.currentTime = 0;
+                    };
+                    if (DialogSelect.MusicControl == "Play") {
+                        console.log("Playing " + DialogSelect.Music);
+                        DialogSelect.Music.play();
+                    }
+                    else if (DialogSelect.SoundControl == "Play") {
+                        console.log("Playing " + DialogSelect.Sound);
+                        DialogSelect.Sound.play();
+                    }
+                };
+            }
+            else {
+
+                Dialog = " " + DialogSelect.Name + " :  " + DialogSelect.Dialog + "   ";
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper '>" + Dialog + "</div>");
+                DialogOption(DialogSelect);
+                $("#ContinueMessageHolder").html("");
+            }
+        });
+    };
+
+
+
+        function DialogOption(DialogSelect) {
+  
+          
+            /* DECLINE */
+                $("#Question3").click(function () {
+                 $("#StatusMessageHolder").html("");
+                $("#ContinueMessageHolder").html("");
+                $("#CharacterAvatar").html("");
+                $("#App").load("./temp/Victoria.html");
+                });
+            /* ACCEPT */       
+             $("#Question0").click(function () {
+                      $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' Normally it is 100 bucks! ..that's 50 twoonies to you tourist folk.  '</div>");
+            $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Next </button>");
+                 
+                  $("#Next").click(function () {
+                 $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : '..but unfortunately right now the storm is pretty intense, we can't leave yet! '</div>");
+                    $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Back'> Back </button>");
+                      
+                        $("#Back").click(function () {
+                DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Fisherman : ' Anything else ?  '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                    
+                });
+                });
+                 
+                 
+                 
+            $("#Back").click(function () {
+                DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'>  Fisherman : ' Anything else ? '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                    
+                });
+                });
+            
+            
+            
+            
+            
+                 $("#Question1").click(function () {
+                      $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' I'm the best fisherman in all of British Columbia! The name is Morty, nice to meet you !  '</div>");
+            $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Back'> Back </button>");
+            $("#Back").click(function () {
+                DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'>  Fisherman : ' Anything else ? '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                    
+                });
+                });
+            
+               
+                 $("#Question2").click(function () {
+                      $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> " + DialogSelect.Name + " : ' I have never found better fishing spots than the ones here on Vancouver Island. This place is where I hang my hat and I never want to change that. '</div>");
+            $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Back'> Back </button>");
+            $("#Back").click(function () {
+                DialogOrderNumber = 0;
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'>  Fisherman : ' Anything else ? '</div>");
+                $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                    
+                });
+                });
+            
+            
+
+           
+            /* HONEST */
+
+            /* HOSTILE */
+
+            /* CONFUSED */
+       
+            
+            // End of Global Buttons
+        }
+    
+    
+    
+    
+};
+
+
+
+
 
 function PierVictoria3() {
          var Party = JSON.parse(localStorage.getItem('_Party'));

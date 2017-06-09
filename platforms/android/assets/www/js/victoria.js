@@ -55,7 +55,34 @@ function StartApp() {
     
     /* Check Story Progress */
     
-    if(Party[0].Triggers.Victoria3 == true){
+     if(Party[0].Triggers.Victoria10 == true){
+    $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='Pier'>Victoria Pier</button>");
+          $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='ShoppingDistrict'>Shopping District</button>");
+  $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='VictoriaParliamentBuilding'>Victoria Parliament Building</button>  ");
+      AppendJournal();
+               
+    }
+    else if(Party[0].Triggers.Victoria9 == true){
+          $("#ProvinceList").css("display","none");
+    $("#MessageHolder").css("display","none");
+    $("#Locationtitle").css("display","none");
+           $("#OverlayContainer").append("<div id='CharacterAvatar' class='CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+             $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : '... Mind if we head to Tommie's? '</div>");
+               setTimeout(function () {
+      $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Accept'> Sure </button>");
+
+         
+         $("#Accept").click(function(){
+                 $("#ContinueMessageHolder").html("");
+                 $("#CharacterAvatar").html("");
+                  $("#App").load("./temp/TommiesVictoria.html");
+             
+         });
+                   }, 500);
+               
+    }
+    else if(Party[0].Triggers.Victoria3 == true){
           $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='Pier'>Victoria Pier</button>");
           $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='ShoppingDistrict'>Shopping District</button>");
   $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='VictoriaParliamentBuilding'>Victoria Parliament Building</button>  ");
@@ -80,7 +107,6 @@ if (Party[0].Triggers.Victoria1 == true){
     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/OldLadyAvatar.png'><div id='StatusMessageHolder'><br>");
     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Old Lady : ' Oh! are you lost?  '</div>");
                 $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
-      ClickDialog();
          }, 2500);
 };
                

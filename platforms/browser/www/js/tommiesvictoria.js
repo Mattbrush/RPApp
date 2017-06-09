@@ -78,7 +78,12 @@ function StartStore() {
     var Party = JSON.parse(localStorage.getItem('_Party'));
     $("#MessageHolder").html("<h4 class='animated pulse  Message' id='Dialog'> Welcome to Tommie's </h4>");
     
-    if (Party[0].Triggers.Victoria5 == true){
+     if (Party[0].Triggers.Victoria9 == true){
+        /* Ben Opens Up Game Opens Up :D */
+      setTimeout(function () {
+        StoreStory2();
+    }, 1500);  
+    } else if (Party[0].Triggers.Victoria5 == true){
         /* Back to regular store */
       setTimeout(function () {
         StoreFront();
@@ -111,6 +116,348 @@ function StartStore() {
     
     
     };
+    
+    
+     function StoreStory2() {
+    
+    
+    
+          
+           $("#Options").html("<div id='Alert' class='animated bounceIn AlertPlayerMessage'><span class='AlertPlayerText'> Ben looks sad and walks over to the counter to get you some food  </span><br></div><br>");
+        $("#App").prepend("<div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'><button class='DialogNextButton animated flipInX' id='Continue'> Continue </button></div>")
+        
+        /* Add dialog from Ben here */
+       // setTimeout(function () {
+          $("#Continue").click(function(){
+              $("#Alert").remove();
+              $("#ContinueMessageHolder").remove();
+          
+           $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
+        $("#App").prepend("<div id='CharacterAvatar' class='Fixed CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben : ' Here "+Party[0].Name+", a well deserved meal after a hard fight.. '</div>");
+      $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Coffee'> Thank you </button>");
+            
+            
+            
+            $("#Coffee").click(function(){
+                $("#ContinueMessageHolder").remove();
+                $("#CharacterAvatar").removeClass("fadeIn");
+                $("#CharacterAvatar").addClass("fadeOut");
+                
+                 setTimeout(function () {
+                $("#CharacterAvatar").remove();
+                $("#OverlayBlanket").remove();
+                $("#Logo").remove();
+                $("#MessageHolder").remove();
+                $("#Options").remove();
+                    
+                $("#App").append("<div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>");         
+                $("#App").prepend("<div id='Alert' class='AlertPlayerMessage animated flipInX '><span class='AlertPlayerText'> You and Ben eat together in silence </span><br><input class='BattleItem' type='image' src='./img/SprinkledDoughnut.png'></input></div>");   
+                      setTimeout(function () {
+                 $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Next </button>");
+                          
+                          $("#Next").click(function(){
+                              $("#Alert").html("<span class='AlertPlayerText animated flipInY'> Your health is replenished from eating food. </span><br><input class='BattleItem' type='image' src='./img/KaleSmoothie.png'></input>");
+                              $("#ContinueMessageHolder").html("<button class='DialogNextButton animated flipInX' id='Next2'> Next </button>");
+                              Party[0].Stats[0].Value = Party[0].Stats[6].Value;
+                              $("#Next2").click(function(){
+                                  $("#Alert").remove(); 
+                                  $("#ContinueMessageHolder").remove();
+                                  BenDialog2();
+                              });
+                          });
+                     }, 1000); ;
+                
+                
+
+                }, 2000); ;
+                
+            });
+            
+             });
+          
+          function BenDialog2(){
+              
+              
+                 $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
+        $("#App").prepend("<div id='CharacterAvatar' class='Fixed CharacterAvatar animated fadeIn'></div><div class='MenuWrapperStatusMessage' id='ContinueMessageHolder'></div>")
+         $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/BenAvatar.png'><div id='StatusMessageHolder'><br>");
+     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Ben :  ' I'm sorry that I am so emotional right now.. ' </div>");
+              
+               $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");     
+              
+              
+              ClickDialog();
+              
+              
+              
+              
+              
+              
+              
+         
+     // Set Dialog Back to Zero !
+    var DialogOrderNumber = 0;
+
+    function ClickDialog() {
+        DialogOrder = [
+            
+            {
+                Name: " Ben "
+                , Dialog: " 'She just never used to be like this..' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Question0'> Who ? </button> <br><button class='MenuButton animated flipInY' id='Question1'> The food here is great! </button> "
+                , Button: "Yes"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " Jan just used to care about the environment  "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " We went to school together, hoping to save the world! "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " We were just kids, we thought we could make a difference if we just got the word out.. "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " But these days require a lot more than just spreadig the word, they require action!  "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " And jan is just too scared to do anything about it.. "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " I want to help her but she has an official government job now, she feels like she is too important to be worrying about this kind of stuff..  "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " but we aren't crazy! there is something weird going on!"
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " ' You still believe we are doing the right thing right "+Party[0].Name+" ? ' <div id='DialogOptions'><button class='MenuButton animated flipInY' id='Question2'> Of Course!</button><br><button class='MenuButton animated flipInY' id='Question3'> I'm not so sure.. </button>"
+                , Button: "Yes"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " Screw whatever Jan thinks, I don't care. I know we are making a difference and I'm going to keep doing it!"
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " There are so many animals out there that are infected! We need to start making a change and helping them out, who knows how far this thing goes!  "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " I bet if we go back to that pier, we will find many more animals to help, plus I think we are getting kind of good at this whole fighting thing! "
+                , Button: "No"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , },{
+                Name: " Ben "
+                , Dialog: " 'What do you say "+Party[0].Name+" ? Want to save the world ! '<br><button class='MenuButton animated flipInY' id='Question4'> Let's do it !</button> <br><button class='MenuButton animated flipInY' id='Question5'> Let me think about it..  </button>  "
+                , Button: "Yes"
+                , ChangeCharacter: "No"
+                , Avatar: "./img/BenAvatar.png"
+                , Sound: "No"
+                , SoundControl: "None"
+                , Music: "No"
+                , MusicControl: "None"
+            , }
+           
+         ]
+        $("#Next").click(function () {
+            var DialogSelect = DialogOrder[DialogOrderNumber]
+            var Dialog = " " + DialogSelect.Name + " : ' " + DialogSelect.Dialog + "  ' ";
+            console.log('Click');
+            console.log(Dialog)
+            console.log(DialogOrderNumber);
+            DialogOrderNumber++
+            if (DialogSelect.Button == "No") {
+  
+                if (DialogSelect.ChangeCharacter == "No") {
+                    $("#Avatar").attr("src", " " + DialogSelect.Avatar + " ")
+                    $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                }
+                else {
+                     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='" + DialogSelect.Avatar + "'><div id='StatusMessageHolder'><br>");
+                     $("#ContinueMessageHolder").html("");
+                    setTimeout(function () {
+                        $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'>" + Dialog + "<br></div>");
+                        $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                         ClickDialog();
+                    }, 1000);
+                }
+                if (DialogSelect.Music != "No" || DialogSelect.Sound != "No") {
+                    if (DialogSelect.MusicControl == "Stop") {
+                        DialogSelect.Music.pause();
+                        DialogSelect.Music.currentTime = 0;
+                    }
+                    else if (DialogSelect.SoundControl == "Stop") {
+                        DialogSelect.Sound.pause();
+                        DialogSelect.Sound.currentTime = 0;
+                    };
+                    if (DialogSelect.MusicControl == "Play") {
+                        console.log("Playing " + DialogSelect.Music);
+                        DialogSelect.Music.play();
+                    }
+                    else if (DialogSelect.SoundControl == "Play") {
+                        console.log("Playing " + DialogSelect.Sound);
+                        DialogSelect.Sound.play();
+                    }
+                };
+            }
+            else {
+
+                Dialog = " " + DialogSelect.Name + " :  " + DialogSelect.Dialog + "   ";
+                $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper '>" + Dialog + "</div>");
+                DialogOption(DialogSelect);
+                $("#ContinueMessageHolder").html("");
+            }
+        });
+    };
+     
+
+
+        function DialogOption(DialogSelect) {
+  
+    $("#Question0").click(function () {
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' Jan.. '</div>");
+                $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                });
+            
+                $("#Question1").click(function () {
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' I can't even think about food right now "+Party[0].Name+"</div>");
+                $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                });
+            
+             $("#Question2").click(function () {
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : '  I knew it! thanks for being so positive "+Party[0].Name+"</div>");
+                $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                });
+            
+             $("#Question3").click(function () {
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' Don't lose hope "+Party[0].Name+" I know we are doing the right thing! and I'm going to prove it to you ! "+Party[0].Name+"</div>");
+                $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                ClickDialog();
+                });
+            
+            $("#Question4").click(function () {
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : 'Alright! Let 's head to the pier and see what we can do!</div>");
+                $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                    $("#Next").click(function () {
+                  $("#TravelContainer").removeClass("MenuWrapper");
+                $("#OverlayContainer").html("<div id='Overlay' class='animated fadeIn'></div>");
+                         Party[0].Triggers.Victoria10 = true;
+                       localStorage.setItem('_Party', JSON.stringify(Party));
+                $("#App").load("./temp/ShoppingDistrictVictoria.html")
+
+                });
+               });
+            
+             $("#Question5").click(function () {
+                  $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated flipInX'> "+DialogSelect.Name+" : ' Well too bad ! You get no time to think, let's head to the pier!</div>");
+                $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+                 
+                 
+                 $("#Next").click(function () {
+                  $("#TravelContainer").removeClass("MenuWrapper");
+                $("#OverlayContainer").html("<div id='Overlay' class='animated fadeIn'></div>");
+                         Party[0].Triggers.Victoria10 = true;
+                       localStorage.setItem('_Party', JSON.stringify(Party));
+                $("#App").load("./temp/ShoppingDistrictVictoria.html")
+
+                });
+               });
+
+            
+
+          
+        
+        //////////////////////////////
+          
+      };
+    
+     };
+    
+    
+    
+      };
+    
+    
 
 
     function StoreStory1() {

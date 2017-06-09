@@ -799,16 +799,20 @@ function InitializeBattle() {
                         $("#MessageHolder").html("<div class='animated rubberBand  MenuWrapper' id='StatusMSG'>" + Party[0].Name + " Doesn't Have Enough Mana! </div>");
                     }
                     else {
-                        $("#OptionsHolder").html("");
-                        $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + Party[0].Moves[index].Name + " will add " + Party[0].Moves[index].Damage + " damage to attack and cost " + Party[0].Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
-                        $("#Accept").click(function () {
-                            var Move = PartyMember.Moves[index];
+                       $("#OptionsHolder").html("");
+                        
+                        if (Party[0].Moves[index].Cost == 0 ){
+                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + Party[0].Moves[index].Name + " will add " + Party[0].Moves[index].Damage[0] +" - "+Party[0].Moves[index].Damage[1]+" damage to your attack</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                        } else {
+                            $("#OptionsHolder").html("<div class='animated pulse  MenuWrapper' id='StatusMSG'>" + Party[0].Moves[index].Name + " will add " + Party[0].Moves[index].Damage[0] +" - "+Party[0].Moves[index].Damage[1]+ " damage to your attack and cost " + Party[0].Moves[index].Cost + " HP</div><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='AttackBack'> Back </button></div> ");
+                        }
+                        
+                         $("#Accept").click(function () {
+                             var Move = Party[0].Moves[index];
+                            console.log(Move)
                             var MoveDamage = Math.floor(Math.random() * Move.Damage[1] - Move.Damage[0]) + Move.Damage[0];
-                            console.log(Move.Damage);
-                            PlayerAttack(Enemy, TempHealth, Move);
-                        });
-                        $("#AttackBack").click(function () {
-                            PlayerTurn(Enemy,TempHealth);
+                            PlayerAttack(Enemy, TempHealth, Move );
+                             localStorage.setItem('_MoveDamage', JSON.stringify(MoveDamage));
                         });
                     };
                 });

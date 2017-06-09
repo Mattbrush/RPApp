@@ -479,7 +479,7 @@ function InitializeBattle() {
                                 }, Party[0].PlayerTextSpeed);
                             }
                             else if (ElementStrength == 0.75) {
-                                $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s Strength so " + PartyMember.Spells[index].Name + " only did  " + FullAttack + " Points of damage! </div>");
+                                $("#MessageHolder").html("<h4 class='animated jello  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s Strength so " + PartyMember.Spells[index].Name + " only did  " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
                                     SpellMoveOn()
                                 }, Party[0].PlayerTextSpeed);
@@ -491,7 +491,7 @@ function InitializeBattle() {
                                 }, Party[0].PlayerTextSpeed);
                             }
                             else if (ElementStrength == 0.65) {
-                                $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s same type so " + PartyMember.Spells[index].Name + " barely effected it with   " + FullAttack + " Points of damage! </div>");
+                                $("#MessageHolder").html("<h4 class='animated jello  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s same type so " + PartyMember.Spells[index].Name + " barely effected it with   " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
                                     SpellMoveOn()
                                 }, Party[0].PlayerTextSpeed);
@@ -660,7 +660,7 @@ function InitializeBattle() {
                                         setTimeout(function () {
                                             var ThisId = JSON.parse(localStorage.getItem('_CurrentFood'));
                                             if (Item.Stats.Health < 25) {
-                                                $("#OptionsHolder").html("<div id='Options' class='MenuWrapper animated swing'>  " + Party[ThisId.substr(1, 1)].Name + " Thought it was just okay... </div>");
+                                                $("#OptionsHolder").html("<div id='Options' class='MenuWrapper animated jello'>  " + Party[ThisId.substr(1, 1)].Name + " Thought it was just okay... </div>");
                                                 setTimeout(function () {
                                                     DoneEating();
                                                 }, Party[0].PlayerTextSpeed);
@@ -869,7 +869,7 @@ function InitializeBattle() {
                                 }, Party[0].PlayerTextSpeed);
                             }
                             else if (ElementStrength == 0.75) {
-                                $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s Strength so " + PartyMember.Spells[index].Name + " only did  " + FullAttack + " Points of damage! </div>");
+                                $("#MessageHolder").html("<h4 class='animated jello  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s Strength so " + PartyMember.Spells[index].Name + " only did  " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
                                     SpellMoveOn()
                                 }, Party[0].PlayerTextSpeed);
@@ -881,7 +881,7 @@ function InitializeBattle() {
                                 }, Party[0].PlayerTextSpeed);
                             }
                             else if (ElementStrength == 0.65) {
-                                $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s same type so " + PartyMember.Spells[index].Name + " barely effected it with   " + FullAttack + " Points of damage! </div>");
+                                $("#MessageHolder").html("<h4 class='animated jello  Message' id='StatusMSG'> " + PartyMember.Name + " Attacks at " + Enemy.Name + "'s same type so " + PartyMember.Spells[index].Name + " barely effected it with   " + FullAttack + " Points of damage! </div>");
                                 setTimeout(function () {
                                     SpellMoveOn()
                                 }, Party[0].PlayerTextSpeed);
@@ -1051,7 +1051,7 @@ function InitializeBattle() {
                                         setTimeout(function () {
                                             var ThisId = JSON.parse(localStorage.getItem('_CurrentFood'));
                                             if (Item.Stats.Health < 25) {
-                                                $("#OptionsHolder").html("<div id='Options' class='MenuWrapper animated swing'>  " + Party[ThisId.substr(1, 1)].Name + " Thought it was just okay... </div>");
+                                                $("#OptionsHolder").html("<div id='Options' class='MenuWrapper animated jello'>  " + Party[ThisId.substr(1, 1)].Name + " Thought it was just okay... </div>");
                                                 setTimeout(function () {
                                                     DoneEating();
                                                 }, Party[0].PlayerTextSpeed);
@@ -1226,7 +1226,7 @@ function InitializeBattle() {
             /* If Player Loses health */
             setTimeout(function () {
                 if (EnemyElementStrength == 1.25) {
-                    $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'>It attacked " + PartyMember.Name + "'s weakness and did " + DamageEarned + " damage </div>");
+                    $("#MessageHolder").html("<h4 class='animated jello  Message' id='StatusMSG'>It attacked " + PartyMember.Name + "'s weakness and did " + DamageEarned + " damage </div>");
                     setTimeout(function () {
                         //    PlayerTurn(Enemy,  TempHealth);
                         $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
@@ -1256,7 +1256,7 @@ function InitializeBattle() {
                 function BattleDamage() {
                       console.log(PartyMember.Stats[0].Value )
                     $("#PlayerHealth").html("Health : " + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
-                    $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'>It did " + DamageEarned + " damage </div>");
+                    $("#MessageHolder").html("<h4 class='animated jello  Message' id='StatusMSG'>It did " + DamageEarned + " damage </div>");
                     setTimeout(function () {
                         //  PlayerTurn(Enemy, empHealth);
                           localStorage.setItem('_Party', JSON.stringify(Party));
@@ -1318,7 +1318,7 @@ function InitializeBattle() {
                 AttackInfo()
             }
             else {
-                $("#MessageHolder").html("<h4 class='animated swing  Message' id='StatusMSG'>" + PartyMember.Name + " destroys " + Enemy.Name + " using " + Move.Name + " </div>");
+                $("#MessageHolder").html("<h4 class='animated jello  Message' id='StatusMSG'>" + PartyMember.Name + " destroys " + Enemy.Name + " using " + Move.Name + " </div>");
                 setTimeout(function () {
                     $("#EnemyHealth").html("Health : " + 0 + " / " + Enemy.Stats.Health);
                     localStorage.setItem('_Party', JSON.stringify(Party));

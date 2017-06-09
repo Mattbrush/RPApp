@@ -15,7 +15,10 @@ function StartOptions() {
     
     
     
+    
+    
     // Debug Menu Options..
+    
    
     $("#OptionsList").append("<h3 id='Triggers' class='animated fadeInDown' > Debug Options</h3>");
 
