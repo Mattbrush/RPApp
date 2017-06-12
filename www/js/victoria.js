@@ -107,6 +107,9 @@ if (Party[0].Triggers.Victoria1 == true){
     $("#CharacterAvatar").html("<img class='Avatar animated fadeIn' id='Avatar' src='./img/OldLadyAvatar.png'><div id='StatusMessageHolder'><br>");
     $("#StatusMessageHolder").html("<div  id='StatusMessage' class='DialogWrapper animated fadeIn'> Old Lady : ' Oh! are you lost?  '</div>");
                 $("#ContinueMessageHolder").append("<button class='DialogNextButton animated flipInX' id='Next'> Continue </button>");
+      ClickDialog();
+      
+      
          }, 2500);
 };
                

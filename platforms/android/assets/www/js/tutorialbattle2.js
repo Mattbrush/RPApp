@@ -1483,7 +1483,7 @@ function InitializeBattle() {
         $("#Attack").prop('disabled', true);
         $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
         $("#MessageHolder").html("<h4 class='animated lightSpeedIn  Message' id='StatusMSG'><span> Game Over </span><br><button class='MenuButton' id='Finish'>Finish Battle</button></div>");
-        localStorage.clear();
+     //   localStorage.clear();
         $("#Finish").click(function () {
             $("#App").load("./index.html")
         });

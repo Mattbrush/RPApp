@@ -63,7 +63,8 @@ var Attack = 0;
 var Defense = 0;
 var Wisdom = 0;
 var Vitality = 0;
-$("#Stats").html("<span id='SkillPoints'>Skill Points : " + SkillPoints + "</span><br><span class='StatHeader'> Attack :</span><button class='Add MenuButton StatMenuButtonAdd' id='AttackAdd'>+</button><span id='Attackstat' class='StatPoint MenuButton'> " + Attack + "</span><button class='Minus MenuButton StatMenuButtonMinus' id='AttackMinus'>-</button><br><span class='StatHeader'> Defense :</span><button class='Add MenuButton StatMenuButtonAdd' id='DefenseAdd'>+</button><span id='Defensestat' class='StatPoint MenuButton'> " + Defense + "</span><button class='Minus MenuButton StatMenuButtonMinus' id='DefenseMinus'>-</button><br><span class='StatHeader'> Wisdom :</span><button class='Add MenuButton StatMenuButtonAdd' id='WisdomAdd'>+</button><span id='Wisdomstat' class='StatPoint MenuButton'> " + Wisdom + "</span><button class='Minus MenuButton StatMenuButtonMinus' id='WisdomMinus'>-</button><br><span class='StatHeader'> Vitality :</span><button class='Add MenuButton StatMenuButtonAdd' id='VitalityAdd'>+</button><span id='Vitalitystat' class='StatPoint MenuButton'> " + Vitality + "</span><button class='Minus MenuButton StatMenuButtonMinus' id='VitalityMinus'>-</button><br><br>")
+var Speed = 0;
+$("#Stats").html("<span id='SkillPoints'>Skill Points : " + SkillPoints + "</span><br><span class='StatHeader'> Attack :</span><button class='Add MenuButton StatMenuButtonAdd' id='AttackAdd'>+</button><span id='Attackstat' class='StatPoint MenuButton'> " + Attack + "</span><button class='Minus MenuButton StatMenuButtonMinus' id='AttackMinus'>-</button><br><span class='StatHeader'> Defense :</span><button class='Add MenuButton StatMenuButtonAdd' id='DefenseAdd'>+</button><span id='Defensestat' class='StatPoint MenuButton'> " + Defense + "</span><button class='Minus MenuButton StatMenuButtonMinus' id='DefenseMinus'>-</button><br><span class='StatHeader'> Wisdom :</span><button class='Add MenuButton StatMenuButtonAdd' id='WisdomAdd'>+</button><span id='Wisdomstat' class='StatPoint MenuButton'> " + Wisdom + "</span><button class='Minus MenuButton StatMenuButtonMinus' id='WisdomMinus'>-</button><br><span class='StatHeader'> Vitality :</span><button class='Add MenuButton StatMenuButtonAdd' id='VitalityAdd'>+</button><span id='Vitalitystat' class='StatPoint MenuButton'> " + Vitality + "</span><button class='Minus MenuButton StatMenuButtonMinus' id='VitalityMinus'>-</button><br><span class='StatHeader'> Speed :</span><button class='Add MenuButton StatMenuButtonAdd' id='SpeedAdd'>+</button><span id='Speedstat' class='StatPoint MenuButton'> " + Speed + "</span><button class='Minus MenuButton StatMenuButtonMinus' id='SpeedMinus'>-</button><br><br>")
 $(".Add").click(function () {
     if (this.id.indexOf("Attack") != -1 && SkillPoints > 0) {
         Attack = Attack + 1;
@@ -87,6 +88,12 @@ $(".Add").click(function () {
         Vitality = Vitality + 1;
         SkillPoints = SkillPoints - 1;
         $("#Vitalitystat").html("" + Vitality);
+        $("#SkillPoints").html("Skill Points : " + SkillPoints);
+    }
+    else if (this.id.indexOf("Speed") != -1 && SkillPoints > 0) {
+        Speed = Speed + 1;
+        SkillPoints = SkillPoints - 1;
+        $("#Speedstat").html("" + Speed);
         $("#SkillPoints").html("Skill Points : " + SkillPoints);
     }
 })
@@ -113,6 +120,12 @@ $(".Minus").click(function () {
         Vitality = Vitality - 1;
         SkillPoints = SkillPoints + 1;
         $("#Vitalitystat").html("" + Vitality);
+        $("#SkillPoints").html("Skill Points : " + SkillPoints);
+    }
+    else if (this.id.indexOf("Speed") != -1 && Speed > 0) {
+        Speed = Speed - 1;
+        SkillPoints = SkillPoints + 1;
+        $("#Speedstat").html("" + Speed);
         $("#SkillPoints").html("Skill Points : " + SkillPoints);
     }
 })
@@ -168,6 +181,9 @@ $("#Confirm").click(function () {
                   , {
                 Name: "FullMana"
                 , Value: Mana
+            , }, {
+                Name: "Speed"
+                , Value: Speed
             , }
                  ]
         , Wallet: {

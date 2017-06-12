@@ -596,7 +596,7 @@ function JanOffice() {
                 $("#StatusMessageHolder").html("<div class='AlertPlayerText'><div  id='StatusMessage' class='AlertPlayerMessage animated flipInX'><img class='ObtainedItem' src='./img/TemporaryPassport.png'></img><br> Obtained a Temporary Passport</div></div>");
                 Party[0].Triggers.Victoria2 = true;
                 Party[0].Inventory.push(TemporaryPassport);
-                 localStorage.setItem('_character', JSON.stringify(Character));
+             //    localStorage.setItem('_character', JSON.stringify(Character));
                  localStorage.setItem('_Party', JSON.stringify(Party));
                  setTimeout(function () {
                 

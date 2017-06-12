@@ -69,7 +69,7 @@ function StartApp() {
                          }
                         else{
                         $("#StatusMessageHolder").css("display", "block");
-                        $("#AlertPlayerMessage").html("<div class='animated flipInX AlertPlayerText'>Do you want to use  a <strong>" + Party[0].Inventory[index].Name + "</strong> on someone ?</div><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='Deny'> No </button></div><br>");
+                        $("#AlertPlayerMessage").html("<div class='animated flipInX AlertPlayerText'>Do you want to use  a <strong>" + Party[0].Inventory[index].Name + "</strong> on someone ?</div><br><img lcass='BattleItem' src='"+Party[0].Inventory[index].Avatar+"'></img><br><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton' id='Deny'> No </button></div><br>");
                         $("#Accept").click(function () {
                             WhichCharacter(Item, index);
                         });
@@ -106,7 +106,7 @@ function StartApp() {
                         } else {
                             Party[this.id.substr(1, 1)].Stats[7].Value = Party[this.id.substr(1, 1)].Stats[0].Value + Item.Stats.Mana;
                         };
-                        $("#AlertPlayerMessage").html("<div class='animated flipInX AlertPlayerText'><span>Are you sure you want to use a " + Party[0].Inventory[index].Name + " on " + Party[this.id.substr(1, 1)].Name + " ?</span><br><button class='animated flipInX MenuButton' id='Yes'> Yes </button><button class='animated flipInX MenuButton' id='No'> No </button></div>");
+                        $("#AlertPlayerMessage").html("<div class='animated flipInX AlertPlayerText'><span>Are you sure you want to use a " + Party[0].Inventory[index].Name + " on " + Party[this.id.substr(1, 1)].Name + " ?</span><br><span>"+Party[this.id.substr(1, 1)].Stats[0].Value+" / "+Party[this.id.substr(1, 1)].Stats[6].Value+"</span><br><button class='animated flipInX MenuButton' id='Yes'> Yes </button><button class='animated flipInX MenuButton' id='No'> No </button></div>");
                         var Name = this.id.substr(1, 1);
                         localStorage.setItem('_Name', JSON.stringify(Name));
                         $("#Yes").click(function () {
@@ -241,7 +241,7 @@ function StartApp() {
                         }, Party[0].PlayerTextSpeed);
                     }
                     else if (Item.Type == "Food") {
-                        $("#AlertPlayerMessage").html("<div class='animated flipInX AlertPlayerText'><span>Are you sure you want to feed a " + Party[0].Inventory[index].Name + " to " + Party[this.id.substr(1, 1)].Name + " ?</span><br><button class='animated flipInX MenuButton' id='Yes'> Yes </button><button class='animated flipInX MenuButton' id='No'> No </button></div>");
+                        $("#AlertPlayerMessage").html("<div class='animated flipInX AlertPlayerText'><span>Are you sure you want to feed a " + Party[0].Inventory[index].Name + " to " + Party[this.id.substr(1, 1)].Name + " ?</span><br><span>"+Party[this.id.substr(1, 1)].Stats[0].Value+" / "+Party[this.id.substr(1, 1)].Stats[6].Value+"</span><br><button class='animated flipInX MenuButton' id='Yes'> Yes </button><button class='animated flipInX MenuButton' id='No'> No </button></div>");
                         var Name = this.id.substr(1, 1);
                         localStorage.setItem('_Name', JSON.stringify(Name));
                         $("#Yes").click(function () {

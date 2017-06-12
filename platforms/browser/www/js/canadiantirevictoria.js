@@ -143,7 +143,6 @@ function StartStore() {
           
           
            $("#Leave").click(function () {
-            Party[0].Triggers.Victoria6 = true;
             localStorage.setItem('_Party', JSON.stringify(Party));
             audio.pause();
             audio.currentTime = 0;
@@ -244,7 +243,7 @@ function StartStore() {
         });
 
         $("#Leave").click(function () {
-
+            Party[0].Triggers.Victoria6 = true;
             localStorage.setItem('_Party', JSON.stringify(Party));
             audio.pause();
             audio.currentTime = 0;

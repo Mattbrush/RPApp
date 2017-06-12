@@ -26,7 +26,7 @@ function CheckLevel() {
 function StartApp() {
     /* Place Main Character First ALWAYS. Allow to swipe and change through array of party */
     var i = 0;
-    var Character = JSON.parse(localStorage.getItem('_character'));
+   // var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     /* Make New Character Stat Variables */
     var NewStatPoints = 0;
@@ -34,6 +34,7 @@ function StartApp() {
     var NewDefense = 0;
     var NewWisdom = 0;
     var NewVitality = 0;
+    var NewSpeed = 0;
     var PartyIndex = 0;
     
     
@@ -63,6 +64,7 @@ function StartApp() {
         NewDefense = 0;
         NewWisdom = 0;
         NewVitality = 0;
+        NewSpeed = 0;
         PartyIndex++
         if (Party[PartyIndex] == undefined){
             PartyIndex = 0;
@@ -81,6 +83,7 @@ function StartApp() {
         NewDefense = 0;
         NewWisdom = 0;
         NewVitality = 0;
+        NewSpeed = 0;
         PartyIndex--
         if (Party[PartyIndex] == undefined){
             PartyIndex = Party.length-1;
@@ -133,22 +136,36 @@ function StartApp() {
             Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints - 1;
             $("#NewVitality").html(" + : " + NewVitality + " ");
             $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
+        }else if (this.id.indexOf("Speed") != -1 && Party[PartyIndex].Experience.SkillPoints > 0) {
+            NewSpeed = NewSpeed + 1;
+            NewStatPoints = NewStatPoints + 1;
+            Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints - 1;
+            $("#NewSpeed").html(" + : " + NewSpeed + " ");
+            $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
         }
         $("#ConfirmChanges").click(function () {
-           // THERE ARE TWO CONFIRM CHANGES!?!?!?
+     // THERE ARE TWO CONFIRM CHANGES!?!?!?
             NewStatPoints = 0;
             Party[PartyIndex].Stats[1].Value = Party[PartyIndex].Stats[1].Value + NewAttack;
             Party[PartyIndex].Stats[2].Value = Party[PartyIndex].Stats[2].Value + NewDefense;
             Party[PartyIndex].Stats[3].Value = Party[PartyIndex].Stats[3].Value + NewWisdom;
             Party[PartyIndex].Stats[4].Value = Party[PartyIndex].Stats[4].Value + NewVitality;
+           Party[PartyIndex].Stats[9].Value = Party[PartyIndex].Stats[9].Value + NewSpeed;
             var Vitality = Party[PartyIndex].Stats[4].Value * 1.75;
+           if (NewWisdom > 0){
+           WisdomCalculation = NewWisdom * 2.75;
+           var Mana = Math.floor(Math.random() * 15) + 5 + WisdomCalculation;
+           Mana = Math.round(Mana);
+            Party[PartyIndex].Stats[8].Value = Mana;
+           };
+           
+           
             var Health = Math.round(Vitality);
             Party[PartyIndex].Stats[0].Value = Health + Party[PartyIndex].Stats[0].Value  ;
             Party[PartyIndex].Stats[6].Value = Health + Party[PartyIndex].Stats[6].Value ;
             var Wisdom = Party[PartyIndex].Stats[8].Value  * 2.75;
             var Mana = Math.round(Wisdom);
-            Party[PartyIndex].Stats[8].Value = Mana;
-            Party[PartyIndex].Stats[7].Value = Party[PartyIndex].Stats[7].Value ;
+            Party[PartyIndex].Stats[7].Value = Party[PartyIndex].Stats[8].Value ;
             $("#Stats").html("");
             $("#Confirm").html("");
             PlaceStats(Party[PartyIndex]);
@@ -211,6 +228,15 @@ function StartApp() {
             if(NewVitality == 0){
                 $("#NewVitality").html("");
             }
+            }else if (this.id.indexOf("Speed") != -1 && NewSpeed > 0) {
+            NewSpeed = NewSpeed - 1;
+            NewStatPoints = NewStatPoints - 1;
+            Party[PartyIndex].Experience.SkillPoints = Party[PartyIndex].Experience.SkillPoints + 1;
+            $("#NewSpeed").html(" + : " + NewSpeed + " ");
+            $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
+            if(NewSpeed == 0){
+                $("#NewSpeed").html("");
+            }
             
         }
        CheckSkillPoints(Party[PartyIndex]);
@@ -233,14 +259,22 @@ function StartApp() {
             Party[PartyIndex].Stats[2].Value = Party[PartyIndex].Stats[2].Value + NewDefense;
             Party[PartyIndex].Stats[3].Value = Party[PartyIndex].Stats[3].Value + NewWisdom;
             Party[PartyIndex].Stats[4].Value = Party[PartyIndex].Stats[4].Value + NewVitality;
+           Party[PartyIndex].Stats[9].Value = Party[PartyIndex].Stats[9].Value + NewSpeed;
             var Vitality = Party[PartyIndex].Stats[4].Value * 1.75;
+           if (NewWisdom > 0){
+           WisdomCalculation = NewWisdom * 2.75;
+           var Mana = Math.floor(Math.random() * 15) + 5 + WisdomCalculation;
+           Mana = Math.round(Mana);
+            Party[PartyIndex].Stats[8].Value = Mana;
+           };
+           
+           
             var Health = Math.round(Vitality);
             Party[PartyIndex].Stats[0].Value = Health + Party[PartyIndex].Stats[0].Value  ;
             Party[PartyIndex].Stats[6].Value = Health + Party[PartyIndex].Stats[6].Value ;
             var Wisdom = Party[PartyIndex].Stats[8].Value  * 2.75;
             var Mana = Math.round(Wisdom);
-            Party[PartyIndex].Stats[8].Value = Mana;
-            Party[PartyIndex].Stats[7].Value = Party[PartyIndex].Stats[7].Value ;
+            Party[PartyIndex].Stats[7].Value = Party[PartyIndex].Stats[8].Value ;
             $("#Stats").html("");
             $("#Confirm").html("");
             PlaceStats(Party[PartyIndex]);
@@ -267,10 +301,14 @@ function StartApp() {
         for (i = 1; i < 5; i++) {
             
             $("#Stats").append("<span id='" + Party[PartyIndex].Stats[i].Name +"' class='StatHeader'>  "+ Party[PartyIndex].Stats[i].Name +"<button class='Add Modifier MenuButton StatMenuButtonAdd' id='" + Party[PartyIndex].Stats[i].Name + "Add'>+</button> " + Party[PartyIndex].Stats[i].Value + "</span><button class='Minus Modifier MenuButton StatMenuButtonMinus'  id='" + Party[PartyIndex].Stats[i].Name + "Minus'>-</button><span id='New" + Party[PartyIndex].Stats[i].Name + "' class='NewStatClass'></span><br>");
+          
             
          
             
         };
+        
+          // Add Speed
+            $("#Stats").append("<span id='" + Party[PartyIndex].Stats[9].Name +"' class='StatHeader'>  "+ Party[PartyIndex].Stats[9].Name +"<button class='Add Modifier MenuButton StatMenuButtonAdd' id='" + Party[PartyIndex].Stats[9].Name + "Add'>+</button> " + Party[PartyIndex].Stats[9].Value + "</span><button class='Minus Modifier MenuButton StatMenuButtonMinus'  id='" + Party[PartyIndex].Stats[9].Name + "Minus'>-</button><span id='New" + Party[PartyIndex].Stats[9].Name + "' class='NewStatClass'></span><br>");
         
          if(Party[PartyIndex].Experience.SkillPoints == 0){
             //     console.log('dfs')

@@ -778,6 +778,10 @@ function StartStore() {
                             Name: "FullMana"
                             , Value: Mana
                         , }
+                              , {
+                            Name: "Speed"
+                            , Value: 1
+            }
                  ]
                     , Weight: Math.round((2 / 2) * Math.floor(Math.random() * 10) + 20)
                     , Equipment: {

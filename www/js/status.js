@@ -122,11 +122,12 @@ function StartApp() {
                 $("#Moves").append("<br>" + Party[PartyIndex].Moves[i].Name + "");
             };
         };
-        for (i = 0; i < 8; i++) {
+        for (i = 0; i < 10; i++) {
             // Deciding how to display dfferent Stats //
             if (i == 6) {}
             else if (i == 5) {}
             else if (i == 4) {}
+            else if (i == 8) {}
             else if (i == 3) {}
             else if (i == 2) {}
             else if (i == 1) {}
@@ -135,6 +136,8 @@ function StartApp() {
             }
             else if (i == 7) {
                 $("#Stats").append("<span>" + Party[PartyIndex].Stats[i].Name + " : " + Party[PartyIndex].Stats[i].Value + " / " + Party[PartyIndex].Stats[8].Value + "</span><br>");
+            }else if (i == 9) {
+                $("#Stats").append("<span>" + Party[PartyIndex].Stats[i].Name + " : " + Party[PartyIndex].Stats[i].Value+"</span><br>");
             }
             else {
                 $("#Stats").append("<span>" + Party[PartyIndex].Stats[i].Name + " : " + Party[PartyIndex].Stats[i].Value + "</span><br>");
