@@ -12,13 +12,6 @@ function CheckLevel() {
     console.log(Party[0].Experience);
     console.log("Level : " + Party[0].Level);
     /* Experience System WHILE Statements //// Make More Concise Later! /////// */
-    while (Party[0].Experience.Total >= Party[0].Experience.ToNextLevel) {
-        Party[0].Experience.ToNextLevel = Math.round(Party[0].Experience.ToNextLevel * 1.25);
-        Party[0].Level = Party[0].Level + 1;
-        Party[0].Experience.Total = 0;
-    }
-    
-    
     localStorage.setItem('_Party', JSON.stringify(Party));
      console.log("~~~~~~~~~~~~~~~~~~~")
 };
@@ -41,10 +34,11 @@ function StartApp() {
     PlaceInformation();
     
     function PlaceInformation(){
+        var Party = JSON.parse(localStorage.getItem('_Party'));
         var SkillpointsOriginal = Party[PartyIndex].Experience.SkillPoints;
         
     
-    $("#PartySkills").html("<div id='SkillsMenu'><h3 class='SubSubMainTitle animated rubberBand'> SkillPoints </h3><div>Player Name : "  + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName+ "</div><br><div id='Stats'></div><div id='Confirm'></div><div id='Level'>Level :  " + Party[PartyIndex].Level + "</div><br><div id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><br><div id='ToNext'> To Next Level : " + Party[PartyIndex].Experience.ToNextLevel + "</div><br><div id='SkillPoints'>Available Skill Points : " + Party[PartyIndex].Experience.SkillPoints + "<br> </div><div class='MenuWrapper' id='PartySwitch'></div></div>");
+    $("#PartySkills").html("<div id='SkillsMenu'><h3 class='SubSubMainTitle animated rubberBand'> SkillPoints </h3><div>Player Name : "  + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName+ "</div><br><div id='Stats'></div><div id='Confirm'></div><div id='Level'>Level :  " + Party[PartyIndex].Level + "</div><br><div id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><br><div id='ToNext'> To next level : " + (Party[PartyIndex].Experience.ToNextLevel - Party[PartyIndex].Experience.Total) + "</div><br><div id='SkillPoints'>Available Skill Points : " + Party[PartyIndex].Experience.SkillPoints + "<br> </div><div class='MenuWrapper' id='PartySwitch'></div></div>");
       $("#PartySkills").css("border-color",""+Party[PartyIndex].Color+"");
         // Only if there are more than 1 party member
          // Only display if there are more than 1 party member..
@@ -171,6 +165,7 @@ function StartApp() {
             PlaceStats(Party[PartyIndex]);
             CheckSkillPoints(Party[PartyIndex]);
             localStorage.setItem('_Party', JSON.stringify(Party));
+            PlaceInformation();
         });
         CheckSkillPoints(Party[PartyIndex]);
         
@@ -248,7 +243,7 @@ function StartApp() {
           $(".Add").removeClass("MenuButtonDisabled");  
         }
          
-    });
+   
     
     
         
@@ -280,6 +275,10 @@ function StartApp() {
             PlaceStats(Party[PartyIndex]);
             CheckSkillPoints(Party[PartyIndex]);
             localStorage.setItem('_Party', JSON.stringify(Party));
+           PlaceInformation();
+        });
+        
+        
         });
         
               

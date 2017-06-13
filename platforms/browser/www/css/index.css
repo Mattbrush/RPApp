@@ -27,6 +27,66 @@ body {
     background: black;
 }
 
+.HealthProgress::-webkit-progress-value { 
+    background: #cc3f2c; 
+}
+
+.HealthProgress::-webkit-progress-bar {
+  background-color: #791407;
+}
+
+.ManaProgress::-webkit-progress-value { 
+    background: #76b5dd; 
+}
+
+.ManaProgress::-webkit-progress-bar {
+  background-color: #195174;
+}
+
+.XPProgress::-webkit-progress-value { 
+    background: #4fbf25; 
+}
+
+.XPProgress::-webkit-progress-bar {
+  background-color: #215d0a;
+}
+progress {
+  text-align: center;
+  height: 1.25em;
+    width:15em;
+  -webkit-appearance: none;
+  border: none;
+    color:white;
+  
+  /* Set the progressbar to relative */
+  position:relative;
+}
+progress:before {
+  content: attr(data-label);
+  font-size: 0.8em;
+  vertical-align: 0;
+  
+  /*Position text over the progress bar */
+  position:absolute;
+  left:0;
+  right:0;
+}
+
+
+.Bar{
+    margin: 0 auto;
+    display: block;
+}
+
+.JournalAvatar{
+   width: 25%;
+    border: black;
+    border-width: 5px;
+    border-style: double;
+    padding: 5px;
+}
+
+
 .Fixed{
     position:fixed;
 }
@@ -39,6 +99,37 @@ body {
     top: 0;
     z-index: 3;
     position: fixed;
+}
+
+.PartyButton {
+    margin: 5px;
+    box-shadow: 9px 3px 6px rgb(43, 43, 43);
+    background: white;
+    color: #f14141;
+    padding: 5px;
+    border: 1px;
+    font-size: larger;
+    font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+}
+
+.PartyButtonDisabled {
+    margin: 5px;
+    box-shadow: 9px 3px 6px rgb(43, 43, 43);
+    background: grey;
+    color: white;
+    padding: 5px;
+    border: 1px;
+    font-size: larger;
+    font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+}
+
+.PartyHolder{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    left: 0;
+    right: 0;
 }
 
 #Overlay {

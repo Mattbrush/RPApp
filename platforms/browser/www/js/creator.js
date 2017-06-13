@@ -131,7 +131,7 @@ $(".Minus").click(function () {
 })
 $("#Confirm").click(function () {
     VitalityCalculation = Vitality * 1.75;
-    var Health = Math.floor(Math.random() * 20) + 5 + VitalityCalculation;
+    var Health = Math.floor(Math.random() * 20) + 8 + VitalityCalculation;
     Health = Math.round(Health);
     WisdomCalculation = Wisdom * 2.75;
     var Mana = Math.floor(Math.random() * 15) + 5 + WisdomCalculation;
@@ -227,7 +227,93 @@ $("#Confirm").click(function () {
         , Journal:[
             {
             Name:"Enemies",
-            Entries:[],
+            Entries:[
+                {
+                        Name:"Starfish",
+                        Avatar:"./img/Starfish.gif",
+                        Description:"Starfish or sea stars are star-shaped echinoderms belonging to the class Asteroidea. Common usage frequently finds these names being also applied to ophiuroids, which are correctly referred to as brittle stars or 'basket stars'.",
+                        Defeated: 0,
+                        Moves:[
+                            {
+                        Name: "Sea Spin"
+                        , Type: "Element"
+                        , Index: 0
+                        , Stats: {
+                            Damage: Math.floor(Math.random() * 2) + 1
+                            , Element: "Saltwater"
+                        , }
+                    , }
+                    , {
+                        Name: "Pointy Spike"
+                        , Type: "Attack"
+                        , Index: 0
+                        , Stats: {
+                            Damage: Math.floor(Math.random() * 2) + 1
+                            , Element: "None"
+                        }
+                }
+                        ],
+                        Loot:[
+                            
+                    {
+                    Name: "Ball Of Sand"
+                    , IDName: "BallOfSand"
+                    , Avatar: "./img/BallOfSand.png"
+                    , Type: "Misc"
+                    , Index: 0
+                    , Weight: 2
+                    , Stats: {}
+                    , Worth: 1
+                    , DropRate: 0.75
+                    , Hidden: true,
+                }, 
+                        ],
+                        Hidden: true,
+                        Viewed: false,
+                    },
+                {
+                        Name:"Seagull",
+                        Avatar:"./img/Seagull.png",
+                        Description:"Gulls or seagulls are seabirds of the family Laridae in the suborder Lari. They are most closely related to the terns and only distantly related to auks, skimmers, and more distantly to the waders",
+                        Defeated: 0,
+                        Moves:[
+                            {
+                        Name: "Spray"
+                        , Type: "Element"
+                        , Index: 0
+                        , Stats: {
+                            Damage: Math.floor(Math.random() * 2) + 1
+                            , Element: "Mountain"
+                        , }
+                    , }
+                    , {
+                        Name: "Air Swipe"
+                        , Type: "Attack"
+                        , Index: 0
+                        , Stats: {
+                            Damage: Math.floor(Math.random() * 3) + 1
+                            , Element: "None"
+                        },
+                    },
+                        ],
+                        Loot:[
+                            {
+                    Name: "Seaweed"
+                    , IDName: "Seaweed"
+                    , Avatar: "./img/Seaweed.png"
+                    , Type: "Misc"
+                    , Index: 0
+                    , Weight: 1
+                    , Stats: {}
+                    , Worth: 2
+                    , DropRate: .65
+                    , Hidden: true,
+                },
+                        ],
+                        Hidden: true,
+                        Viewed: false,
+                    },
+            ],
             },
              {
             Name:"Recipes",
@@ -243,7 +329,7 @@ $("#Confirm").click(function () {
                     {
                         Name:"British Columbia",
                            Avatar:"./img/BritishColumbiaVictoria.jpg",
-                        Description:" Ben Wengel is an adventurous person living in Victoria, B.C. He loves to go hiking and exploring all across Vancouver Island. Ben is a forester in his day job and cares a lot about the environment. ",
+                        Description:" British Columbia, Canada's westernmost province, is defined by its Pacific coastline and mountain ranges. Nature areas like Glacier National Park offer hiking and biking trails, as well as campgrounds. Whistler Blackcomb is a major ski resort that hosted the 2010 Winter Olympics. The scenic Sea-to-Sky Highway links Whistler with Vancouver, a city known for its film industry, at the province's southern U.S. border. ",
                         Hidden: true,
                         Viewed: false,
                     },
@@ -274,21 +360,21 @@ $("#Confirm").click(function () {
                 {
                         Name:"Vancouver",
                        Avatar:"./img/BritishColumbiaVictoria.jpg",
-                        Description:"Victoria, capital of British Columbia, sits on the craggy southern end of Vancouver Island. With abundant parkland, it’s known for outdoor activities. The city's British colonial past shows in its Victorian architecture, including stately Craigdarroch Castle mansion. Butchart Gardens, with 55 acres of vivid floral displays, plus statuary, water features and a carousel, is one of many formal gardens in the city.",
+                        Description:"Vancouver, a bustling west coast seaport in British Columbia, is among Canada’s densest, most ethnically diverse cities. A popular filming location, it’s surrounded by mountains, and also has thriving art, theatre and music scenes. Vancouver Art Gallery is known for its works by regional artists, while the Museum of Anthropology houses preeminent First Nations collections.",
                      Hidden: true,
                     Viewed: false,
                     },
                 {
                         Name:"Whistler",
                        Avatar:"./img/BritishColumbiaVictoria.jpg",
-                        Description:"Victoria, capital of British Columbia, sits on the craggy southern end of Vancouver Island. With abundant parkland, it’s known for outdoor activities. The city's British colonial past shows in its Victorian architecture, including stately Craigdarroch Castle mansion. Butchart Gardens, with 55 acres of vivid floral displays, plus statuary, water features and a carousel, is one of many formal gardens in the city.",
+                        Description:"Whistler is a town north of Vancouver, British Columbia, that's home to Whistler Blackcomb, one of the largest ski resorts in North America. Besides skiing and snowboarding, the area offers snowshoeing, tobogganing and ski jumping at the Olympic Park, a venue for the 2010 Vancouver Winter Olympics. The hub of Whistler is a compact, chalet-style pedestrian village at the base of Whistler and Blackcomb mountains.",
                      Hidden: true,
                     Viewed: false,
                     },
                 {
                         Name:"Kelowna",
                        Avatar:"./img/BritishColumbiaVictoria.jpg",
-                        Description:"Victoria, capital of British Columbia, sits on the craggy southern end of Vancouver Island. With abundant parkland, it’s known for outdoor activities. The city's British colonial past shows in its Victorian architecture, including stately Craigdarroch Castle mansion. Butchart Gardens, with 55 acres of vivid floral displays, plus statuary, water features and a carousel, is one of many formal gardens in the city.",
+                        Description:"Kelowna is a city in the south of Canada’s British Columbia province. It’s in the Okanagan Valley, on the eastern shore of Okanagan Lake, surrounded by provincial parks, pine forest, vineyards, orchards and mountains. Its downtown area incorporates waterfront City Park and a lakeside cultural district. More than 20 local vineyards offer wine tours and tastings.",
                      Hidden: true,
                     Viewed: false,
                     }
@@ -318,7 +404,7 @@ function ColorPicker() {
         ColorSelected = "#80B584";
         return ColorSelected;
     }
-    else if (ColorSelected == "Yellow") {
+    else if (ColorSelected == "Orange") {
         ColorSelected = "#FFCB2F";
         return ColorSelected;
     }

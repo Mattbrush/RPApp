@@ -49,7 +49,7 @@ var StoreInventory = [
                 , Stats: {
                     Health: 35
                 , }
-                , Worth: 7
+                , Worth: 15
                 , DropRate: 0.65
     },
     
@@ -78,7 +78,12 @@ function StartStore() {
     var Party = JSON.parse(localStorage.getItem('_Party'));
     $("#MessageHolder").html("<h4 class='animated pulse  Message' id='Dialog'> Welcome to Tommie's </h4>");
     
-     if (Party[0].Triggers.Victoria9 == true){
+     if (Party[0].Triggers.Victoria10 == true){
+        /* Store is back open! */
+      setTimeout(function () {
+        StoreFront();
+    }, 1500);  
+    } else if (Party[0].Triggers.Victoria9 == true){
         /* Ben Opens Up Game Opens Up :D */
       setTimeout(function () {
         StoreStory2();
@@ -731,7 +736,7 @@ function StartStore() {
                    var Party = JSON.parse(localStorage.getItem('_Party'));
                 var Character = JSON.parse(localStorage.getItem('_character'));
                 var Mana = Math.floor(Math.random() * 5) + 5;
-                var Health = Math.floor(Math.random() * 5) + 5;
+                var Health = Math.floor(Math.random() * 20) + 8;
                 var Ben = {
                     Name: "Ben"
                     , FamilyName: "Wengel"

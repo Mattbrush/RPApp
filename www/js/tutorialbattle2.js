@@ -374,7 +374,7 @@ function InitializeBattle() {
             else {
                 $("#MessageHolder").html("<h4 class='animated shake  Message' id='StatusMSG'>" + Enemy.Name + " is Scared of You! </div>");
                 setTimeout(function () {
-                    $("#MessageHolder").html("<h4 class='animated bounce  Message' id='StatusMSG'>" + Enemy.Name + " Continues the fight anyway! </div>");
+                    $("#MessageHolder").html("<h4 class='animated bounceIn  Message' id='StatusMSG'>" + Enemy.Name + " Continues the fight anyway! </div>");
                     setTimeout(function () {
                         EnemyAttack(Enemy, TempHealth);
                     }, Party[0].PlayerTextSpeed);
@@ -406,7 +406,7 @@ function InitializeBattle() {
         $("#Run").click(function () {
             $("#MessageHolder").html("<div class='animated pulse  Message' id='StatusMSG'>Are You Sure You Want To Run Away? </div>");
             $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
-            $("#OptionsHolder").html("<button  class='MenuButton animated bounce' id='Run'>Run Away</button><br><button class='MenuButton animated bounce'  id='RBack'>Back</button>");
+            $("#OptionsHolder").html("<button  class='MenuButton animated bounceIn' id='Run'>Run Away</button><br><button class='MenuButton animated bounceIn'  id='RBack'>Back</button>");
             $("#Run").click(function () {
                 /*RunChance Moment*/
                 var RunAwayChance = Math.floor(Math.random() * 10) + 1;
@@ -512,7 +512,7 @@ function InitializeBattle() {
                     };
                 });
             };
-            $("#OptionsHolder").append("<button class='MenuButton animated bounce' id='SBack'> Back </button>");
+            $("#OptionsHolder").append("<button class='MenuButton animated bounceIn' id='SBack'> Back </button>");
             $("#SBack").click(function () {
                 PlayerTurn(Enemy,  TempHealth);
             });
@@ -553,13 +553,13 @@ function InitializeBattle() {
                 for (i = 0; i < PartyMember.Inventory.length; i++) {
                     console.log(PartyMember.Inventory[i])
                         // ITEM Menu Selection //
-                    $("#OptionsHolder").append("<div class='BattleItemSlot'><input class='BattleItem animated bounce' type='image' src='" + PartyMember.Inventory[i].Avatar + "' id='" + i + "'>" + PartyMember.Inventory[i].Name + "</input></div>");
+                    $("#OptionsHolder").append("<div class='BattleItemSlot'><input class='BattleItem animated bounceIn' type='image' src='" + PartyMember.Inventory[i].Avatar + "' id='" + i + "'>" + PartyMember.Inventory[i].Name + "</input></div>");
                     $("#" + i + "").click(function () {
                         // Using ITEMS //
                         var index = this.id;
                         console.log(PartyMember.Inventory[this.id].Name);
                         var Item = PartyMember.Inventory[index]
-                        $("#OptionsHolder").html("<div>Do You Want To Use " + PartyMember.Inventory[index].Name + " ?</div><br><button class='MenuButton animated bounce' id='Accept'> Yes </button><button class='MenuButton animated bounce' id='Deny'> No </button>");
+                        $("#OptionsHolder").html("<div>Do You Want To Use " + PartyMember.Inventory[index].Name + " ?</div><br><button class='MenuButton animated bounceIn' id='Accept'> Yes </button><button class='MenuButton animated bounceIn' id='Deny'> No </button>");
                         $("#Accept").click(function () {
                             WhichCharacter(Item, index);
                         });
@@ -572,7 +572,7 @@ function InitializeBattle() {
                             console.log(Item);
                             $("#OptionsHolder").html("<span class'animated fadeIn'>Which Character Would You Like To Use " + PartyMember.Inventory[index].Name + " On?</span><br><div id='PartyList'></div>");
                             for (e = 0; e < Party.length; e++) {
-                                $("#PartyList").append("<button class='MenuButton aniamted bounce' id='" + index + e + "'>" + Party[e].Name + "</button>");
+                                $("#PartyList").append("<button class='MenuButton aniamted bounceIn' id='" + index + e + "'>" + Party[e].Name + "</button>");
                                 $("#" + index + e + "").click(function () {
                                     if (Item.Type == "Status") {
                                         // If Item is a STATUS ITEM  i.e Potion or Elixir
@@ -673,7 +673,7 @@ function InitializeBattle() {
                                             };
 
                                             function DoneEating() {
-                                                $("#OptionsHolder").html("<div id='Options' class=' MenuWrapper animated bounce'>  " + Party[ThisId.substr(1, 1)].Name + " Gained " + Item.Stats.Health + " HP </div>");
+                                                $("#OptionsHolder").html("<div id='Options' class=' MenuWrapper animated bounceIn'>  " + Party[ThisId.substr(1, 1)].Name + " Gained " + Item.Stats.Health + " HP </div>");
                                                 setTimeout(function () {
                                                     console.log(PartyMember.Inventory)
                                                     console.log(index)
@@ -716,10 +716,10 @@ function InitializeBattle() {
             for (i = 0; i < 4; i++) {
                 console.log(PartyMember.Moves[i])
                 if (PartyMember.Moves[i] != null) {
-                    $("#OptionsHolder").append("<button class='MenuButton animated bounce' id='" + i + "'>" + PartyMember.Moves[i].Name + "</button>");
+                    $("#OptionsHolder").append("<button class='MenuButton animated bounceIn' id='" + i + "'>" + PartyMember.Moves[i].Name + "</button>");
                 }
                 else {
-                    $("#OptionsHolder").append("<button disabled class='animated bounce MenuButtonDisabled' id='" + i + "'> No Move Set</button>");
+                    $("#OptionsHolder").append("<button disabled class='animated bounceIn MenuButtonDisabled' id='" + i + "'> No Move Set</button>");
                 };
                 $("#" + i + "").click(function () {
                     var index = this.id;
@@ -753,7 +753,7 @@ function InitializeBattle() {
                     };
                 });
             };
-            $("#OptionsHolder").append("<button class='MenuButton animated bounce' id='AttackBack'> Back </button>");
+            $("#OptionsHolder").append("<button class='MenuButton animated bounceIn' id='AttackBack'> Back </button>");
             $("#AttackBack").click(function () {
                 PlayerTurn(Enemy, TempHealth);
             });
@@ -796,7 +796,7 @@ function InitializeBattle() {
         $("#Run").click(function () {
             $("#MessageHolder").html("<div class='animated pulse  Message' id='StatusMSG'>Are You Sure You Want To Run Away? </div>");
             $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
-            $("#OptionsHolder").html("<button  class='MenuButton animated bounce' id='Run'>Run Away</button><br><button class='MenuButton animated bounce'  id='RBack'>Back</button>");
+            $("#OptionsHolder").html("<button  class='MenuButton animated bounceIn' id='Run'>Run Away</button><br><button class='MenuButton animated bounceIn'  id='RBack'>Back</button>");
             $("#Run").click(function () {
                 /*RunChance Moment*/
                 var RunAwayChance = Math.floor(Math.random() * 10) + 1;
@@ -902,7 +902,7 @@ function InitializeBattle() {
                     };
                 });
             };
-            $("#OptionsHolder").append("<button class='MenuButton animated bounce' id='SBack'> Back </button>");
+            $("#OptionsHolder").append("<button class='MenuButton animated bounceIn' id='SBack'> Back </button>");
             $("#SBack").click(function () {
                 PlayerTurn(Enemy,  TempHealth);
             });
@@ -944,13 +944,13 @@ function InitializeBattle() {
                 for (i = 0; i < PartyMember.Inventory.length; i++) {
                     console.log(PartyMember.Inventory[i])
                         // ITEM Menu Selection //
-                    $("#OptionsHolder").append("<div class='BattleItemSlot'><input class='BattleItem animated bounce' type='image' src='" + PartyMember.Inventory[i].Avatar + "' id='" + i + "'>" + PartyMember.Inventory[i].Name + "</input></div>");
+                    $("#OptionsHolder").append("<div class='BattleItemSlot'><input class='BattleItem animated bounceIn' type='image' src='" + PartyMember.Inventory[i].Avatar + "' id='" + i + "'>" + PartyMember.Inventory[i].Name + "</input></div>");
                     $("#" + i + "").click(function () {
                         // Using ITEMS //
                         var index = this.id;
                         console.log(PartyMember.Inventory[this.id].Name);
                         var Item = PartyMember.Inventory[index]
-                        $("#OptionsHolder").html("<div>Do You Want To Use " + PartyMember.Inventory[index].Name + " ?</div><br><button class='MenuButton animated bounce' id='Accept'> Yes </button><button class='MenuButton animated bounce' id='Deny'> No </button>");
+                        $("#OptionsHolder").html("<div>Do You Want To Use " + PartyMember.Inventory[index].Name + " ?</div><br><button class='MenuButton animated bounceIn' id='Accept'> Yes </button><button class='MenuButton animated bounceIn' id='Deny'> No </button>");
                         $("#Accept").click(function () {
                             WhichCharacter(Item, index);
                         });
@@ -963,7 +963,7 @@ function InitializeBattle() {
                             console.log(Item);
                             $("#OptionsHolder").html("<span class'animated fadeIn'>Which Character Would You Like To Use " + PartyMember.Inventory[index].Name + " On?</span><br><div id='PartyList'></div>");
                             for (e = 0; e < Party.length; e++) {
-                                $("#PartyList").append("<button class='MenuButton aniamted bounce' id='" + index + e + "'>" + Party[e].Name + "</button>");
+                                $("#PartyList").append("<button class='MenuButton aniamted bounceIn' id='" + index + e + "'>" + Party[e].Name + "</button>");
                                 $("#" + index + e + "").click(function () {
                                     if (Item.Type == "Status") {
                                         // If Item is a STATUS ITEM  i.e Potion or Elixir
@@ -1064,7 +1064,7 @@ function InitializeBattle() {
                                             };
 
                                             function DoneEating() {
-                                                $("#OptionsHolder").html("<div id='Options' class=' MenuWrapper animated bounce'>  " + Party[ThisId.substr(1, 1)].Name + " Gained " + Item.Stats.Health + " HP </div>");
+                                                $("#OptionsHolder").html("<div id='Options' class=' MenuWrapper animated bounceIn'>  " + Party[ThisId.substr(1, 1)].Name + " Gained " + Item.Stats.Health + " HP </div>");
                                                 setTimeout(function () {
                                                     console.log(PartyMember.Inventory)
                                                     console.log(index)
@@ -1107,10 +1107,10 @@ function InitializeBattle() {
             for (i = 0; i < 4; i++) {
                 console.log(PartyMember.Moves[i])
                 if (PartyMember.Moves[i] != null) {
-                    $("#OptionsHolder").append("<button class='MenuButton animated bounce' id='" + i + "'>" + PartyMember.Moves[i].Name + "</button>");
+                    $("#OptionsHolder").append("<button class='MenuButton animated bounceIn' id='" + i + "'>" + PartyMember.Moves[i].Name + "</button>");
                 }
                 else {
-                    $("#OptionsHolder").append("<button disabled class='animated bounce MenuButtonDisabled' id='" + i + "'> No Move Set</button>");
+                    $("#OptionsHolder").append("<button disabled class='animated bounceIn MenuButtonDisabled' id='" + i + "'> No Move Set</button>");
                 };
                 $("#" + i + "").click(function () {
                     var index = this.id;
@@ -1140,7 +1140,7 @@ function InitializeBattle() {
                     };
                 });
             };
-            $("#OptionsHolder").append("<button class='MenuButton animated bounce' id='AttackBack'> Back </button>");
+            $("#OptionsHolder").append("<button class='MenuButton animated bounceIn' id='AttackBack'> Back </button>");
             $("#AttackBack").click(function () {
                 PlayerTurn(Enemy, TempHealth);
             });
@@ -1237,7 +1237,7 @@ function InitializeBattle() {
                     }, Party[0].PlayerTextSpeed);
                 }
                 else if (EnemyElementStrength == 0.75) {
-                    $("#MessageHolder").html("<h4 class='animated bounce  Message' id='StatusMSG'>It attacked " + PartyMember.Name + "'s strength so it only did  " + DamageEarned + " damage </div>");
+                    $("#MessageHolder").html("<h4 class='animated bounceIn  Message' id='StatusMSG'>It attacked " + PartyMember.Name + "'s strength so it only did  " + DamageEarned + " damage </div>");
                     setTimeout(function () {
                         //    PlayerTurn(Enemy, TempHealth);
                         console.log(PartyMember.Stats[0].Value )
