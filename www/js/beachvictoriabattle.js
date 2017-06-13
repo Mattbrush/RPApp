@@ -208,7 +208,7 @@ function InitializeBattle() {
                     Total: Math.floor(Math.random() * 2) + 1
                 , }
                 , Experience: {
-                    ExperienceEarned: Math.floor(Math.random() * 8) + 4
+                    ExperienceEarned: Math.floor(Math.random() * 8) + 5
                 , }
                 , RunStat: 350
             , },
@@ -316,7 +316,7 @@ function InitializeBattle() {
                     Total: Math.floor(Math.random() * 2) + 1
                 , }
                 , Experience: {
-                    ExperienceEarned: Math.floor(Math.random() * 6) + 3
+                    ExperienceEarned: Math.floor(Math.random() * 9) + 5
                 , }
                 , RunStat: 300
             , }
@@ -387,7 +387,7 @@ function InitializeBattle() {
             $("#EnemyAvatar").css("border-color", Enemy.Color);
             $("#EnemyAvatar").attr("src", "" + Enemy.Avatar + "");
             // Placing Current PartyMember's Stats
-         $("#Player").html("<div class='SubMainTitle' id='PlayerName'>" + PartyMember.Name + " " + PartyMember.FamilyName + "</div><br><progress class='Bar HealthProgress' id='PlayerHealth' value='"+PartyMember.Stats[0].Value+"' max='"+PartyMember.Stats[6].Value+"' data-label='"+PartyMember.Stats[0].Value+" / "+PartyMember.Stats[6].Value+"'></progress><progress class='Bar ManaProgress' id='PlayerMana' value='"+PartyMember.Stats[7].Value+"' max='"+PartyMember.Stats[8].Value+"' data-label='"+PartyMember.Stats[7].Value+" / "+PartyMember.Stats[8].Value+"'></progress><progress class='Bar XPProgress' id='XPMainTitle' value='"+PartyMember.Experience.Total+"' max='"+PartyMember.Experience.ToNextLevel+"' data-label='"+PartyMember.Experience.Total+" / "+PartyMember.Experience.ToNextLevel+"'></progress>");
+         $("#Player").html("<div class='SubMainTitle' id='PlayerName'>" + PartyMember.Name + " " + PartyMember.FamilyName + "</div><br><span class='Level'>Level : "+PartyMember.Level+"</span><br><progress class='Bar HealthProgress' id='PlayerHealth' value='"+PartyMember.Stats[0].Value+"' max='"+PartyMember.Stats[6].Value+"' data-label='"+PartyMember.Stats[0].Value+" / "+PartyMember.Stats[6].Value+"'></progress><progress class='Bar ManaProgress' id='PlayerMana' value='"+PartyMember.Stats[7].Value+"' max='"+PartyMember.Stats[8].Value+"' data-label='"+PartyMember.Stats[7].Value+" / "+PartyMember.Stats[8].Value+"'></progress><progress class='Bar XPProgress' id='XPMainTitle' value='"+PartyMember.Experience.Total+"' max='"+PartyMember.Experience.ToNextLevel+"' data-label='"+PartyMember.Experience.Total+" / "+PartyMember.Experience.ToNextLevel+"'></progress>");
             $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
             //Change Color
              $("#Player").css("background", "" + PartyMember.Color + "");
@@ -549,7 +549,7 @@ function InitializeBattle() {
         
         console.log(PartyMember)
         // Placing Current PartyMember's Stats
-         $("#Player").html("<div class='SubMainTitle' id='PlayerName'>" + PartyMember.Name + " " + PartyMember.FamilyName + "</div><br><progress class='Bar HealthProgress' id='PlayerHealth' value='"+PartyMember.Stats[0].Value+"' max='"+PartyMember.Stats[6].Value+"' data-label='"+PartyMember.Stats[0].Value+" / "+PartyMember.Stats[6].Value+"'></progress><progress class='Bar ManaProgress' id='PlayerMana' value='"+PartyMember.Stats[7].Value+"' max='"+PartyMember.Stats[8].Value+"' data-label='"+PartyMember.Stats[7].Value+" / "+PartyMember.Stats[8].Value+"'></progress><progress class='Bar XPProgress' id='XPMainTitle' value='"+PartyMember.Experience.Total+"' max='"+PartyMember.Experience.ToNextLevel+"' data-label='"+PartyMember.Experience.Total+" / "+PartyMember.Experience.ToNextLevel+"'></progress>");
+         $("#Player").html("<div class='SubMainTitle' id='PlayerName'>" + PartyMember.Name + " " + PartyMember.FamilyName + "</div><br><span class='Level'>Level : "+PartyMember.Level+"</span><br><progress class='Bar HealthProgress' id='PlayerHealth' value='"+PartyMember.Stats[0].Value+"' max='"+PartyMember.Stats[6].Value+"' data-label='"+PartyMember.Stats[0].Value+" / "+PartyMember.Stats[6].Value+"'></progress><progress class='Bar ManaProgress' id='PlayerMana' value='"+PartyMember.Stats[7].Value+"' max='"+PartyMember.Stats[8].Value+"' data-label='"+PartyMember.Stats[7].Value+" / "+PartyMember.Stats[8].Value+"'></progress><progress class='Bar XPProgress' id='XPMainTitle' value='"+PartyMember.Experience.Total+"' max='"+PartyMember.Experience.ToNextLevel+"' data-label='"+PartyMember.Experience.Total+" / "+PartyMember.Experience.ToNextLevel+"'></progress>");
             $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
          //Change Color
              $("#Player").css("background", "" + PartyMember.Color + "");
@@ -609,7 +609,23 @@ function InitializeBattle() {
                     $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
                     $("#MessageHolder").html("<h4 class='animated rubberBand  Message' id='StatusMSG'> " + PartyMember.Name + " could not release from the " + Enemy.Name + "'s grasp! </div>");
                     setTimeout(function () {
-                        EnemyTurn();
+                        
+                        var i = 5
+                    for (i = 0; i < 4; i++) {
+                    if (Party[i]){
+                      if (Party[i].Name == PartyMember.Name){
+                          console.log(i)
+                          var Index = i;
+                      }  
+                    };
+                    };
+                        
+                         TurnTracker[Index] = true;
+                    console.log(TurnTracker);
+                    localStorage.setItem('_TurnTracker', JSON.stringify(TurnTracker));
+                    localStorage.setItem('_Party', JSON.stringify(Party));
+                    localStorage.setItem('_Enemy', JSON.stringify(Enemy));
+                        PlayerTurn();
                     }, Party[0].PlayerTextSpeed);
                 }
             });
@@ -954,10 +970,27 @@ function InitializeBattle() {
             var Move = JSON.parse(localStorage.getItem('_Move'));
             // Regular Attack //
             var Spell = "";
-            var CritcalChance = 0;
-            var DidCriticalHit = false;
             var UsedMagic = false;
             var RandomAttack = 1;
+            
+            
+            //*****CRITICAL HIT CHANCE 1/10****//
+                var CritcalChance = Math.floor((Math.random() * 10) + 1);
+            console.log("CritcalChance : ")
+            console.log(CritcalChance)
+                var DidCriticalHit = false;
+                if (CritcalChance == 10) {
+                    CritcalChance = Math.round(Move.Damage * 1.75);
+                    DidCriticalHit = true;
+                    console.log("CRITCIAL ATTACK")
+                }
+                else {
+                    CritcalChance = 0
+                };
+            
+            
+            
+            
             
             // Remove Cost from PLayer's HP if needed
             PartyMember.Stats[0].Value = PartyMember.Stats[0].Value - Move.Cost;
@@ -976,6 +1009,7 @@ function InitializeBattle() {
             Party[PartyMember.IndexPosition] = PartyMember;
             
              localStorage.setItem('_PartyMember', JSON.stringify(PartyMember));  
+             localStorage.setItem('_CritcalChance', JSON.stringify(CritcalChance));  
   localStorage.setItem('_Party', JSON.stringify(Party));
             EnemyLosesHealth(Enemy, TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move)
         };
@@ -1146,6 +1180,7 @@ function InitializeBattle() {
         var Enemy = JSON.parse(localStorage.getItem('_Enemy'));
         var TempHealth = JSON.parse(localStorage.getItem('_TempHealth'));
         var TurnTracker = JSON.parse(localStorage.getItem('_TurnTracker'));
+        var CritcalChance = JSON.parse(localStorage.getItem('_CritcalChance'));
         
         Party[PartyMember.IndexPosition] = PartyMember;
         
@@ -1157,6 +1192,8 @@ function InitializeBattle() {
         $("#PlayerMana").attr("data-label",""+PartyMember.Stats[7].Value+" / "+PartyMember.Stats[8].Value+"");
         $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
         //// ENEMY LOSES IT'S HEALTH HERE ////
+        console.log("CritcalChance After : ");
+        console.log(CritcalChance);
         FullAttack = FullAttack + CritcalChance;
         TempHealth = TempHealth - FullAttack
         console.log(Party[1].Stats[7].Value);
@@ -1222,7 +1259,7 @@ function InitializeBattle() {
                 AttackInfo()
             }
             else {
-                $("#MessageHolder").html("<h4 class='animated bounceIn  Message' id='StatusMSG'>" + PartyMember.Name + " destroys " + Enemy.Name + " using " + Move.Name + " </div>");
+                $("#MessageHolder").html("<h4 class='animated bounceIn  Message' id='StatusMSG'>" + PartyMember.Name + " attacks using " + Move.Name + " </div>");
                 setTimeout(function () {
                    localStorage.setItem('_Party', JSON.stringify(Party));
                     localStorage.setItem('_Enemy', JSON.stringify(Enemy));

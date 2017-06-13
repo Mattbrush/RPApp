@@ -42,7 +42,7 @@ function InitApp() {
     
     
     /* ~~~~~~~~~~~~~~ VERSION NUMBER ~~~~~~~~~~~~~~~~~~ */
-    $("#Version").html("0.0.3 (GroundWork Update)");
+    $("#Version").html("0.0.4");
     
     
     

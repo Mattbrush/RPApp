@@ -138,6 +138,7 @@ function StartApp() {
             $("#SkillPoints").html("Skill Points : " + Party[PartyIndex].Experience.SkillPoints);
         }
         $("#ConfirmChanges").click(function () {
+            console.log("SkillConfirm 1");
      // THERE ARE TWO CONFIRM CHANGES!?!?!?
             NewStatPoints = 0;
             Party[PartyIndex].Stats[1].Value = Party[PartyIndex].Stats[1].Value + NewAttack;
@@ -164,8 +165,7 @@ function StartApp() {
             $("#Confirm").html("");
             PlaceStats(Party[PartyIndex]);
             CheckSkillPoints(Party[PartyIndex]);
-            localStorage.setItem('_Party', JSON.stringify(Party));
-            PlaceInformation();
+            
         });
         CheckSkillPoints(Party[PartyIndex]);
         
@@ -173,6 +173,11 @@ function StartApp() {
             //     console.log('dfs')
          $(".Add").addClass("MenuButtonDisabled");
         }
+        
+        
+        localStorage.setItem('_Party', JSON.stringify(Party));
+            PlaceInformation();
+        
     })
     
     
@@ -249,6 +254,7 @@ function StartApp() {
         
        $("#ConfirmChanges").click(function () {
            // THERE ARE TWO CONFIRM CHANGES!?!?!?
+           console.log("SkillConfirm 2");
             NewStatPoints = 0;
             Party[PartyIndex].Stats[1].Value = Party[PartyIndex].Stats[1].Value + NewAttack;
             Party[PartyIndex].Stats[2].Value = Party[PartyIndex].Stats[2].Value + NewDefense;
@@ -274,8 +280,7 @@ function StartApp() {
             $("#Confirm").html("");
             PlaceStats(Party[PartyIndex]);
             CheckSkillPoints(Party[PartyIndex]);
-            localStorage.setItem('_Party', JSON.stringify(Party));
-           PlaceInformation();
+            
         });
         
         

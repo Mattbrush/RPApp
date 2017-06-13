@@ -44,7 +44,7 @@ function PierVictoria5() {
     
     $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket' ></div>");
     $("#App").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage' ></div>");
-    $("#AlertPlayerMessage").prepend("<div class='AlertPlayerText'>Where would you like to go? <br><button class='MenuButton animated flipInY' id='PierFish'> Pier </button><button class='MenuButton animated flipInY' id='Beach'> Beach </button></div>");
+    $("#AlertPlayerMessage").prepend("<div class='AlertPlayerText'>Where would you like to go? <br><button class='MenuButton animated flipInY' id='PierFish'> Pier </button><button class='MenuButton animated flipInY' id='Beach'> Beach </button><br><button class='MenuButton animated flipInY' id='Back'> Back To Victoria </button></div>");
     
     $("#Beach").click(function(){
         $("#ContinueMessageHolder").remove();
@@ -55,7 +55,17 @@ function PierVictoria5() {
                 $("#App").load("./temp/BeachVictoria.html");
     });
     
+    $("#Back").click(function () {
+        $("#ContinueMessageHolder").remove();
+                 $("#StatusMessageHolder").html("");
+                $("#ContinueMessageHolder").html("");
+                $("#CharacterAvatar").html("");
+                $("#App").load("./temp/Victoria.html");
+                    
+                });
+    
     $("#PierFish").click(function(){
+       
            $("#OverlayBlanket").remove();
            $("#AlertPlayerMessage").remove();
         $("#Locationtitle").html(" The Pier, Victoria,  B.C");
@@ -143,7 +153,7 @@ function PierVictoria5() {
                  $("#StatusMessageHolder").html("");
                 $("#ContinueMessageHolder").html("");
                 $("#CharacterAvatar").html("");
-                $("#App").load("./temp/Victoria.html");
+                $("#App").load("./temp/PierVictoria.html");
                 });
             /* ACCEPT */       
              $("#Question0").click(function () {

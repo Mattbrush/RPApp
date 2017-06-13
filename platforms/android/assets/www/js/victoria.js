@@ -37,7 +37,7 @@ function StartApp() {
     
     function AppendJournal(){
         if (JournalNotification == 0){
-          $("#ProvinceList").append("<br><br><button id='StatusPage' class='MenuButton'> Menu </button><button id='Journal' class='MenuButton'> Journal </button>");
+          $("#ProvinceList").append("<br><br><button id='StatusPage' class='MenuButton'> <img class='Icon' src='./img/MenuIcon.png'></img> </button><button id='Journal' class='MenuButton'> <img class='Icon' src='./img/JournalIcon.png'></img></button>");
         } else {
               $("#ProvinceList").append("<br><br><button id='StatusPage' class='MenuButton'> Menu </button><button id='Journal' class='MenuButton'> Journal ( "+JournalNotification+" ) </button>");
         }
