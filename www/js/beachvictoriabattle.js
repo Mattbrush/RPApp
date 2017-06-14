@@ -257,7 +257,6 @@ function InitializeBattle() {
                     , DropRate: 0.40  // Lower is more often
                 }, ]
                 , MoveSet: [
-
                     {
                         Name: "Saltwater Slice"
                         , Type: "Element"
