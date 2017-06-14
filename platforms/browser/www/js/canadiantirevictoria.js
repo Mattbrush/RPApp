@@ -17,12 +17,13 @@ var StoreInventory = [
                 Name: "Sword"
                 , IDName: "Sword"
                 , Avatar: "./img/Sword.png"
+                , Description: " A basic sword for a basic person.. ."
                 , Type: "Weapon"
                 , Index: 0
                 ,Weight: 5
                 ,Equip:"RightHand"
                 , Stats: {
-                    Attack: 5
+                    Attack:[2,6]
                 , }
                 , Worth: 2
                 , DropRate: 0.65
@@ -37,7 +38,7 @@ var StoreInventory = [
                 ,Weight: 7
                 ,Equip:"RightHand"
                 , Stats: {
-                    Attack: 6
+                    Attack: [2,9]
                 , }
                 , Worth: 3
                 , DropRate: 0.65
@@ -72,7 +73,7 @@ var StoreInventory = [
                 ,Weight: 7
                 ,Equip:"Legs"
                 , Stats: {
-                    Defense: 3
+                    Defense: [1,3]
                 , }
                 , Worth: 3
                 , DropRate: 0.65
@@ -86,7 +87,7 @@ var StoreInventory = [
                 ,Weight: 7
                 ,Equip:"Head"
                 , Stats: {
-                    Defense: 2
+                    Defense: [1,2]
                 , }
                 , Worth: 3
                 , DropRate: 0.65
@@ -378,7 +379,7 @@ function StartStore() {
                     var index = this.id
                     ShopkeeperPurchaseDialog();
                     $("#StatusMessageHolder").css("display", "block");
-                    $("#AlertPlayerMessage").html("<h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'><img class='Width75' src='"+StoreInventory[this.id].Avatar+"'></img><br> <span class='animated flipInY '>" + StoreInventory[this.id].Name + " </span><br><span class='animated flipInY '>" + StoreInventory[this.id].Description + " </span> <br> <span class='animated flipInY '>$ " + StoreInventory[this.id].Worth + "</span> <br><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> No </button>");
+                    $("#AlertPlayerMessage").html("<div class='BattleMessage'> Want to buy this? </div><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'><img class='Width75' src='"+StoreInventory[this.id].Avatar+"'></img><br> <span class='animated flipInY '>" + StoreInventory[this.id].Name + " </span><br><span class='animated flipInY '>" + StoreInventory[this.id].Description + " </span> <br> <span class='animated flipInY '>$ " + StoreInventory[this.id].Worth + "</span> <br><button class='MenuButton' id='Accept'> Buy </button><button class='MenuButton'  id='Deny'> No </button>");
                     $("#StatusMessageHolder").css("border-color", "" + Party[0].Color + "");
                     $("#Accept").click(function () {
                        
@@ -387,6 +388,8 @@ function StartStore() {
                         $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>Would you like to equip this item now to a party member ? </h4><br><button id='Yes' class='MenuButton'> Yes </button><button id='No' class='MenuButton'> No </button></div>");
                      
                         $("#No").click(function(){
+                            $("#OverlayBlanket").remove();
+                    $("#AlertPlayerMessage").remove();
                              $("#MessageHolder").html("");
                         $("#StatusMessageHolder").css("display", "none");
                          PurchaseItem( index); 
@@ -533,7 +536,7 @@ function StartStore() {
                     var index = this.id
                     ShopkeeperPurchaseDialog();
                     $("#StatusMessageHolder").css("display", "block");
-                    $("#AlertPlayerMessage").html("<h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'><img class='Width75' src='"+StoreInventory[this.id].Avatar+"'></img><br> <span class='animated flipInY '>" + StoreInventory[this.id].Name + " </span><br> <span class='animated flipInY '>$ " + StoreInventory[this.id].Worth + "</span> <br><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> No </button>");
+                    $("#AlertPlayerMessage").html("<div class='BattleMessage'> Want to buy this? </div><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'><img class='Width75' src='"+StoreInventory[this.id].Avatar+"'></img><br> <span class='animated flipInY '>" + StoreInventory[this.id].Name + " </span><br> <span class='animated flipInY '>$ " + StoreInventory[this.id].Worth + "</span> <br><button class='MenuButton' id='Accept'> Buy </button><button class='MenuButton'  id='Deny'> No </button>");
                     $("#StatusMessageHolder").css("border-color", "" + Party[0].Color + "");
                     $("#Accept").click(function () {
                        
@@ -732,7 +735,6 @@ function StartStore() {
             $("#Inventory").html("");
               // Reset Party[0] to reflect chnages 
             Character = Party[0];
-            localStorage.setItem('_character', JSON.stringify(Character));
             localStorage.setItem('_Party', JSON.stringify(Party));
             if (StoreInventory[index].Type == "Spell") {
                 StoreInventory[index].Worth = Orignalworth
@@ -766,7 +768,7 @@ function StartStore() {
             RefreshMoney();
             CheckWallet();
             $("#Inventory").html("");
-            localStorage.setItem('_character', JSON.stringify(Character));
+            
             if (StoreInventory[index].Type == "Spell") {
                 StoreInventory[index].Worth = Orignalworth
                 StoreInventory.splice(index, 1);
@@ -829,14 +831,15 @@ function StartStore() {
         $("#Logo").html("");
         $("#MessageHolder").html("<h4 class='animated rubberBand  Message' id='Dialog'> What do you want to offer me? </h4>");
         $("#Inventory").html("<h4 class='animated pulse  SubSubMainTitle' id='Dialog'> Your Inventory :  </h4>");
-         $("#Inventory").html("<div class='SubSubMainTitle animated flipInY' id='PlayerInventory'> Armour </div><div id='InventoryContainer' class='StoreInventory'></div>");
+         $("#Inventory").html("<div class='SubSubMainTitle animated flipInY' id='PlayerInventory'> "+Party[0].Name+"'s Inventory </div><div id='InventoryContainer' class='StoreInventory'></div>");
         CheckWallet();
-        var Character = JSON.parse(localStorage.getItem('_character'));
+        //var Character = JSON.parse(localStorage.getItem('_character'));
         var StoreInventory = JSON.parse(localStorage.getItem('_StoreInventory'));
         $("#Options").html("<br><div class='MenuWrapper animated pulse' id='Wallet'> <h4 class='SubSubMainTitle'> Wallet : </h4><span class='Money'>$" + Party[0].Wallet.Total + "</span><br></div><br><button class='animated fadeInDown MenuButton2' id='Back'>Back</button></div>");
         for (i = 0; i < Party[0].Inventory.length; i++) {
-         if (Party[0].Inventory[i].Type == "Key"){}else {
-            
+         if (Party[0].Inventory[i].Type == "Key"){
+             
+         }else {
             console.log(Party[0].Inventory[i]);
             $("#Inventory").append("<br><input class='StoreSlot' type='image' src='" + Party[0].Inventory[i].Avatar + "'  id='" + i + "'>Name : " + Party[0].Inventory[i].Name + "<br> Type: " + Party[0].Inventory[i].Type + " <br> Price : " + Party[0].Inventory[i].Worth + "</input>");
             if (Party[0].Inventory[i].Type == "Status") {
@@ -859,14 +862,20 @@ function StartStore() {
                 var index = this.id
                 ShopkeeperSellerDialog();
                 $("#StatusMessageHolder").css("display", "block");
-                $("#StatusMessageHolder").html("<h4 class='animated flipInX  StatusMessage' id='StatusMessage'>Are You Sure You Want To Sell " + Party[0].Inventory[this.id].Name + " For " + Party[0].Inventory[this.id].Worth + " ? <br><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> No </button></div></h4>");
+                $("#Options").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
+                $("#Options").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage'></div>");
+                $("#AlertPlayerMessage").html("<img class='BattleItem' src='"+Party[0].Inventory[this.id].Avatar+"'></img><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>Are You Sure You Want To Sell " + Party[0].Inventory[this.id].Name + " For " + Party[0].Inventory[this.id].Worth + " ? <br><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> No </button></div></h4>");
                 $("#StatusMessageHolder").css("border-color", "" + Party[0].Color + "");
                 $("#Accept").click(function () {
                     SellItem( index);
+                    $("#OverlayBlanket").remove();
+                    $("#AlertPlayerMessage").remove();
                     $("#StatusMessageHolder").css("display", "none");
                     $("#StatusMessageHolder").html("<h4 class='animated flipOutX  Message' id='StatusMessgae'></h4>");
                 })
                 $("#Deny").click(function () {
+                    $("#OverlayBlanket").remove();
+                    $("#AlertPlayerMessage").remove();
                     $("#Inventory").html("");
                     $("#StatusMessageHolder").css("display", "none");
                     $("#StatusMessageHolder").html("<h4 class='animated flipOutX  Message' id='StatusMessgae'></h4>");
@@ -885,12 +894,11 @@ function StartStore() {
                         Party[0].Inventory.splice(index, 1);
                         localStorage.setItem('_StoreInventory', JSON.stringify(StoreInventory));
                     $("#Inventory").html("");
-                    localStorage.setItem('_character', JSON.stringify(Character));
+               
                     SellStore();
                     } else {
                     Party[0].Inventory.splice(index, 1);
                     $("#Inventory").html("");
-                    localStorage.setItem('_character', JSON.stringify(Character));
                     localStorage.setItem('_Party', JSON.stringify(Party));
                     localStorage.setItem('_StoreInventory', JSON.stringify(StoreInventory));
                     SellStore();

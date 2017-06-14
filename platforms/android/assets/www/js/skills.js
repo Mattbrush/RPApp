@@ -37,8 +37,14 @@ function StartApp() {
         var Party = JSON.parse(localStorage.getItem('_Party'));
         var SkillpointsOriginal = Party[PartyIndex].Experience.SkillPoints;
         
+         PlaceStats(Party[PartyIndex]);
+            CheckSkillPoints(Party[PartyIndex]);
+        
+        
+        
+        
     
-    $("#PartySkills").html("<div id='SkillsMenu'><h3 class='SubSubMainTitle animated rubberBand'> SkillPoints </h3><div>Player Name : "  + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName+ "</div><br><div id='Stats'></div><div id='Confirm'></div><div id='Level'>Level :  " + Party[PartyIndex].Level + "</div><br><div id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><br><div id='ToNext'> To next level : " + (Party[PartyIndex].Experience.ToNextLevel - Party[PartyIndex].Experience.Total) + "</div><br><div id='SkillPoints'>Available Skill Points : " + Party[PartyIndex].Experience.SkillPoints + "<br> </div><div class='MenuWrapper' id='PartySwitch'></div></div>");
+    $("#PartySkills").html("<div id='SkillsMenu'><h3 class='SubSubMainTitle animated rubberBand'> SkillPoints </h3><div><strong>"  + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName+ "</strong></div><br><div id='Stats'></div><div id='Confirm'></div><div id='Level'>Level :  " + Party[PartyIndex].Level + "</div><br><div id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><br><div id='ToNext'> To next level : " + (Party[PartyIndex].Experience.ToNextLevel - Party[PartyIndex].Experience.Total) + "</div><br><div id='SkillPoints'>Available Skill Points : " + Party[PartyIndex].Experience.SkillPoints + "<br> </div><div class='MenuWrapper' id='PartySwitch'></div></div>");
       $("#PartySkills").css("border-color",""+Party[PartyIndex].Color+"");
         // Only if there are more than 1 party member
          // Only display if there are more than 1 party member..
@@ -98,7 +104,6 @@ function StartApp() {
     $(".Add").click(function () {
         
          console.log(Party[PartyIndex].Experience.SkillPoints);
-      //  PlaceInformation();
        
         if(Party[PartyIndex].Experience.SkillPoints > 0){
          $("#Confirm").html("<button class='MenuButton' id='ConfirmChanges'> Confirm Changes</button>");
@@ -163,20 +168,21 @@ function StartApp() {
             Party[PartyIndex].Stats[7].Value = Party[PartyIndex].Stats[8].Value ;
             $("#Stats").html("");
             $("#Confirm").html("");
-            PlaceStats(Party[PartyIndex]);
-            CheckSkillPoints(Party[PartyIndex]);
+           
+            localStorage.setItem('_Party', JSON.stringify(Party));
+            PlaceInformation();
             
         });
         CheckSkillPoints(Party[PartyIndex]);
         
-            if(Party[PartyIndex].Experience.SkillPoints == 0){
-            //     console.log('dfs')
+        
+        ////// Checking at all times to see if there are any skillpoint available to ADD to you party memebr
+        if(Party[PartyIndex].Experience.SkillPoints == 0){
+            console.log('supposed to change over the buttons to disbaled..')
          $(".Add").addClass("MenuButtonDisabled");
+        // $(".Minus").addClass("MenuButtonDisabled");
         }
         
-        
-        localStorage.setItem('_Party', JSON.stringify(Party));
-            PlaceInformation();
         
     })
     
@@ -278,8 +284,8 @@ function StartApp() {
             Party[PartyIndex].Stats[7].Value = Party[PartyIndex].Stats[8].Value ;
             $("#Stats").html("");
             $("#Confirm").html("");
-            PlaceStats(Party[PartyIndex]);
-            CheckSkillPoints(Party[PartyIndex]);
+           localStorage.setItem('_Party', JSON.stringify(Party));
+            PlaceInformation();
             
         });
         
@@ -302,12 +308,13 @@ function StartApp() {
   
 
     function PlaceStats() {
+         var Party = JSON.parse(localStorage.getItem('_Party'));
         for (i = 1; i < 5; i++) {
             
             $("#Stats").append("<span id='" + Party[PartyIndex].Stats[i].Name +"' class='StatHeader'>  "+ Party[PartyIndex].Stats[i].Name +"<button class='Add Modifier MenuButton StatMenuButtonAdd' id='" + Party[PartyIndex].Stats[i].Name + "Add'>+</button> " + Party[PartyIndex].Stats[i].Value + "</span><button class='Minus Modifier MenuButton StatMenuButtonMinus'  id='" + Party[PartyIndex].Stats[i].Name + "Minus'>-</button><span id='New" + Party[PartyIndex].Stats[i].Name + "' class='NewStatClass'></span><br>");
           
             
-         
+         localStorage.setItem('_Party', JSON.stringify(Party));
             
         };
         
@@ -323,6 +330,7 @@ function StartApp() {
     
     
     function CheckSkillPoints(){
+         var Party = JSON.parse(localStorage.getItem('_Party'));
         /////// Statements to check whether or not the player can allocate more points to their stats.
         
       if(Party[PartyIndex].Experience.SkillPoints == 0  && NewStatPoints > 0  ){
@@ -336,6 +344,9 @@ function StartApp() {
       } else if ( Party[PartyIndex].Experience.SkillPoints > 0 ){
           $(".Add").attr('disabled', false);
       };
+        
+        localStorage.setItem('_Party', JSON.stringify(Party));
+        
     };
     
     

@@ -6,9 +6,10 @@ console.log("/////////////");
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function StartJournal() {
     var Party = JSON.parse(localStorage.getItem('_Party'));
+    var Journal = JSON.parse(localStorage.getItem('_Journal'));
     console.log("Journal Starts");
-   // Party[0].Experience.SkillPoints = Party[0].Experience.SkillPoints = 5;
-  //  Party[1].Experience.SkillPoints = Party[1].Experience.SkillPoints = 5;
+    //Party[0].Experience.SkillPoints = Party[0].Experience.SkillPoints = 5;
+   // Party[1].Experience.SkillPoints = Party[1].Experience.SkillPoints = 5;
 
     $("#Journal").html("<div id='JournalList' class='MenuWrapper animated FlipInY '></div>");
     $("#Locationtitle").html(" Journal ");
@@ -22,8 +23,8 @@ function StartJournal() {
 
         function CountJournalEntries() {
             // Counts all Available Journal Entries In TOTAL
-            for (i = 0; i < Party[0].Journal.length; i++) {
-                for (e = 0; e < Party[0].Journal[i].Entries.length; e++) {
+            for (i = 0; i <  Journal.length; i++) {
+                for (e = 0; e <  Journal[i].Entries.length; e++) {
                     JournalEntriesTotal++;
                 };
             };
@@ -32,9 +33,9 @@ function StartJournal() {
 
         function CountJournalEntriesViewed() {
             // Counts all Available Journal Entries In TOTAL
-            for (i = 0; i < Party[0].Journal.length; i++) {
-                for (e = 0; e < Party[0].Journal[i].Entries.length; e++) {
-                   if (Party[0].Journal[i].Entries[e].Hidden == false){
+            for (i = 0; i <  Journal.length; i++) {
+                for (e = 0; e <  Journal[i].Entries.length; e++) {
+                   if ( Journal[i].Entries[e].Hidden == false){
                      JournalEntriesFound++;  
                    };
                 };
@@ -47,25 +48,25 @@ function StartJournal() {
         
         // PLace all journal Entry Categories
         $("#JournalList").html("");
-        for (i = 0; i < Party[0].Journal.length; i++) {
+        for (i = 0; i <  Journal.length; i++) {
              
             var JournalNotification = 0;
             
             
             
 
-                for (e = 0; e < Party[0].Journal[i].Entries.length; e++) {
-                   if (Party[0].Journal[i].Entries[e].Hidden == false){
-                       if (Party[0].Journal[i].Entries[e].Viewed == false){
+                for (e = 0; e <  Journal[i].Entries.length; e++) {
+                   if ( Journal[i].Entries[e].Hidden == false){
+                       if ( Journal[i].Entries[e].Viewed == false){
                            JournalNotification++; 
                        };   
                    };
                 };
             
                if (JournalNotification == 0){
-        $("#JournalList").append("<br><button id='" + i + "' class='animated FlipInY MenuButton'>" + Party[0].Journal[i].Name + "</button>");
+        $("#JournalList").append("<br><button id='" + i + "' class='animated FlipInY MenuButton'>" +  Journal[i].Name + "</button>");
         } else {
-              $("#JournalList").append("<br><button id='" + i + "' class='animated FlipInY MenuButton'>" + Party[0].Journal[i].Name + "   ( "+JournalNotification+" )</button>");
+              $("#JournalList").append("<br><button id='" + i + "' class='animated FlipInY MenuButton'>" +  Journal[i].Name + "   ( "+JournalNotification+" )</button>");
         }
             
             
@@ -85,7 +86,7 @@ function StartJournal() {
 
         function CountJournalEntries(Inex) {
             // Counts all Available Journal Entries In TOTAL
-                for (e = 0; e < Party[0].Journal[Index].Entries.length; e++) {
+                for (e = 0; e <  Journal[Index].Entries.length; e++) {
                     JournalEnteriesTotalCategory++;
                 };
         };
@@ -93,8 +94,8 @@ function StartJournal() {
 
         function CountJournalEntriesViewed() {
             // Counts all Available Journal Entries In TOTAL
-                for (e = 0; e < Party[0].Journal[Index].Entries.length; e++) {
-                   if (Party[0].Journal[Index].Entries[e].Hidden == false){
+                for (e = 0; e <  Journal[Index].Entries.length; e++) {
+                   if ( Journal[Index].Entries[e].Hidden == false){
                      JournalEnteriesFoundCategory++;  
                    };
                 };
@@ -104,34 +105,35 @@ function StartJournal() {
 
                     $("#Message").html("  Journal Entries :  " + JournalEnteriesFoundCategory + " / " + JournalEnteriesTotalCategory + "   ");
                     $("#JournalList").html("");
-                    for (e = 0; e < Party[0].Journal[this.id].Entries.length; e++) {
-                        if (Party[0].Journal[this.id].Entries[e].Hidden != true) {
-                        if (Party[0].Journal[this.id].Entries[e].Viewed == false){
-                         $("#JournalList").append("<br><button class='MenuButton' id='" + this.id + "" + e + "'>" + Party[0].Journal[this.id].Entries[e].Name + " ( 1 ) </button>");   
+                    for (e = 0; e <  Journal[this.id].Entries.length; e++) {
+                        if ( Journal[this.id].Entries[e].Hidden != true) {
+                        if ( Journal[this.id].Entries[e].Viewed == false){
+                         $("#JournalList").append("<br><button class='MenuButton' id='" + this.id + "" + e + "'>" +  Journal[this.id].Entries[e].Name + " ( 1 ) </button>");   
                         } else {
-                          $("#JournalList").append("<br><button class='MenuButton' id='" + this.id + "" + e + "'>" + Party[0].Journal[this.id].Entries[e].Name + "</button>");  
+                          $("#JournalList").append("<br><button class='MenuButton' id='" + this.id + "" + e + "'>" +  Journal[this.id].Entries[e].Name + "</button>");  
                         }
                         
                         $("#" + this.id + e + "").click(function () {
-                            Party[0].Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Viewed = true;
+                             Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Viewed = true;
                            
-                            if (Party[0].Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Avatar == "" || Party[0].Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Avatar == undefined ){
-                              Party[0].Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Avatar == "none.png";  
+                            if ( Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Avatar == "" ||  Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Avatar == undefined ){
+                               Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Avatar == "none.png";  
                             };
                             // Place journal entry that was clicked on
-                            $("#JournalList").html("<div class='MenuWrapper'><h3> " + Party[0].Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Name + " </h3><br><img class='JournalAvatar' src='"+Party[0].Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Avatar+"'></img><br><span>" + Party[0].Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Description + "</span><br></div>");
-                            if (Party[0].Journal[this.id.substr(0,1)].Entries[this.id.substr(1, 1)].Defeated){
-                               $("#JournalList").append("<span> Times Defeated : <strong>" + Party[0].Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Defeated + "</strong></span>"); 
+                            $("#JournalList").html("<div class='MenuWrapper'><h3> " +  Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Name + " </h3><br><img class='JournalAvatar' src='"+ Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Avatar+"'></img><br><span>" +  Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Description + "</span><br></div>");
+                            if ( Journal[this.id.substr(0,1)].Entries[this.id.substr(1, 1)].Defeated){
+                               $("#JournalList").append("<span> Times Defeated : <strong>" +  Journal[this.id.substr(0, 1)].Entries[this.id.substr(1, 1)].Defeated + "</strong></span>"); 
                             };
-                            if (Party[0].Journal[this.id.substr(0,1)].Name == "Enemies"){
+                            if ( Journal[this.id.substr(0,1)].Name == "Enemies"){
                             $(".JournalAvatar").css("border-color","Red");
-                            } else  if (Party[0].Journal[this.id.substr(0,1)].Name == "Cities"){
+                            } else  if ( Journal[this.id.substr(0,1)].Name == "Cities"){
                             $(".JournalAvatar").css("border-color","Blue");
                             }
                             
                             $("#JournalList").append("<br><button class='MenuButton' id='Back'> Back </button>");
                             $("#Back").click(function () {
                                   localStorage.setItem('_Party', JSON.stringify(Party));
+                                  localStorage.setItem('_Journal', JSON.stringify(Journal));
                                 PlaceJournal();
                             });
                         });
@@ -147,6 +149,7 @@ function StartJournal() {
         $("#JournalList").append("<br><h3></h3><button class='MenuButton' id='Back'> Back </button>");
         $("#Back").click(function () {
             localStorage.setItem('_Party', JSON.stringify(Party));
+            localStorage.setItem('_Journal', JSON.stringify(Journal));
             $("#App").load("temp/Victoria.html");
         });
     };

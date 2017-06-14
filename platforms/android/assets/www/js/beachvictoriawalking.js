@@ -96,7 +96,7 @@ var RandomItem = [
             $("#StatusMessageHolder").html("");
             $("#ContinueMessageHolder").html("");
             $("#CharacterAvatar").html("");
-            $("#App").load("./temp/BeachVictoriaWalking.html");
+            $("#App").load("./temp/PierVictoria.html");
     });
 
     
@@ -162,7 +162,7 @@ var RandomItem = [
             localStorage.setItem('_Party', JSON.stringify(Party));
             
             
-            $("#AlertPlayerMessage").html("<div id='AlertPlayerText' class='AlertPlayerText'><h5 id='Status'> Which One ? </h5><div id='ItemChance'>"+ItemChestDialog+"<br> It's a "+RandomItem[0].Name+" !<br><img class='BattleItem' src='"+RandomItem[0].Avatar+"'></img></div><br><button id='Leave' class='MenuButton'> Back </button></div>");
+            $("#AlertPlayerMessage").html("<div id='AlertPlayerText' class='AlertPlayerText'><h5 id='Status'> Which One ? </h5><div id='ItemChance'>"+ItemChestDialog+"<br> It's a "+RandomItem[0].Name+" !<br><img class='BattleItem animated flipInY' src='"+RandomItem[0].Avatar+"'></img></div><br><button id='Leave' class='MenuButton'> Back </button></div>");
         } else {
         
          $("#ContinueMessageHolder").remove();
@@ -188,7 +188,7 @@ var RandomItem = [
             localStorage.setItem('_Party', JSON.stringify(Party));
             
             
-            $("#AlertPlayerMessage").html("<div id='AlertPlayerText' class='AlertPlayerText'><h5 id='Status'> Which One ? </h5><div id='ItemChance'>"+ItemChestDialog+"<br> It's a "+RandomItem[1].Name+"!<br><img class='BattleItem' src='"+RandomItem[1].Avatar+"'></img></div><br><button id='Leave' class='MenuButton'> Back </button></div>");
+            $("#AlertPlayerMessage").html("<div id='AlertPlayerText' class='AlertPlayerText'><h5 id='Status'> Which One ? </h5><div id='ItemChance'>"+ItemChestDialog+"<br> It's a "+RandomItem[1].Name+"!<br><img class='BattleItem animated flipInY' src='"+RandomItem[1].Avatar+"'></img></div><br><button id='Leave' class='MenuButton'> Back </button></div>");
         } else {
         
          $("#ContinueMessageHolder").remove();
@@ -240,7 +240,24 @@ var RandomItem = [
         function StatusDialog() {
             
             var PartyNum = Math.floor(Math.random() * Party.length) + 0;
-            console.log(PartyNum)
+           
+            var PartyNum2 = 0;
+            findNum2();
+            
+            function findNum2(){
+             PartyNum2 = Math.floor(Math.random() * Party.length) + 0;
+                if (PartyNum2 == PartyNum){
+                    findNum2();
+                }
+                }
+            var BothChance = Math.floor(Math.random() * 10) + 0;
+            
+            
+            if (BothChance > 6){
+                BothChance = true;
+            }
+            
+            
         var Status = [
             {
                 Dialog: " Looking under rocks "
@@ -261,10 +278,24 @@ var RandomItem = [
                 Dialog: " Feeling the hot sand "
             }, {
                 Dialog: " Smelling the salty brine "
+            }, {
+                Dialog: " Thinking about food "
+            }, {
+                Dialog: " Watching the seagulls in the distance "
+            }, {
+                Dialog: " Getting paranoid "
+            }, {
+                Dialog: " Drifting off to sleep "
             }
         , ]
         var StatusOption = Status[Math.floor(Math.random() * Status.length)];
-        $("#Status").html("<div class='animated fadeInUp infinite'> "+Party[PartyNum].Name+" is " + StatusOption.Dialog + "</div>");
+            if (BothChance == true){
+                $("#Status").html("<div class='animated fadeInUp infinite'> "+Party[PartyNum].Name+" and "+Party[PartyNum2].Name+" are " + StatusOption.Dialog + "</div>");
+            } else {
+                $("#Status").html("<div class='animated fadeInUp infinite'> "+Party[PartyNum].Name+" is " + StatusOption.Dialog + "</div>");
+            };
+            
+        
     }
         
         

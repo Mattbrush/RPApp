@@ -7,8 +7,8 @@ var PaperShuffle = new Audio('./sound/PaperShuffle.mp3');
 var MainTheme = new Audio('./music/MainTheme.mp3');
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 var ReturningParliament = false;
-// var Character = JSON.parse(localStorage.getItem('_character'));
 var Party = JSON.parse(localStorage.getItem('_Party'));
+var Journal = JSON.parse(localStorage.getItem('_Journal'));
 /* Check Story Progress */
 if (Party[0].Triggers.Victoria2 == true) {
     ReturningParliament = true;
@@ -307,10 +307,10 @@ function ReturningVictoriaParliament() {
     function ClickDialog() {
         var Party = JSON.parse(localStorage.getItem('_Party'));
         var JournalTrigger = false;
-        for (i = 0; i < Party[0].Journal[5].Entries.length; i++) {
-            console.log(Party[0].Journal[5].Entries[i].Name)
-            if (Party[0].Journal[5].Entries[i].Name == "Victoria") {
-                if (Party[0].Journal[5].Entries[i].Hidden == false) {
+        for (i = 0; i < Journal[5].Entries.length; i++) {
+            console.log(Journal[5].Entries[i].Name)
+            if (Journal[5].Entries[i].Name == "Victoria") {
+                if (Journal[5].Entries[i].Hidden == false) {
                 JournalTrigger = true;
                 };
             }
@@ -406,9 +406,9 @@ function ReturningVictoriaParliament() {
                     $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket'></div>");
                     $("#App").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage'></div>");
                     $("#AlertPlayerMessage").html("<div class='AlertPlayerText'><div  id='StatusMessage' class='AlertPlayerMessage animated flipInX'><img class='ObtainedItem' src='./img/Journal.png'></img><br> Obtained a Journal Entry for Victoria ! <br><button class='MenuButton animated flipInX' id='Back'> Back </button></div></div>");
-                    for (i = 0; i < Party[0].Journal[5].Entries.length; i++) {
-                        if (Party[0].Journal[5].Entries[i].Name == "Victoria") {
-                            Party[0].Journal[5].Entries[i].Hidden = false;
+                    for (i = 0; i < Journal[5].Entries.length; i++) {
+                        if (Journal[5].Entries[i].Name == "Victoria") {
+                            Journal[5].Entries[i].Hidden = false;
                         }
                     };
                     localStorage.setItem('_Party', JSON.stringify(Party));

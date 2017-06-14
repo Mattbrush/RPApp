@@ -2,12 +2,13 @@ console.clear();
 StartApp();
 
 function StartApp() {
-    var Character = JSON.parse(localStorage.getItem('_character'));
+    var Journal = JSON.parse(localStorage.getItem('_Journal'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     var JournalNotification = 0;
     console.clear();
     console.log("Character :");
     console.log(Party[0]);
+    console.log(Journal);
     console.log("Party : ");
      for (i = 0; i < Party.length; i++) {
     console.log(Party[i].Name);
@@ -24,10 +25,10 @@ function StartApp() {
     // Check Item's Viewed in Journal
     
     // Counts all Notifications of New Journal Entries!
-            for (i = 0; i < Party[0].Journal.length; i++) {
-                for (e = 0; e < Party[0].Journal[i].Entries.length; e++) {
-                   if (Party[0].Journal[i].Entries[e].Hidden == false){
-                       if (Party[0].Journal[i].Entries[e].Viewed == false){
+            for (i = 0; i < Journal.length; i++) {
+                for (e = 0; e < Journal[i].Entries.length; e++) {
+                   if (Journal[i].Entries[e].Hidden == false){
+                       if (Journal[i].Entries[e].Viewed == false){
                            JournalNotification++; 
                        };   
                    };
@@ -37,9 +38,9 @@ function StartApp() {
     
     function AppendJournal(){
         if (JournalNotification == 0){
-          $("#ProvinceList").append("<br><br><button id='StatusPage' class='MenuButton'> <img class='Icon' src='./img/MenuIcon.png'></img> </button><button id='Journal' class='MenuButton'> <img class='Icon' src='./img/JournalIcon.png'></img></button>");
+          $("#ProvinceList").append("<br><button id='StatusPage' class='MenuButton'> <img class='Icon' src='./img/MenuIcon.png'></img> </button><button id='Journal' class='MenuButton'> <img class='Icon' src='./img/JournalIcon.png'></img></button>");
         } else {
-              $("#ProvinceList").append("<br><br><button id='StatusPage' class='MenuButton'> Menu </button><button id='Journal' class='MenuButton'> Journal ( "+JournalNotification+" ) </button>");
+              $("#ProvinceList").append("<br><button id='StatusPage' class='MenuButton'> <img class='Icon' src='./img/MenuIcon.png'></img> </button><button id='Journal' class='MenuButton'> <img class='Icon' src='./img/JournalIconNotification.png'></img></button>");
         }
     };
     

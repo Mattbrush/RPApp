@@ -131,10 +131,10 @@ $(".Minus").click(function () {
 })
 $("#Confirm").click(function () {
     VitalityCalculation = Vitality * 1.75;
-    var Health = Math.floor(Math.random() * 20) + 8 + VitalityCalculation;
+    var Health = Math.floor(Math.random() * 35) + 15 + VitalityCalculation;
     Health = Math.round(Health);
     WisdomCalculation = Wisdom * 2.75;
-    var Mana = Math.floor(Math.random() * 15) + 5 + WisdomCalculation;
+    var Mana = Math.floor(Math.random() * 25) + 10 + WisdomCalculation;
     Mana = Math.round(Mana);
     var Character = {
         Name: $("#Name").val().capitalize()
@@ -204,8 +204,8 @@ $("#Confirm").click(function () {
         , Spells: []
         , Moves: []
         , BattleStats:{
-            AttackStrength:"",
-            DefenseStrength:""
+            AttackStrength:[0,0],
+            DefenseStrength:[0,0]
         }
         , Triggers:{
             Victoria1:false,
@@ -224,7 +224,203 @@ $("#Confirm").click(function () {
             , ToNextLevel: Math.floor(Math.random() * 25) + 20
             , SkillPoints: SkillPoints
         , }
-        , Journal:[
+        , DateCreated: moment().format("LLL")
+        , PlayerTextSpeed: 2000,
+     }
+    saveChanges(Character);
+    console.log(Character)
+});
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    /* Color Picker to decide what each color will be once the player chooses their favourite color*/
+function ColorPicker() {
+    var ColorSelected = $("#Colorpick").val()
+        /* Add color values here to your liking */
+    if (ColorSelected == "Blue") {
+        ColorSelected = "#4985D6";
+        return ColorSelected;
+    }
+    else if (ColorSelected == "Red") {
+        ColorSelected = "#FF4848";
+        return ColorSelected;
+    }
+    else if (ColorSelected == "Green") {
+        ColorSelected = "#80B584";
+        return ColorSelected;
+    }
+    else if (ColorSelected == "Orange") {
+        ColorSelected = "#FFCB2F";
+        return ColorSelected;
+    }
+    else if (ColorSelected == "Purple") {
+        ColorSelected = "#BA21E0";
+        return ColorSelected;
+    };
+};
+
+
+/* Strength and weakness decided upon the users favourite activites to do */
+
+function Weakness1() {
+    var Weakness1 = $("#Weakness1").val()
+    console.log(Weakness1);
+    return Weakness1;
+};
+
+function Weakness2() {
+    var Weakness2 = $("#Weakness2").val()
+    console.log(Weakness2);
+    return Weakness2;    
+};
+
+function Strength1() {
+    var Strength1 = $("#Strength1").val()
+    console.log(Strength1);
+    return Strength1;
+};
+
+function Strength2() {
+    var Strength2 = $("#Strength2").val()
+    console.log(Strength2);
+    return Strength2;
+};
+/* officially Saves character information to localstorage as well as creates a party of just your main character on the screen*/
+function saveChanges(Character) {
+    /* Affordance in case they did not want a last name :D*/
+    if(Character.FamilyName == ""){Character.FamilyName = "Hero"};
+    if(Character.Name == ""){Character.Name = "Brave"};
+    
+    
+    /* Add in BattleStats */
+    PartyMember = Character;
+        var AttackStrength = [0,0]
+        var DefenseStrength = [0,0]
+        
+        
+        if (PartyMember.Equipment.Head.Stats == undefined){
+            console.log("No Headwear On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Head.Stats.Defense
+        };
+        
+        if (PartyMember.Equipment.Torso.Stats == undefined){
+            console.log("No Torso On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Torso.Stats.Defense
+        }
+        
+         if (PartyMember.Equipment.Belt.Stats == undefined){
+            console.log("No Belt On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Belt.Stats.Defense
+        }
+        
+        
+        if (PartyMember.Equipment.Legs.Stats == undefined){
+            console.log("No Legs On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Legs.Stats.Defense
+        }
+        
+        if (PartyMember.Equipment.Ring1.Stats == undefined){
+            console.log("No Ring1 On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring1.Stats.Defense
+        }
+        
+        
+         if (PartyMember.Equipment.Ring2.Stats == undefined){
+            console.log("No Ring2 On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring2.Stats.Defense
+        }
+        
+        
+        
+        
+
+        if (PartyMember.Equipment.RightHand.Stats == undefined){
+        console.log(" No Item Equipped In Right Hand")
+        } else {
+              if (PartyMember.Equipment.RightHand.Stats.Attack != undefined){
+             console.log("No RightHand Defense For  Character");
+            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.RightHand.Stats.Attack   
+            } else if (PartyMember.Equipment.RightHand.Stats.Defense != undefined){
+             console.log("No RightHand Attack For  Character");
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.RightHand.Stats.Defense   
+            }
+        }
+        
+        if (PartyMember.Equipment.LeftHand.Stats == undefined){
+        console.log(" No Item Equipped In LeftHand ")
+        } else {
+              if (PartyMember.Equipment.LeftHand.Stats.Attack != undefined){
+             console.log("No LeftHand Defense For  Character");
+            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.LeftHand.Stats.Attack   
+            } else if (PartyMember.Equipment.LeftHand.Stats.Defense != undefined){
+             console.log("No LeftHand Attack For  Character");
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.LeftHand.Stats.Defense   
+            }
+        
+        }
+        
+    
+      if (DefenseStrength[0] == 0){
+            DefenseStrength[0] = 1;
+        }
+        
+         if (AttackStrength[0] == 0){
+            AttackStrength[0] = 1;
+        }
+    
+    
+    
+        if (PartyMember.Stats[2].Value < 1){
+         DefenseStrength[0] = Math.round(( 1 ) *  DefenseStrength[0]);   
+        } else {
+        DefenseStrength[0] = Math.round(( PartyMember.Stats[2].Value + .45) *  DefenseStrength[0]);
+        };
+        
+        
+        if (PartyMember.Stats[1].Value < 1){
+         AttackStrength[0] = Math.round(( 1 ) *  AttackStrength[0]);   
+        } else {
+        AttackStrength[0] = Math.round(( PartyMember.Stats[1].Value + .25) *  AttackStrength[0]);
+        };
+        
+        
+    Character.BattleStats.AttackStrength[0] = AttackStrength[0];
+    Character.BattleStats.DefenseStrength[0]= DefenseStrength[0];
+    
+    
+    
+    
+    //////////////////////
+    
+    
+    
+    
+    
+    
+    
+    
+    var FirstMove = {  Name:"Punch",
+                Damage:[4,8],
+                Cost: 0,
+                    Type:"Physical"};
+    Character.Moves.push(FirstMove)
+    console.log(Character)
+    $("#Color").css("background-color", "" + Character.Color + "");
+    var Party = [];
+    Party.push(Character);
+    
+    
+    
+    
+    
+    
+/* Create Journal Area For Journal Entries and Everything Journal Related ! */
+    
+    var Journal = [
             {
             Name:"Enemies",
             Entries:[
@@ -268,6 +464,59 @@ $("#Confirm").click(function () {
                     , Hidden: true,
                 }, 
                         ],
+                        Hidden: true,
+                        Viewed: false,
+                    },
+                {
+                        Name:"Dungeness Crab",
+                        Avatar:"./img/DungenessCrab.png",
+                        Description:"The Dungeness crab, Metacarcinus magister, is a species of crab that inhabits eelgrass beds and water bottoms on the west coast of North America.",
+                        Defeated: 0,
+                        Moves:[
+                            {
+                        Name: "Saltwater Slice"
+                        , Type: "Element"
+                        , Index: 0
+                        , Targets: "All"
+                        , Stats: {
+                            Damage: Math.floor(Math.random() * 2) + 1
+                            , Element: "Saltwater"
+                        , }
+                    , }
+                    , {
+                        Name: " Sharp Pinch "
+                        , Type: "Attack"
+                        , Index: 0
+                        , Targets: "One"
+                        , Stats: {
+                            Damage: Math.floor(Math.random() * 2) + 1
+                            , Element: "None"
+                        }
+                    },
+                        ],
+                        Loot:[{
+                    Name: "Ball Of Sand"
+                    , IDName: "BallOfSand"
+                    , Avatar: "./img/BallOfSand.png"
+                    , Type: "Misc"
+                    , Index: 0
+                    , Weight: 2
+                    , Stats: {}
+                    , Worth: 1
+                    , DropRate: 0.75
+                            ,Hidden: true,
+                },{
+                    Name: "Shell"
+                    , IDName: "Shell"
+                    , Avatar: "./img/Shell.png"
+                    , Type: "Misc"
+                    , Index: 0
+                    , Weight: 1
+                    , Stats: {}
+                    , Worth: 2
+                    , DropRate: 0.40
+                    ,Hidden: true,
+                }, ],
                         Hidden: true,
                         Viewed: false,
                     },
@@ -378,198 +627,15 @@ $("#Confirm").click(function () {
                      Hidden: true,
                     Viewed: false,
                     }
-            ],
-            },
-        ]
-        , DateCreated: moment().format("LLL")
-        , PlayerTextSpeed: 2000,
-     }
-    saveChanges(Character);
-    console.log(Character)
-});
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-    /* Color Picker to decide what each color will be once the player chooses their favourite color*/
-function ColorPicker() {
-    var ColorSelected = $("#Colorpick").val()
-        /* Add color values here to your liking */
-    if (ColorSelected == "Blue") {
-        ColorSelected = "#4985D6";
-        return ColorSelected;
-    }
-    else if (ColorSelected == "Red") {
-        ColorSelected = "#FF4848";
-        return ColorSelected;
-    }
-    else if (ColorSelected == "Green") {
-        ColorSelected = "#80B584";
-        return ColorSelected;
-    }
-    else if (ColorSelected == "Orange") {
-        ColorSelected = "#FFCB2F";
-        return ColorSelected;
-    }
-    else if (ColorSelected == "Purple") {
-        ColorSelected = "#BA21E0";
-        return ColorSelected;
-    };
-};
-
-
-/* Strength and weakness decided upon the users favourite activites to do */
-
-function Weakness1() {
-    var Weakness1 = $("#Weakness1").val()
-    console.log(Weakness1);
-    return Weakness1;
-};
-
-function Weakness2() {
-    var Weakness2 = $("#Weakness2").val()
-    console.log(Weakness2);
-    return Weakness2;    
-};
-
-function Strength1() {
-    var Strength1 = $("#Strength1").val()
-    console.log(Strength1);
-    return Strength1;
-};
-
-function Strength2() {
-    var Strength2 = $("#Strength2").val()
-    console.log(Strength2);
-    return Strength2;
-};
-/* officially Saves character information to localstorage as well as creates a party of just your main character on the screen*/
-function saveChanges(Character) {
-    /* Affordance in case they did not want a last name :D*/
-    if(Character.FamilyName == ""){Character.FamilyName = "Hero"};
-    if(Character.Name == ""){Character.Name = "Brave"};
+                ]
+                },
+            ];
     
     
-    /* Add in BattleStats */
-    PartyMember = Character;
-         var AttackStrength = 0;
-        var DefenseStrength = 0
-        
-        
-        if (PartyMember.Equipment.Head.Stats == undefined){
-            console.log("No Headwear On Character");
-        } else {
-            DefenseStrength = DefenseStrength + PartyMember.Equipment.Head.Stats.Defense
-        };
-        
-        if (PartyMember.Equipment.Torso.Stats == undefined){
-            console.log("No Torso On Character");
-        } else {
-            DefenseStrength = DefenseStrength + PartyMember.Equipment.Torso.Stats.Defense
-        }
-        
-         if (PartyMember.Equipment.Belt.Stats == undefined){
-            console.log("No Belt On Character");
-        } else {
-            DefenseStrength = DefenseStrength + PartyMember.Equipment.Belt.Stats.Defense
-        }
-        
-        
-        if (PartyMember.Equipment.Legs.Stats == undefined){
-            console.log("No Legs On Character");
-        } else {
-            DefenseStrength = DefenseStrength + PartyMember.Equipment.Legs.Stats.Defense
-        }
-        
-        if (PartyMember.Equipment.Ring1.Stats == undefined){
-            console.log("No Ring1 On Character");
-        } else {
-            DefenseStrength = DefenseStrength + PartyMember.Equipment.Ring1.Stats.Defense
-        }
-        
-        
-         if (PartyMember.Equipment.Ring2.Stats == undefined){
-            console.log("No Ring2 On Character");
-        } else {
-            DefenseStrength = DefenseStrength + PartyMember.Equipment.Ring2.Stats.Defense
-        }
-        
-        
-        
-        
-
-        if (PartyMember.Equipment.RightHand.Stats == undefined){
-        console.log(" No Item Equipped In Right Hand")
-        } else {
-              if (PartyMember.Equipment.RightHand.Stats.Attack != undefined){
-             console.log("No RightHand Defense For  Character");
-            AttackStrength = AttackStrength + PartyMember.Equipment.RightHand.Stats.Attack   
-            } else if (PartyMember.Equipment.RightHand.Stats.Defense != undefined){
-             console.log("No RightHand Attack For  Character");
-            DefenseStrength = DefenseStrength + PartyMember.Equipment.RightHand.Stats.Defense   
-            }
-        }
-        
-        if (PartyMember.Equipment.LeftHand.Stats == undefined){
-        console.log(" No Item Equipped In LeftHand ")
-        } else {
-              if (PartyMember.Equipment.LeftHand.Stats.Attack != undefined){
-             console.log("No LeftHand Defense For  Character");
-            AttackStrength = AttackStrength + PartyMember.Equipment.LeftHand.Stats.Attack   
-            } else if (PartyMember.Equipment.LeftHand.Stats.Defense != undefined){
-             console.log("No LeftHand Attack For  Character");
-            DefenseStrength = DefenseStrength + PartyMember.Equipment.LeftHand.Stats.Defense   
-            }
-        
-        }
-        
-    
-      if (DefenseStrength == 0){
-            DefenseStrength = 1;
-        }
-        
-         if (AttackStrength == 0){
-            AttackStrength = 1;
-        }
+    // End of creating journal
     
     
-    
-        if (PartyMember.Stats[2].Value < 1){
-         DefenseStrength = Math.round(( 1 ) *  DefenseStrength);   
-        } else {
-        DefenseStrength = Math.round(( PartyMember.Stats[2].Value + .45) *  DefenseStrength);
-        };
-        
-        
-        if (PartyMember.Stats[1].Value < 1){
-         AttackStrength = Math.round(( 1 ) *  AttackStrength);   
-        } else {
-        AttackStrength = Math.round(( PartyMember.Stats[1].Value + .25) *  AttackStrength);
-        };
-        
-        
-    Character.BattleStats.AttackStrength = AttackStrength;
-    Character.BattleStats.DefenseStrength= DefenseStrength;
-    
-    
-    
-    
-    //////////////////////
-    
-    
-    
-    
-    
-    
-    
-    
-    var FirstMove = {  Name:"Punch",
-                Damage:[4,8],
-                Cost: 0,
-                    Type:"Physical"};
-    Character.Moves.push(FirstMove)
-    console.log(Character)
-    $("#Color").css("background-color", "" + Character.Color + "");
-    var Party = [];
-    Party.push(Character);
-   // localStorage.setItem('_character', JSON.stringify(Character));
     localStorage.setItem('_Party', JSON.stringify(Party));
+    localStorage.setItem('_Journal', JSON.stringify(Journal));
     $("#App").load("./temp/CutSceneIntro2.html")
 }

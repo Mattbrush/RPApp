@@ -87,6 +87,24 @@ progress:before {
 }
 
 
+.OptionsHolder{
+    background: #f14141;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    text-align:center;
+}
+
+.BattleMessage {
+    background: #f14141;
+    color: white;
+    padding: 4px;
+    text-align: center;
+    font-size: medium;
+    font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+}
+
 .Fixed{
     position:fixed;
 }
