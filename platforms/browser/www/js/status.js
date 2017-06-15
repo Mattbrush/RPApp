@@ -3,25 +3,26 @@ console.clear();
 console.log("~~~~~~~~~~~~~~~~~~~MAIN MENU~~~~~~~~~~~~~~~~~~~")
 $("#MessageHolder").remove();
 $("#ContinueMessageHolder").remove();
+// Change Background //
+$(".Overlay").css("background-image", "url(img/Leather.jpg)");
+////
+
 CheckWallet()
 CheckLevel();
 StartApp();
 console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     /*~~~~~~~~~~~~~~~~~~~~ --------------------- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 function CheckWallet() {
-    var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     console.log("~~~Configuring Wallet~~~");
     console.log("Wallet : ");
     console.log(Party[0].Wallet);
-    localStorage.setItem('_character', JSON.stringify(Character));
     localStorage.setItem('_Party', JSON.stringify(Party));
     console.log("~~~~~~~~~~~~~~~~~~~")
 };
 
 function CheckLevel() {
     console.log("~~~Configuring Character Experience and Level~~~");
-    var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     console.log("Character Experience and Level : ");
     console.log(Party[0].Experience);
@@ -29,16 +30,15 @@ function CheckLevel() {
     /* Experience System WHILE Statements //// Make More Concise Later! /////// */
     while (Party[0].Experience.Total >= Party[0].Experience.ToNextLevel) {
         Party[0].Experience.ToNextLevel = Math.round(Party[0].Experience.ToNextLevel * 1.25);
-        Party[0].Level = Party[0].Level + 1;
+        Party[0].Level = Party[0].Level + 1; 
         Party[0].Experience.Total = 0;
     }
-    localStorage.setItem('_character', JSON.stringify(Character));
+    console.log(Party);
      localStorage.setItem('_Party', JSON.stringify(Party));
     console.log("~~~~~~~~~~~~~~~~~~~")
 };
 
 function StartApp() {
-    var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     // Set Player to be looking at //
     var PartyIndex = 0;
@@ -96,55 +96,66 @@ function StartApp() {
     PlaceInformation();
 
     function PlaceInformation() {
-        $("#Color").css("background", "" + Party[PartyIndex].Color + "");
-        $("#PartyStatus").html("<div class='MenuWrapper' id='CharacterStats'><div class='MenuWrapper'><h3 class='SubSubMainTitle animated rubberBand'>Stats</h3> Player Name : <strong>" + Party[PartyIndex].Name + " " + Party[PartyIndex].FamilyName + "</strong></div><div class='MenuWrapper' id='Stats'></div><div class='MenuWrapper' id='Level'>Level :  " + Party[PartyIndex].Level + "</div><div class='MenuWrapper' id='Experience'>Total Experience : " + Party[PartyIndex].Experience.Total + "</div><div class='MenuWrapper' id='ToNext'> To next level : " + (Party[PartyIndex].Experience.ToNextLevel - Party[PartyIndex].Experience.Total ) + "</div><div class='MenuWrapper' id='Spells'><span>Spells : </span></div><div class='MenuWrapper' id='Moves'><span>Moves : </span></div><div class='MenuWrapper' id='PartySwitch'></div></div><br><div class='MenuWrapper' id='Wallet'> <h4 class='SubSubMainTitle'> Wallet : </h4><span class='Money'>$" + Party[0].Wallet.Total + "</span><br><span> Party Weight :  " + PartyWeightCurrent + " / " + PartyWeightTotal + "</span><br></div><br><br>");
-        if (Party.length > 1){
-            $("#PartySwitch").append("<button class='MenuButton' id='PrevParty'> Previous </button><button class='MenuButton' id='NextParty'> Next </button>");
-        };
-        $("#CharacterStats").css("border-color", "" + Party[PartyIndex].Color + "");
-        $("#Wallet").css("border-color", "" + Party[PartyIndex].Color + "");
-        if (Party[PartyIndex].Spells.length == 0) {
-            $("#Spells").append("<br> None learned ");
-            $("#Spells").css("color", "pink");
+        
+        
+        
+        // Creating Slides For Swiper //
+  var Party = JSON.parse(localStorage.getItem('_Party'));
+        for (i = 0; i < Party.length; i++) {
+            var Party = JSON.parse(localStorage.getItem('_Party'));
+            console.log(Party[i])
+        $("#PartyStatus").append("<div class='swiper-slide'><div class='MenuWrapper' id='CharacterStats"+i+"'><div class=''><h3 class='SubSubMainTitle animated rubberBand'>Stats</h3> Player Name : <strong>" + Party[i].Name + " " + Party[i].FamilyName + "</strong></div><div class='' id='Level'>Level :  " + Party[i].Level + "</div><div class='' id='Stats"+i+"'></div><div class='' id='Spells"+i+"'><button class='MenuButton'> Spells </button></div><div class='' id='Moves"+i+"'><button class='MenuButton'> Moves </button></div></div></div></div>");
+        if (Party[i].Spells.length == 0) {
+            $("#Spells"+i+"").append("<br> None learned ");
+            $("#Spells"+i+"").css("color", "pink");
         }
         else {
-            for (i = 0; i < Party[PartyIndex].Spells.length; i++) {
-                $("#Spells").append("<br>" + Party[PartyIndex].Spells[i].Name + "");
-                console.log(Party[PartyIndex].Spells.length)
+            for (u = 0; u < Party[i].Spells.length; u++) {
+                $("#Spells"+i+"").append("<br>" + Party[i].Spells[u].Name + "");
+                console.log(Party[i].Spells.length)
             };
         };
-        if (Party[PartyIndex].Moves.length == 0) {
-            $("#Moves").append("<br> None learned ");
+        if (Party[i].Moves.length == 0) {
+            $("#Moves"+i+"").append("<br> None learned ");
             // $("#Spells").css("color","red");
         }
         else {
-            for (i = 0; i < Party[PartyIndex].Moves.length; i++) {
-                $("#Moves").append("<br>" + Party[PartyIndex].Moves[i].Name + "");
+            for (u = 0; u < Party[i].Moves.length; u++) {
+                $("#Moves"+i+"").append("<br>" + Party[i].Moves[u].Name + "");
             };
-        };
-        for (i = 0; i < 10; i++) {
+        };  
+            
+        for (u = 0; u < 10; u++) {
             // Deciding how to display dfferent Stats //
-            if (i == 6) {}
-            else if (i == 5) {}
-            else if (i == 4) {}
-            else if (i == 8) {}
-            else if (i == 3) {}
-            else if (i == 2) {}
-            else if (i == 1) {}
-            else if (i == 0) {
-                $("#Stats").append("<span>" + Party[PartyIndex].Stats[i].Name + " : " + Party[PartyIndex].Stats[i].Value + " / " + Party[PartyIndex].Stats[6].Value + "</span><br>");
+            if (u == 6) {}
+            else if (u == 9) {}
+            else if (u == 5) {}
+            else if (u == 4) {}
+            else if (u == 8) {}
+            else if (u == 3) {}
+            else if (u == 2) {}
+            else if (u == 1) {}
+            else if (u == 0) {
+                $("#Stats"+i+"").append("<progress class='Bar HealthProgress' id='PlayerHealth'  value='"+Party[i].Stats[u].Value+"' max='" + Party[i].Stats[6].Value + "'  data-label='" + Party[i].Stats[u].Value + " / " + Party[i].Stats[6].Value+ "'></progress>");
             }
-            else if (i == 7) {
-                $("#Stats").append("<span>" + Party[PartyIndex].Stats[i].Name + " : " + Party[PartyIndex].Stats[i].Value + " / " + Party[PartyIndex].Stats[8].Value + "</span><br>");
-            }else if (i == 9) {
-                $("#Stats").append("<span>" + Party[PartyIndex].Stats[i].Name + " : " + Party[PartyIndex].Stats[i].Value+"</span><br>");
+            else if (u == 7) {
+                $("#Stats"+i+"").append("<progress class='Bar ManaProgress' id='PlayerMana'  value='"+Party[i].Stats[u].Value+"'   max='" + Party[i].Stats[8].Value + "' data-label='" + Party[i].Stats[u].Value + " / " + Party[i].Stats[8].Value+ "'></progress>");
             }
             else {
-                $("#Stats").append("<span>" + Party[PartyIndex].Stats[i].Name + " : " + Party[PartyIndex].Stats[i].Value + "</span><br>");
+                $("#Stats"+i+"").append("<span>" + Party[i].Stats[u].Name + " : " + Party[i].Stats[u].Value + "</span><br>");
             };
+            
+            
         };
-        /* ~~~~~Equipment Bonus Stats~~~~~  */
-        PartyMember = Party[PartyIndex];
+        
+        $("#Stats"+i+"").append("<progress class='Bar XPProgress' id='XPMainTitle'  value='"+Party[i].Experience.Total+"' max='" + Party[i].Experience.ToNextLevel + "'  data-label='" + Party[i].Experience.Total + " / " + Party[i].Experience.ToNextLevel+ "'></progress>");    
+            
+            
+            
+             /* ~~~~~Equipment Bonus Stats~~~~~  */
+        
+        
+        PartyMember = Party[i];
         console.log("~~Current Party Member~~");
         console.log(PartyMember.Name);
         console.log("Current Health   : " + PartyMember.Stats[0].Value);
@@ -240,93 +251,76 @@ function StartApp() {
         DefenseStrength[1] = DefenseStrength[1] + PartyMember.Stats[2].Value;
         
     
-      if (DefenseStrength[0] == 0){
+      if (DefenseStrength[0] <= 1){
             DefenseStrength[0] = 1;
         }
         
-         if (AttackStrength[0] == 0){
+         if (AttackStrength[0] <= 1){
             AttackStrength[0] = 1;
         }
         
-        if (DefenseStrength[1] == 0){
+        if (DefenseStrength[1] <= 1){
             DefenseStrength[1] = 1;
         }
         
-         if (AttackStrength[1] == 0){
+         if (AttackStrength[1] <= 1){
             AttackStrength[1] = 1;
         }
-    
-    
-    
-        if (PartyMember.Stats[2].Value < 1){
-         DefenseStrength[0] = Math.round(( 1 ) *  DefenseStrength[0]);   
-        } else {
-        DefenseStrength[0] = Math.round( PartyMember.Stats[2].Value * 2.25 ) +  DefenseStrength[0];
-        };
-        
-        
-        if (PartyMember.Stats[1].Value < 1){
-         AttackStrength[0] = Math.round(( 1 ) *  AttackStrength[0]);   
-        } else {
-        AttackStrength[0] = Math.round( PartyMember.Stats[1].Value * 2.25 )+  AttackStrength[0];
-        };
-        
-        
-        if (PartyMember.Stats[2].Value < 1){
-         DefenseStrength[1] = Math.round(( 1 ) *  DefenseStrength[0]);   
-        } else {
-        DefenseStrength[1] = Math.round( PartyMember.Stats[2].Value * 2.25) + DefenseStrength[1];
-        };
-        
-        
-        if (PartyMember.Stats[1].Value < 1){
-         AttackStrength[1] = Math.round(( 1 ) *  AttackStrength[0]);   
-        } else {
-        AttackStrength[1] = Math.round( PartyMember.Stats[1].Value * 2.25) + AttackStrength[1];
-        };
-        
-        
-        
-        
-        
-        
         Party[PartyIndex].BattleStats.AttackStrength[0] = AttackStrength[0];
         Party[PartyIndex].BattleStats.AttackStrength[1] = AttackStrength[1];
         Party[PartyIndex].BattleStats.DefenseStrength[0] = DefenseStrength[0];
         Party[PartyIndex].BattleStats.DefenseStrength[1] = DefenseStrength[1];
-        Character = Party[0];
-         localStorage.setItem('_character', JSON.stringify(Character));
+
         localStorage.setItem('_Party', JSON.stringify(Party));
         
         
        
         console.log("~~~~~~~~~~")
             /* ~~~~~End Of Stats~~~~~  */
-        $("#Stats").append("<br><span>Attack Strength : " + Party[PartyIndex].BattleStats.AttackStrength[0] + " - " + Party[PartyIndex].BattleStats.AttackStrength[1] + "</span>");
-        $("#Stats").append("<br><span>Defense Strength : " + Party[PartyIndex].BattleStats.DefenseStrength[0] + " - " + Party[PartyIndex].BattleStats.DefenseStrength[1] + "</span>");
-        // Changing Party Member Button
-        $("#NextParty").click(function () {
-            PartyIndex++
-            if (Party[PartyIndex] == undefined) {
-                PartyIndex = 0;
-                PlaceInformation();
-            }
-            else {
-                PlaceInformation();
-            }
-        })
-        $("#PrevParty").click(function () {
-                PartyIndex--
-                if (Party[PartyIndex] == undefined) {
-                    PartyIndex = Party.length - 1;
-                    PlaceInformation();
-                }
-                else {
-                    PlaceInformation();
-                }
-            })
-            ////////////////////////////
+        
+        
+        $("#Stats"+i+"").append("<br><span><strong>Attack Power</strong> : " + Party[PartyIndex].BattleStats.AttackStrength[0] + " - " + Party[PartyIndex].BattleStats.AttackStrength[1] + "</span>");
+        $("#Stats"+i+"").append("<br><span><strong>Defense Power</strong> : " + Party[PartyIndex].BattleStats.DefenseStrength[0] + " - " + Party[PartyIndex].BattleStats.DefenseStrength[1] + "</span>");
+             
+            $("#CharacterStats"+i+"").css("background", "" + Party[i].Color + "");
+    
+            localStorage.setItem('_Party', JSON.stringify(Party));
+        };
+        
+        ////////////
+        
+        
+        $("#PartyStatusContainer").append("<div class='MenuWrapper' id='PartyButtons'></div><div class='MenuWrapper' id='Wallet'> <h4 class='SubSubMainTitle'> Wallet : </h4><span class='Money'>$" + Party[0].Wallet.Total + "</span><br><span> Party Weight :  " + PartyWeightCurrent + " / " + PartyWeightTotal + "</span>");
+        
+        
+        
+        
+        
+         for (i = 0; i < Party.length; i++) {
+            $("#PartyButtons").append("<button class='MenuButton2' id='Party"+i+"'>"+Party[i].Name+"</button>"); 
+             $("#Party"+i+"  ").css("background"," "+Party[i].Color+"  ");
+             $("#Party"+i+"  ").click(function(){
+                 StatsSwiper.slideTo(this.id.substr(5,1));
+             });
+         };
+        
+        
+        
+        // Create Swiper.Js Component. //
+        var StatsSwiper = new Swiper('.swiper-container',{
+            // Functions For Swiper
+            
+            
+            // Parameters For Swiper
+    spaceBetween: 100,
+      //      loop: true,
+        });
+    
     };
+    
+    
+    
+    
     // Or Just display them generically with this : 
     $("#MenuList").html("<br><div class='FixedBottomMenuWrapper' style='border-color:" + Party[0].Color + "'><button class='MenuButtonTabs TabActive' id='Party'>Stats</button><button class='MenuButtonTabs' id='Inventory'>Inv.</button><button class='MenuButtonTabs' id='Equipment'>Equip.</button><button class='MenuButtonTabs' id='Skills'>Skill Points</button><button id='Close' class='MenuButtonTabs'>Close</button></div>");
     $(".FixedBottomMenuWrapper").css("border-width", "5px");
@@ -338,22 +332,22 @@ function StartApp() {
     $("#Party").click(function () {
         $(".MenuButtonTabs").removeClass("TabActive")
         $("#Party").addClass("TabActive")
-        $("#PartyStatus").load("./temp/Status.html");
+        $("#PlayerMenu").load("./temp/Status.html");
     })
     $("#Inventory").click(function () {
         $(".MenuButtonTabs").removeClass("TabActive")
         $("#Inventory").addClass("TabActive")
-        $("#PartyStatus").load("./temp/Inventory.html");
+        $("#PlayerMenu").load("./temp/Inventory.html");
     })
     $("#Equipment").click(function () {
         $(".MenuButtonTabs").removeClass("TabActive")
         $("#Equipment").addClass("TabActive")
-        $("#PartyStatus").load("./temp/Equipment.html");
+        $("#PlayerMenu").load("./temp/Equipment.html");
     })
     $("#Skills").click(function () {
         $(".MenuButtonTabs").removeClass("TabActive")
         $("#Skills").addClass("TabActive")
-        $("#PartyStatus").load("./temp/Skills.html");
+        $("#PlayerMenu").load("./temp/Skills.html");
     })
     $("#Close").click(function () {
         $("#Overlay").css("opacity", "0.85");

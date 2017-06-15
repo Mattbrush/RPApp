@@ -98,7 +98,6 @@ function StartStore() {
         $("#Options").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage'></div>");
         $("#AlertPlayerMessage").html("<div class='animated bounceIn AlertPlayerText'> Someone has spilled coffee all over the floor to the entrance.Maybe you should come back later? </div><br><button class='MenuButton2 animated fadeInDown' id='Leave'>Leave</button>");
         $("#Leave").click(function () {
-            localStorage.setItem('_character', JSON.stringify(Character));
             audio.pause();
             audio.currentTime = 0;
             $("#App").load("./temp/ShoppingDistrictVictoria.html")
@@ -620,7 +619,6 @@ function StartStore() {
                     $("#App").prepend("<div id='Alert' class='AlertPlayerMessage'><div  id='StatusMessage' class='AlertPlayerText animated flipInX'><img class='ObtainedItem' src='./img/BenAvatar.png'></img><br> Ben has joined your party ! </div></div>");
                     //  JOINING BEN TO THE PARTY 
                     var Party = JSON.parse(localStorage.getItem('_Party'));
-                    var Character = JSON.parse(localStorage.getItem('_character'));
                     var Mana = Math.floor(Math.random() * 25) + 15;
                     var Health = Math.floor(Math.random() * 35) + 15;
                     var Ben = {
@@ -629,6 +627,7 @@ function StartStore() {
                         , Sex: "Male"
                         , Color: "Green"
                         , Level: 1
+                        , Class: "None"
                         , Strength1: "Saltwater"
                         , Strength2: "Tundra"
                         , Weakness1: "Grassland"
@@ -695,7 +694,7 @@ function StartStore() {
                                 , Weight: 1
                                 , Stats: {
                                     Cost: 5
-                                    , Damage: Math.floor(Math.random() * 8) + 8
+                                    , Damage: [2,4]
                                     , Element: "Boreal Forest"
                                 }
                                 , Worth: 5
@@ -705,13 +704,13 @@ function StartStore() {
                         , Moves: [
                             {
                                 Name: "Chop"
-                                , Damage: [2, 4]
+                                , Damage: [1,3]
                                 , Cost: 0
                                 , Type: "Physical"
                         }
                         , {
                                 Name: "Slice"
-                                , Damage: [2, 7]
+                                , Damage: [1,5]
                                 , Cost: 2
                                 , Type: "Physical"
                         }
@@ -727,47 +726,56 @@ function StartStore() {
                         , }
                     };
                     /* Add in BattleStats */
-                    PartyMember = Ben;
-                    var AttackStrength = [0,0]
+                    var PartyMember = Ben;
+                     var AttackStrength = [0,0]
         var DefenseStrength = [0,0]
+        
+        PartyMember.BattleStats.AttackStrength= [0,0];
+        PartyMember.BattleStats.DefenseStrength= [0,0];
         
         
         if (PartyMember.Equipment.Head.Stats == undefined){
             console.log("No Headwear On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Head.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Head.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Head.Stats.Defense[1]
         };
         
         if (PartyMember.Equipment.Torso.Stats == undefined){
             console.log("No Torso On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Torso.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Torso.Stats.Defense[0];
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Torso.Stats.Defense[1];
         }
         
          if (PartyMember.Equipment.Belt.Stats == undefined){
             console.log("No Belt On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Belt.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Belt.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Belt.Stats.Defense[1]
         }
         
         
         if (PartyMember.Equipment.Legs.Stats == undefined){
             console.log("No Legs On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Legs.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Legs.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Legs.Stats.Defense[1]
         }
         
         if (PartyMember.Equipment.Ring1.Stats == undefined){
             console.log("No Ring1 On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring1.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring1.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Ring1.Stats.Defense[1]
         }
         
         
          if (PartyMember.Equipment.Ring2.Stats == undefined){
             console.log("No Ring2 On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring2.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring2.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Ring2.Stats.Defense[1]
         }
         
         
@@ -779,10 +787,12 @@ function StartStore() {
         } else {
               if (PartyMember.Equipment.RightHand.Stats.Attack != undefined){
              console.log("No RightHand Defense For  Character");
-            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.RightHand.Stats.Attack   
+            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.RightHand.Stats.Attack[0]   
+            AttackStrength[1] = AttackStrength[1] + PartyMember.Equipment.RightHand.Stats.Attack[1]   
             } else if (PartyMember.Equipment.RightHand.Stats.Defense != undefined){
              console.log("No RightHand Attack For  Character");
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.RightHand.Stats.Defense   
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.RightHand.Stats.Defense[0]    
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.RightHand.Stats.Defense[1]    
             }
         }
         
@@ -791,44 +801,51 @@ function StartStore() {
         } else {
               if (PartyMember.Equipment.LeftHand.Stats.Attack != undefined){
              console.log("No LeftHand Defense For  Character");
-            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.LeftHand.Stats.Attack   
+            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.LeftHand.Stats.Attack[0]   
+            AttackStrength[1] = AttackStrength[1] + PartyMember.Equipment.LeftHand.Stats.Attack[1]   
             } else if (PartyMember.Equipment.LeftHand.Stats.Defense != undefined){
              console.log("No LeftHand Attack For  Character");
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.LeftHand.Stats.Defense   
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.LeftHand.Stats.Defense[0]   
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.LeftHand.Stats.Defense[1]   
             }
         
         }
+      
+        
+AttackStrength[0] = AttackStrength[0] + PartyMember.Stats[1].Value;
+        AttackStrength[1] = AttackStrength[1] + PartyMember.Stats[1].Value;
+        DefenseStrength[0] = DefenseStrength[0] + PartyMember.Stats[2].Value;
+        DefenseStrength[1] = DefenseStrength[1] + PartyMember.Stats[2].Value;
         
     
-      if (DefenseStrength[0] == 0){
+      if (DefenseStrength[0] <= 1){
             DefenseStrength[0] = 1;
         }
         
-         if (AttackStrength[0] == 0){
+         if (AttackStrength[0] <= 1){
             AttackStrength[0] = 1;
         }
-    
-    
-    
-        if (PartyMember.Stats[2].Value < 1){
-         DefenseStrength[0] = Math.round(( 1 ) *  DefenseStrength[0]);   
-        } else {
-        DefenseStrength[0] = Math.round(( PartyMember.Stats[2].Value + .45) *  DefenseStrength[0]);
-        };
+        
+        if (DefenseStrength[1] <= 1){
+            DefenseStrength[1] = 1;
+        }
+        
+         if (AttackStrength[1] <= 1){
+            AttackStrength[1] = 1;
+        }
         
         
-        if (PartyMember.Stats[1].Value < 1){
-         AttackStrength[0] = Math.round(( 1 ) *  AttackStrength[0]);   
-        } else {
-        AttackStrength[0] = Math.round(( PartyMember.Stats[1].Value + .25) *  AttackStrength[0]);
-        };
-                    Ben.BattleStats.AttackStrength[0] = AttackStrength[0];
-                    Ben.BattleStats.DefenseStrength[0] = DefenseStrength[0];
+        
+        
+        
+         Ben.BattleStats.AttackStrength[0] = AttackStrength[0];
+        Ben.BattleStats.AttackStrength[1] = AttackStrength[1];
+        Ben.BattleStats.DefenseStrength[0] = DefenseStrength[0];
+        Ben.BattleStats.DefenseStrength[1] = DefenseStrength[1];
                     //////////////////////
                     /* finished With Character Creation MOVING ON IN STORY */
                     Party[0].Triggers.Victoria5 = true;
                     Party.push(Ben);
-                    localStorage.setItem('_character', JSON.stringify(Character));
                     localStorage.setItem('_Party', JSON.stringify(Party));
                     // DONE JOINING BEN TO THE PARTY 
                     setTimeout(function () {
@@ -843,7 +860,7 @@ function StartStore() {
                         $("#Alert").html("<div class='animated flipInX AlertPlayerText'>Journal Entry has been added for <strong> Ben </strong> !</div>");
                         setTimeout(function () {
                             //  $("#Alert").animateCss("flipInX");
-                            $("#Alert").html("<div class='animated flipInX AlertPlayerText'><br> Ben is a Forester who enjoys the <strong>Boreal Forest</strong> most of all. He is <strong>Smart</strong>,  <strong>Charming</strong> and  <strong>Brave</strong>. He will make a great addition to the team ! </div>");
+                            $("#Alert").html("<div class='animated flipInX AlertPlayerText'><br> Ben is a Forester who enjoys the <strong>Boreal Forest</strong> most of all. He is <strong>Smart</strong>,  <strong>Charming</strong> and  <strong>Brave</strong>. He is of the <strong>Fighter</strong> class. <br>He will make a great addition to the team ! </div>");
                             $("#App").append("<div id='ContinueMessageHolder' class='MenuWrapperStatusMessage' ><button class='DialogNextButton animated flipInX' id='Continue'> Continue </button></div>");
                             $("#Continue").click(function () {
                                 $("#Alert").remove();
@@ -866,7 +883,6 @@ function StartStore() {
 
     function StoreFront() {
         //  $("#Logo").html("<img src='./img/tommieslogo.png'>");
-        // var Character = JSON.parse(localStorage.getItem('_character'));
         var Party = JSON.parse(localStorage.getItem('_Party'));
         CheckWallet();
         console.log(Party[0].Wallet);
@@ -876,7 +892,6 @@ function StartStore() {
             FreshenStore();
         });
         $("#Leave").click(function () {
-            localStorage.setItem('_character', JSON.stringify(Character));
             audio.pause();
             audio.currentTime = 0;
             $("#App").load("./temp/ShoppingDistrictVictoria.html")
@@ -889,7 +904,6 @@ function StartStore() {
         $("#MessageHolder").html("<h4 class='animated tada  Message' id='Dialog'> Try our new Icebergs today! </h4>");
         console.log("~~~Adding Shop Items~~~");
         CheckWallet();
-        //var Character = JSON.parse(localStorage.getItem('_character'));
         var Party = JSON.parse(localStorage.getItem('_Party'));
         $("#Options").html("<br><div class='MenuWrapper animated pulse' id='Wallet'> <h4 class='SubSubMainTitle'> Wallet : </h4><span id='WalletTotal' class='Money'>$" + Party[0].Wallet.Total + "</span><br></div><button id='Back' class='animated fadeInDown MenuButton2'> Back </button>");
         console.log("StoreInventory : ");
@@ -1084,10 +1098,8 @@ function StartStore() {
             var Orignalworth = StoreInventory[index].Worth;
             StoreInventory[index].Worth = Math.round(StoreInventory[index].Worth * 0.75);
             Party[0].Inventory.push(StoreInventory[index]);
-            //    Party[0] = Character;
             RefreshMoney();
             $("#Inventory").html("");
-            // localStorage.setItem('_character', JSON.stringify(Character));
             localStorage.setItem('_Party', JSON.stringify(Party));
             if (StoreInventory[index].Type == "Spell") {
                 StoreInventory[index].Worth = Orignalworth
@@ -1126,14 +1138,11 @@ function StartStore() {
     }
 
     function CheckWallet() {
-        //    var Character = JSON.parse(localStorage.getItem('_character'));
         var Party = JSON.parse(localStorage.getItem('_Party'));
         console.log("~~~Configuring Wallet~~~");
         console.log("Wallet : "); //
-        //    Party[0].Wallet.Total = Party[0].Wallet.Total + 10;
         $("#Total").html("" + Party[0].Wallet.Total + "");
         console.log(Party[0].Wallet);
-        //   localStorage.setItem('_character', JSON.stringify(Character));
         localStorage.setItem('_Party', JSON.stringify(Party));
         console.log("~~~~~~~~~~~~~~~~~~~")
     };

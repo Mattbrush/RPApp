@@ -142,6 +142,7 @@ $("#Confirm").click(function () {
         Sex: $("input:checked").val()
         , Color: ColorPicker()
         , Level: 1
+        , Class: "None"
         , Strength1: Strength1()
         , Strength2: Strength2()
         , Weakness1: Weakness1()
@@ -221,7 +222,7 @@ $("#Confirm").click(function () {
                    }
         , Experience: {
             Total: 0
-            , ToNextLevel: Math.floor(Math.random() * 25) + 20
+            , ToNextLevel: Math.floor(Math.random() * 15) + 15
             , SkillPoints: SkillPoints
         , }
         , DateCreated: moment().format("LLL")
@@ -248,7 +249,7 @@ function ColorPicker() {
         return ColorSelected;
     }
     else if (ColorSelected == "Orange") {
-        ColorSelected = "#FFCB2F";
+        ColorSelected = "#e36e18";
         return ColorSelected;
     }
     else if (ColorSelected == "Purple") {
@@ -291,47 +292,56 @@ function saveChanges(Character) {
     
     
     /* Add in BattleStats */
-    PartyMember = Character;
+    var PartyMember = Character;
         var AttackStrength = [0,0]
         var DefenseStrength = [0,0]
+        
+        PartyMember.BattleStats.AttackStrength= [0,0];
+        PartyMember.BattleStats.DefenseStrength= [0,0];
         
         
         if (PartyMember.Equipment.Head.Stats == undefined){
             console.log("No Headwear On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Head.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Head.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Head.Stats.Defense[1]
         };
         
         if (PartyMember.Equipment.Torso.Stats == undefined){
             console.log("No Torso On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Torso.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Torso.Stats.Defense[0];
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Torso.Stats.Defense[1];
         }
         
          if (PartyMember.Equipment.Belt.Stats == undefined){
             console.log("No Belt On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Belt.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Belt.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Belt.Stats.Defense[1]
         }
         
         
         if (PartyMember.Equipment.Legs.Stats == undefined){
             console.log("No Legs On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Legs.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Legs.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Legs.Stats.Defense[1]
         }
         
         if (PartyMember.Equipment.Ring1.Stats == undefined){
             console.log("No Ring1 On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring1.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring1.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Ring1.Stats.Defense[1]
         }
         
         
          if (PartyMember.Equipment.Ring2.Stats == undefined){
             console.log("No Ring2 On Character");
         } else {
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring2.Stats.Defense
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring2.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Ring2.Stats.Defense[1]
         }
         
         
@@ -343,10 +353,12 @@ function saveChanges(Character) {
         } else {
               if (PartyMember.Equipment.RightHand.Stats.Attack != undefined){
              console.log("No RightHand Defense For  Character");
-            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.RightHand.Stats.Attack   
+            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.RightHand.Stats.Attack[0]   
+            AttackStrength[1] = AttackStrength[1] + PartyMember.Equipment.RightHand.Stats.Attack[1]   
             } else if (PartyMember.Equipment.RightHand.Stats.Defense != undefined){
              console.log("No RightHand Attack For  Character");
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.RightHand.Stats.Defense   
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.RightHand.Stats.Defense[0]    
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.RightHand.Stats.Defense[1]    
             }
         }
         
@@ -355,41 +367,49 @@ function saveChanges(Character) {
         } else {
               if (PartyMember.Equipment.LeftHand.Stats.Attack != undefined){
              console.log("No LeftHand Defense For  Character");
-            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.LeftHand.Stats.Attack   
+            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.LeftHand.Stats.Attack[0]   
+            AttackStrength[1] = AttackStrength[1] + PartyMember.Equipment.LeftHand.Stats.Attack[1]   
             } else if (PartyMember.Equipment.LeftHand.Stats.Defense != undefined){
              console.log("No LeftHand Attack For  Character");
-            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.LeftHand.Stats.Defense   
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.LeftHand.Stats.Defense[0]   
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.LeftHand.Stats.Defense[1]   
             }
         
         }
+      
+        
+AttackStrength[0] = AttackStrength[0] + PartyMember.Stats[1].Value;
+        AttackStrength[1] = AttackStrength[1] + PartyMember.Stats[1].Value;
+        DefenseStrength[0] = DefenseStrength[0] + PartyMember.Stats[2].Value;
+        DefenseStrength[1] = DefenseStrength[1] + PartyMember.Stats[2].Value;
         
     
-      if (DefenseStrength[0] == 0){
+      if (DefenseStrength[0] <= 1){
             DefenseStrength[0] = 1;
         }
         
-         if (AttackStrength[0] == 0){
+         if (AttackStrength[0] <= 1){
             AttackStrength[0] = 1;
         }
-    
-    
-    
-        if (PartyMember.Stats[2].Value < 1){
-         DefenseStrength[0] = Math.round(( 1 ) *  DefenseStrength[0]);   
-        } else {
-        DefenseStrength[0] = Math.round(( PartyMember.Stats[2].Value + .45) *  DefenseStrength[0]);
-        };
+        
+        if (DefenseStrength[1] <= 1){
+            DefenseStrength[1] = 1;
+        }
+        
+         if (AttackStrength[1] <= 1){
+            AttackStrength[1] = 1;
+        }
         
         
-        if (PartyMember.Stats[1].Value < 1){
-         AttackStrength[0] = Math.round(( 1 ) *  AttackStrength[0]);   
-        } else {
-        AttackStrength[0] = Math.round(( PartyMember.Stats[1].Value + .25) *  AttackStrength[0]);
-        };
         
         
-    Character.BattleStats.AttackStrength[0] = AttackStrength[0];
-    Character.BattleStats.DefenseStrength[0]= DefenseStrength[0];
+        
+        
+        PartyMember.BattleStats.AttackStrength[0] = AttackStrength[0];
+        PartyMember.BattleStats.AttackStrength[1] = AttackStrength[1];
+        PartyMember.BattleStats.DefenseStrength[0] = DefenseStrength[0];
+        PartyMember.BattleStats.DefenseStrength[1] = DefenseStrength[1];
+
     
     
     
@@ -404,7 +424,7 @@ function saveChanges(Character) {
     
     
     var FirstMove = {  Name:"Punch",
-                Damage:[4,8],
+                Damage:[1,3],
                 Cost: 0,
                     Type:"Physical"};
     Character.Moves.push(FirstMove)

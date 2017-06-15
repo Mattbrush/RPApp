@@ -187,12 +187,30 @@ color:white;
 .ObtainedItem{
     width:10%;
 }
+
+.Equipment{
+    width: 50%;
+    margin: 0 auto;
+    padding: 5px;
+    font-size: larger;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
 .NoneEquipment{
     background:grey;
 }
 
+.EquipmentAvatar{
+    width: 15%;
+}
+
 .ActiveEquipment{
     background:rgba(0, 186, 255, 0.81);
+}
+
+.BattleWalkingStatus{
+    width:35%;
 }
 
 .EquipmentOverview{
@@ -206,6 +224,12 @@ color:white;
     padding-top: 50px;
     padding-bottom: 50px;
 }
+
+.PlayerStats{
+     display: flex;
+    font-size: smaller;
+    margin: 2px;
+};
 
 
 .StoreInventory{
@@ -300,7 +324,6 @@ color:white;
 }
 
 .Overlay {
-    background-image: url("../img/BritishColumbia.gif");
     background-position: bottom;
     background-size: cover;
     background-position-x: 575px;
@@ -602,6 +625,7 @@ color:white;
 .BattleItemSlot {
     display: inline-block;
     width: 50%;
+        padding-top: 10px;
     margin: 0 auto;
 }
 

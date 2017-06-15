@@ -44,7 +44,7 @@ function PierVictoria5() {
     
     $("#App").prepend("<div id='OverlayBlanket' class='OverlayBlanket' ></div>");
     $("#App").prepend("<div id='AlertPlayerMessage' class='AlertPlayerMessage' ></div>");
-    $("#AlertPlayerMessage").prepend("<div class='AlertPlayerText'>Where would you like to go? <br><button class='MenuButton animated flipInY' id='PierFish'> Pier </button><button class='MenuButton animated flipInY' id='Beach'> Beach </button><br><button class='MenuButton animated flipInY' id='Back'> Back To Victoria </button></div>");
+    $("#AlertPlayerMessage").prepend("<div class='AlertPlayerText'>Where would you like to go? <br><button class='MenuButton animated flipInY' id='PierFish'> Pier <br><img class='Icon' src='./img/TalkIcon.png'></img> </button><button class='MenuButton animated flipInY' id='Beach'> Beach <br><img class='Icon' src='./img/FightIcon.png'></img> </button><br><button class='MenuButton animated flipInY' id='Back'> Back To Victoria </button></div>");
     
     $("#Beach").click(function(){
         $("#ContinueMessageHolder").remove();

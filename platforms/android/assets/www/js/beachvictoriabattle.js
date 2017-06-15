@@ -166,7 +166,7 @@ function InitializeBattle() {
                 , Weakness2: "Deciduous Forest"
                 , Color: "#B7B7FF"
                 , Stats: {
-                    Health: Math.floor(Math.random() * 25) + 12
+                    Health: Math.floor(Math.random() * 15) + 10
                     , Attack: Math.floor(Math.random() * 1) + 1
                     , Defense: Math.floor(Math.random() * 1) + 0
                     , Magic: 0
@@ -192,7 +192,7 @@ function InitializeBattle() {
                         , Index: 0
                         , Targets: "One"
                         , Stats: {
-                            Damage: Math.floor(Math.random() * 2) + 1
+                            Damage: Math.floor(Math.random() * 4) + 1
                             , Element: "Saltwater"
                         , }
                     , }
@@ -202,7 +202,7 @@ function InitializeBattle() {
                         , Index: 0
                         , Targets: "One"
                         , Stats: {
-                            Damage: Math.floor(Math.random() * 2) + 1
+                            Damage: Math.floor(Math.random() * 3) + 1
                             , Element: "None"
                         }
                 }
@@ -228,7 +228,7 @@ function InitializeBattle() {
                 , Weakness2: "Deciduous Forest"
                 , Color: "#B7B7FF"
                 , Stats: {
-                    Health: Math.floor(Math.random() * 35) + 10
+                    Health: Math.floor(Math.random() * 20) + 10
                     , Attack: Math.floor(Math.random() * 3) + 1
                     , Defense: Math.floor(Math.random() * 4) + 0
                     , Magic: 0
@@ -257,14 +257,13 @@ function InitializeBattle() {
                     , DropRate: 0.40  // Lower is more often
                 }, ]
                 , MoveSet: [
-
                     {
                         Name: "Saltwater Slice"
                         , Type: "Element"
                         , Index: 0
                         , Targets: "All"
                         , Stats: {
-                            Damage: Math.floor(Math.random() * 4) + 1
+                            Damage: Math.floor(Math.random() * 5) + 1
                             , Element: "Saltwater"
                         , }
                     , }
@@ -274,7 +273,7 @@ function InitializeBattle() {
                         , Index: 0
                         , Targets: "One"
                         , Stats: {
-                            Damage: Math.floor(Math.random() * 6) + 1
+                            Damage: Math.floor(Math.random() * 5) + 2
                             , Element: "None"
                         }
                 }
@@ -353,7 +352,7 @@ function InitializeBattle() {
                 , Weakness2: "Deciduous Forest"
                 , Color: "#D7ACAC"
                 , Stats: {
-                    Health: Math.floor(Math.random() * 20) + 12
+                    Health: Math.floor(Math.random() * 25) + 10
                     , Attack: Math.floor(Math.random() * 2) + 1
                     , Defense: Math.floor(Math.random() * 0) + 0
                     , Magic: 0
@@ -537,6 +536,12 @@ function InitializeBattle() {
             else {
                 $("#PartyHolder").append("<button id='None" + i + "Button' class='PartyButtonDisabled'> None </button>");
             };
+            
+        
+            
+            
+            
+            
         };
         setTimeout(function () {
             EnemyMove(Enemy, TempHealth);
@@ -671,6 +676,135 @@ function InitializeBattle() {
                     $("#PartyHolder").append("<button id='None" + i + "Button' class='MenuButtonDisabled'> None </button>");
                 };
             };
+            
+            // ADDING BATTLESTATS AND CONFIGURING PLAYER'S STRENGTH EVERY TURN
+            
+            
+        var AttackStrength = [0,0]
+        var DefenseStrength = [0,0]
+        
+        PartyMember.BattleStats.AttackStrength= [0,0];
+        PartyMember.BattleStats.DefenseStrength= [0,0];
+        
+        
+        if (PartyMember.Equipment.Head.Stats == undefined){
+            console.log("No Headwear On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Head.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Head.Stats.Defense[1]
+        };
+        
+        if (PartyMember.Equipment.Torso.Stats == undefined){
+            console.log("No Torso On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Torso.Stats.Defense[0];
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Torso.Stats.Defense[1];
+        }
+        
+         if (PartyMember.Equipment.Belt.Stats == undefined){
+            console.log("No Belt On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Belt.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Belt.Stats.Defense[1]
+        }
+        
+        
+        if (PartyMember.Equipment.Legs.Stats == undefined){
+            console.log("No Legs On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Legs.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Legs.Stats.Defense[1]
+        }
+        
+        if (PartyMember.Equipment.Ring1.Stats == undefined){
+            console.log("No Ring1 On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring1.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Ring1.Stats.Defense[1]
+        }
+        
+        
+         if (PartyMember.Equipment.Ring2.Stats == undefined){
+            console.log("No Ring2 On Character");
+        } else {
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.Ring2.Stats.Defense[0]
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.Ring2.Stats.Defense[1]
+        }
+        
+        
+        
+        
+
+        if (PartyMember.Equipment.RightHand.Stats == undefined){
+        console.log(" No Item Equipped In Right Hand")
+        } else {
+              if (PartyMember.Equipment.RightHand.Stats.Attack != undefined){
+             console.log("No RightHand Defense For  Character");
+            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.RightHand.Stats.Attack[0]   
+            AttackStrength[1] = AttackStrength[1] + PartyMember.Equipment.RightHand.Stats.Attack[1]   
+            } else if (PartyMember.Equipment.RightHand.Stats.Defense != undefined){
+             console.log("No RightHand Attack For  Character");
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.RightHand.Stats.Defense[0]    
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.RightHand.Stats.Defense[1]    
+            }
+        }
+        
+        if (PartyMember.Equipment.LeftHand.Stats == undefined){
+        console.log(" No Item Equipped In LeftHand ")
+        } else {
+              if (PartyMember.Equipment.LeftHand.Stats.Attack != undefined){
+             console.log("No LeftHand Defense For  Character");
+            AttackStrength[0] = AttackStrength[0] + PartyMember.Equipment.LeftHand.Stats.Attack[0]   
+            AttackStrength[1] = AttackStrength[1] + PartyMember.Equipment.LeftHand.Stats.Attack[1]   
+            } else if (PartyMember.Equipment.LeftHand.Stats.Defense != undefined){
+             console.log("No LeftHand Attack For  Character");
+            DefenseStrength[0] = DefenseStrength[0] + PartyMember.Equipment.LeftHand.Stats.Defense[0]   
+            DefenseStrength[1] = DefenseStrength[1] + PartyMember.Equipment.LeftHand.Stats.Defense[1]   
+            }
+        
+        }
+      
+AttackStrength[0] = AttackStrength[0] + PartyMember.Stats[1].Value;
+        AttackStrength[1] = AttackStrength[1] + PartyMember.Stats[1].Value;
+        DefenseStrength[0] = DefenseStrength[0] + PartyMember.Stats[2].Value;
+        DefenseStrength[1] = DefenseStrength[1] + PartyMember.Stats[2].Value;
+        
+    
+      if (DefenseStrength[0] <= 1){
+            DefenseStrength[0] = 1;
+        }
+        
+         if (AttackStrength[0] <= 1){
+            AttackStrength[0] = 1;
+        }
+        
+        if (DefenseStrength[1] <= 1){
+            DefenseStrength[1] = 1;
+        }
+        
+         if (AttackStrength[1] <= 1){
+            AttackStrength[1] = 1;
+        }
+        
+        
+        
+        
+        PartyMember.BattleStats.AttackStrength[0] = AttackStrength[0];
+        PartyMember.BattleStats.AttackStrength[1] = AttackStrength[1];
+        PartyMember.BattleStats.DefenseStrength[0] = DefenseStrength[0];
+        PartyMember.BattleStats.DefenseStrength[1] = DefenseStrength[1];
+
+        localStorage.setItem('_PartyMember', JSON.stringify(PartyMember));
+        localStorage.setItem('_Party', JSON.stringify(Party));
+            
+            
+            ////////////////
+            
+            
+            
+            
+            
+            
             // BUTTON FUNCTIONS //
             $("#Run").click(function () {
                 $("#MessageHolder").html("<h4 class='animated pulse BattleMessage' id='StatusMSG'>Are You Sure You Want To Run Away? </h4>");
@@ -1024,8 +1158,9 @@ function InitializeBattle() {
                             $("#Accept").click(function () {
                                 var Move = PartyMember.Moves[index];
                                 var MoveMinus = Move.Damage[1] - Move.Damage[0];
-                                var MoveDamage = Math.floor(Math.random() * MoveMinus) + Move.Damage[0];
-                                
+                                var MoveDamage = Math.floor(Math.random() * MoveMinus ) + Move.Damage[0];
+                                 console.log("Move.Damage");
+                                console.log(MoveDamage);
                                 
                                 var MoveMinus2 = PartyMember.BattleStats.AttackStrength[1] - PartyMember.BattleStats.AttackStrength[0];
                                 
@@ -1034,8 +1169,11 @@ function InitializeBattle() {
                                 
                                 MoveDamage = MoveDamage + MoveDamage2;
                                 
-                                console.log("Move.Damage");
-                                console.log(Move.Damage);
+                               
+                                console.log("BattleStatsDamage");
+                                console.log(MoveDamage2);
+                                console.log("MoveDamage : ");
+                                console.log(MoveDamage);
                                 localStorage.setItem('_MoveDamage', JSON.stringify(MoveDamage));
                                 localStorage.setItem('_Move', JSON.stringify(Move));
                                 PlayerAttack();
@@ -1053,6 +1191,47 @@ function InitializeBattle() {
             });
             /* PLAYER ATTACK */
             function PlayerAttack(Enemy, TempHealth, Move) {
+                
+                  /* Adding Misses */
+            if (Math.random() >= PartyMember.Stats[5].Value) {
+                var Move = JSON.parse(localStorage.getItem('_Move'));
+                
+                $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
+                $("#MessageHolder").html("<h4 class='animated pulse  BattleMessage' id='StatusMSG'>" + PartyMember.Name + " attacks using " + Move.Name + " </h4>");
+                setTimeout(function () {
+                    $("#MessageHolder").html("<h4 class='animated tada BattleMessage' id='StatusMSG'>" + PartyMember.Name + " missed! </h4>");
+                    setTimeout(function () {
+                    
+                        
+                        
+                        
+                     var TurnTracker = JSON.parse(localStorage.getItem('_TurnTracker'));   
+                        
+                        
+                        
+                     for (i = 0; i < 4; i++) {
+                        if (Party[i]) {
+                            if (Party[i].Name == PartyMember.Name) {
+                                console.log(i)
+                                var Index = i;
+                            }
+                        };
+                    };
+                    TurnTracker[Index] = true;
+                    console.log(TurnTracker);
+                    $("#MessageHolder").html();    
+                    localStorage.setItem('_TurnTracker', JSON.stringify(TurnTracker));
+                    PlayerTurn(Enemy, TempHealth);      
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    }, Party[0].PlayerTextSpeed);
+                }, Party[0].PlayerTextSpeed);
+            } else {
                 var MoveDamage = JSON.parse(localStorage.getItem('_MoveDamage'));
                 var Move = JSON.parse(localStorage.getItem('_Move'));
                 // Regular Attack //
@@ -1065,14 +1244,14 @@ function InitializeBattle() {
                 console.log(CritcalChance)
                 var DidCriticalHit = false;
                 if (CritcalChance == 10) {
-                    CritcalChance = Math.round(Move.Damage * 1.75);
+                    CritcalChance = Move.Damage[1];
                     DidCriticalHit = true;
                     console.log("CRITCIAL ATTACK")
                 }
                 else {
                     CritcalChance = 0
                 };
-                // Remove Cost from PLayer's HP if needed
+                // Remove Cost from Player's HP if needed
                 PartyMember.Stats[0].Value = PartyMember.Stats[0].Value - Move.Cost;
                 $("#PlayerHealth").val(PartyMember.Stats[0].Value);
                 $("#PlayerHealth").attr("data-label", "" + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "");
@@ -1081,7 +1260,7 @@ function InitializeBattle() {
                 /////
                 console.log("MoveDamage : ");
                 console.log(MoveDamage);
-                RandomAttack = PartyMember.Stats[1].Value;
+                RandomAttack = 0;
                 FullAttack = RandomAttack + CritcalChance + MoveDamage;
                 // Move To Universal Damage Function //
                 console.log("Player Attacking");
@@ -1090,6 +1269,7 @@ function InitializeBattle() {
                 localStorage.setItem('_CritcalChance', JSON.stringify(CritcalChance));
                 localStorage.setItem('_Party', JSON.stringify(Party));
                 EnemyLosesHealth(Enemy, TempHealth, FullAttack, DidCriticalHit, CritcalChance, UsedMagic, Spell, Move)
+                }
             };
         };
     };
@@ -1131,6 +1311,29 @@ function InitializeBattle() {
                 $("#PartyHolder").append("<button id='None" + i + "Button' class='PartyButtonDisabled'> None </button>");
             };
         };
+        
+        
+        
+        
+            
+          // Placing Current PartyMember's Stats
+            $("#Player").html("<div class='SubMainTitle' id='PlayerName'>" + PartyMember.Name + " " + PartyMember.FamilyName + "</div><br><span class='Level'>Level : " + PartyMember.Level + "</span><br><progress class='Bar HealthProgress' id='PlayerHealth' value='" + PartyMember.Stats[0].Value + "' max='" + PartyMember.Stats[6].Value + "' data-label='" + PartyMember.Stats[0].Value + " / " + PartyMember.Stats[6].Value + "'></progress><progress class='Bar ManaProgress' id='PlayerMana' value='" + PartyMember.Stats[7].Value + "' max='" + PartyMember.Stats[8].Value + "' data-label='" + PartyMember.Stats[7].Value + " / " + PartyMember.Stats[8].Value + "'></progress><progress class='Bar XPProgress' id='XPMainTitle' value='" + PartyMember.Experience.Total + "' max='" + PartyMember.Experience.ToNextLevel + "' data-label='" + PartyMember.Experience.Total + " / " + PartyMember.Experience.ToNextLevel + "'></progress>");
+            $("#OptionsHolder").html("<div id='Options' class='animated flip'></div>");
+            //Change Color
+            $("#Player").css("background", "" + PartyMember.Color + "");
+            /////  
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -1178,6 +1381,8 @@ function InitializeBattle() {
         //var Character = JSON.parse(localStorage.getItem('_character'));
         var Party = JSON.parse(localStorage.getItem('_Party'));
         PartyMember.Stats[0].Value = PartyMember.Stats[0].Value + PartyMember.Stats[2].Value;
+        
+        // Elemental Strengths/ Weaknesses
         if (EnemyAttackOption.Stats.Element == PartyMember.Weakness1 || EnemyAttackOption.Stats.Element == PartyMember.Weakness2) {
             var EnemyElementStrength = 1.25;
         }
@@ -1187,15 +1392,21 @@ function InitializeBattle() {
         else {
             var EnemyElementStrength = 1;
         };
-        console.log(EnemyElementStrength)
-        if (PartyMember.Stats[2].Value < Math.round((Enemy.Stats.Attack + EnemyAttackOption.Stats.Damage) * (EnemyElementStrength))) {
+        
+        
+        
+        var StrengthDefense = Math.floor(Math.random() * PartyMember.BattleStats.DefenseStrength[1]) + PartyMember.BattleStats.DefenseStrength[0];
+        
+        
+        // Actual Damagae Calculation to see how much damaage is dealt
+        if (StrengthDefense < Math.round((Enemy.Stats.Attack + EnemyAttackOption.Stats.Damage) * (EnemyElementStrength))) {
             PartyMember.Stats[0].Value = PartyMember.Stats[0].Value - Math.round((Enemy.Stats.Attack + EnemyAttackOption.Stats.Damage) * (EnemyElementStrength));
-            DamageEarned = Math.round((Enemy.Stats.Attack + EnemyAttackOption.Stats.Damage) * (EnemyElementStrength)) - PartyMember.Stats[2].Value;
+            DamageEarned = Math.round((Enemy.Stats.Attack + EnemyAttackOption.Stats.Damage) * (EnemyElementStrength)) - StrengthDefense;
         }
         else {
-            PartyMember.Stats[0].Value = PartyMember.Stats[0].Value - PartyMember.Stats[2].Value;
+            PartyMember.Stats[0].Value = PartyMember.Stats[0].Value - StrengthDefense;
             PartyMember.Stats[0].Value = PartyMember.Stats[0].Value - 1;
-            DamageEarned = 1 * EnemyElementStrength;
+            DamageEarned = Math.round(1 * EnemyElementStrength);
         };
         if (PartyMember.Stats[0].Value > 0) {
             /* If Player Loses health */

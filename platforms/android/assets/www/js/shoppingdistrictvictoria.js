@@ -19,7 +19,7 @@ function StartApp() {
     /* Check Story Progress */
     if (Party[0].Triggers.Victoria3 == true){
             /* Stores Available */
-    $("#StoreList").append("<button id='Tommies' class='MenuButton'> Tommie's </button><br><button id='CanadianTire' class='MenuButton'> Canadian Tire </button><br><br><button id='Leave' class='MenuButton2'> Leave </button><br>");
+    $("#StoreList").append("<button id='Tommies' class='MenuButton'> Tommie's <img class='Icon' src='./img/FoodIcon.png'></button><br><button id='CanadianTire' class='MenuButton'> Canadian Tire <img class='Icon' src='./img/WeaponIcon.png'></button><br><br><button id='Leave' class='MenuButton2'> Leave </button><br>");
     ////////////////////
     } else {
         /* FIRST TIME IN SHOPPING DISTRICT VICTORIA, MEETING WITH BEN*/

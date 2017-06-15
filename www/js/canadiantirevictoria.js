@@ -17,10 +17,10 @@ var StoreInventory = [
                 Name: "Sword"
                 , IDName: "Sword"
                 , Avatar: "./img/Sword.png"
-                , Description: " A basic sword for a basic person.. ."
+                , Description: " A beginner's sword, perfect for adding some extra damage in battle."
                 , Type: "Weapon"
                 , Index: 0
-                ,Weight: 5
+                ,Weight: 6
                 ,Equip:"RightHand"
                 , Stats: {
                     Attack:[2,6]
@@ -29,13 +29,14 @@ var StoreInventory = [
                 , DropRate: 0.65
     },
     {
-                Name: " Lumber Axe"
+                Name: " Lumber HandAxe"
                 , IDName: "LumberAxe"
                 , Avatar: "./img/LumberAxe.png"
-                , Description: " A sturdy handaxe made for a moutaineer ."
+                , Description: " A sturdy handaxe made only for someone of the <strong> Fighter </strong> class."
                 , Type: "Weapon"
                 , Index: 0
                 ,Weight: 7
+                ,Equippable:"Fighter"
                 ,Equip:"RightHand"
                 , Stats: {
                     Attack: [2,9]
@@ -68,9 +69,10 @@ var StoreInventory = [
                 Name: " Lumber Pants "
                 , IDName: "LumberPants"
                 , Avatar: "./img/LumberPants.png"
+         , Description: " A lumberworker's pants. Where that lumberworker went, I don't know! "
                 , Type: "Armour"
                 , Index: 0
-                ,Weight: 7
+                ,Weight: 3
                 ,Equip:"Legs"
                 , Stats: {
                     Defense: [1,3]
@@ -82,9 +84,10 @@ var StoreInventory = [
                 Name: " Wool Cap "
                 , IDName: "WoolCap"
                 , Avatar: "./img/WoolCap.png"
+         , Description: " A not-so stylish cap made from wool."
                 , Type: "Armour"
                 , Index: 0
-                ,Weight: 7
+                ,Weight: 1
                 ,Equip:"Head"
                 , Stats: {
                     Defense: [1,2]
@@ -255,7 +258,6 @@ function StartStore() {
     function FreshenStore() {
         $("#Logo").html("");
         $("#Logo").html("<img class='width50' src='./img/CanadianTire.png'>");
-        $("#MessageHolder").html("<h4 class='animated tada  Message' id='Dialog'> Try our new Icebergs today! </h4>");
         console.log("~~~Adding Shop Items~~~");
         var Party = JSON.parse(localStorage.getItem('_Party'));
         CheckWallet();
@@ -263,51 +265,10 @@ function StartStore() {
         console.log("StoreInventory : ");
         /////// Theme Button For Store to gelp with filtering /////
         $("#Inventory").html("<div class='MenuWrapper'><button class='MenuButton animated flipInY' id='Weapons'>Weapons</button><br><button class='MenuButton animated flipInY' id='Armour'>Armour</button></div>");
-        $("#StatusItems").click(function () {
-            $("#MessageHolder").html("<h4 class='animated tada  Message' id='Dialog'> Want more Health or Mana? !</h4>");
-            $("#Inventory").html("<div class='SubSubMainTitle animated flipInY' id='StatusItems'>Status Items</div>");
-            var StoreItemCount = 0
-            for (i = 0; i < StoreInventory.length; i++) {
-                console.log(StoreInventory[i]);
-                if (StoreInventory[i].Type == "Status") {
-                    /////// IF THE ITEM IS A STATUS ITEM
-                    StoreItemCount++
-                    $("#Inventory").append("<br><div><input type='image' src='" + StoreInventory[i].Avatar + "' class='StoreSlot' id='" + i + "' >Name : " + StoreInventory[i].Name + " <br>Type: " + StoreInventory[i].Type + "  <br>Price : $" + StoreInventory[i].Worth + "</input></div>");
-                    $("#" + i).css("border-color", "Red");
-                }
-                if (Party[0].Wallet.Total < StoreInventory[i].Worth) {
-                    // Player doesn't have enough money..
-                    $("#" + i).css("border-color", "Grey");
-                    $("#" + i).css("pointer-events", "none");
-                }
-                $("#" + i + "").click(function () {
-                    var index = this.id
-                    ShopkeeperPurchaseDialog();
-                    $("#StatusMessageHolder").css("display", "block");
-                    $("#StatusMessageHolder").html("<h4 class='animated flipInX  StatusMessage' id='StatusMessage'>Are You Sure You Want To Buy " + StoreInventory[this.id].Name + " For " + StoreInventory[this.id].Worth + " ? <br><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> No </button></div></h4>");
-                    $("#StatusMessageHolder").css("border-color", "" + Party[0].Color + "");
-                    $("#Accept").click(function () {
-                        PurchaseItem( index);
-                        $("#StatusMessageHolder").html("<h4 class='animated flipOutX  Message' id='StatusMessgae'></h4>");
-                        $("#StatusMessageHolder").css("display", "none");
-                    })
-                    $("#Deny").click(function () {
-                        $("#Inventory").html("");
-                        $("#StatusMessageHolder").html("<h4 class='animated flipOutX  Message' id='StatusMessgae'></h4>");
-                        $("#StatusMessageHolder").css("display", "none");
-                        FreshenStore();
-                    })
-                });
-            };
-            if (StoreItemCount == 0) {
-                $("#Inventory").html("<div> Sorry, No Status Items Availabe </div>");
-            }
-            $("#Inventory").append("<br><button class='MenuButton' id='ItemsBack'> Back To Items </button>");
-            $("#ItemsBack").click(function () {
-                FreshenStore( Total)
-            });
-        });
         /////// IF THE ITEM IS A MISC ITEM
+        
+        
+        /*  DOESNT EXIST YET 
         $("#MiscItems").click(function () {
             $("#MessageHolder").html("<h4 class='animated tada  Message' id='Dialog'> You need something a little different?</h4>");
             $("#Inventory").html("<div class='SubSubMainTitle animated flipInY' id='MiscItems'>Miscellaneous Items</div>");
@@ -350,14 +311,12 @@ function StartStore() {
             $("#ItemsBack").click(function () {
                 FreshenStore( Total)
             });
-        });
+        }); */
 /////// IF THE ITEM IS A WEAPON
         $("#Weapons").click(function () {
              $("#Logo").html("");
                     var Party = JSON.parse(localStorage.getItem('_Party'));
-            console.log(Party);
             $("#MessageHolder").html("<h4 class='animated tada  Message' id='Dialog'> You trying to do some damage? </h4>");
-            $("#Inventory").html("<div class='SubSubMainTitle animated flipInY' id='MiscItems'> Weapons </div>");
             var StoreItemCount = 0
             $("#Inventory").html("<div class='SubSubMainTitle animated flipInY' id='Weapons'> Weapons </div><div id='InventoryContainer' class='StoreInventory'></div>");
             for (i = 0; i < StoreInventory.length; i++) {
@@ -365,8 +324,8 @@ function StartStore() {
                  
                 if (StoreInventory[i].Type == "Weapon") {
                     StoreItemCount++
-                    $("#InventoryContainer").append("<div class='BattleItemSlot'><input type='image' src='" + StoreInventory[i].Avatar + "' class='BattleItem' id='" + i + "' ><br> " + StoreInventory[i].Name + " <br>Price : $" + StoreInventory[i].Worth + "</input></div>");
-                    $("#" + i).css("border-color", "#b7b7b7");
+                    $("#InventoryContainer").append("<div class='BattleItemSlot'><h4 class='BattleMessage animated flipInX'>" + StoreInventory[i].Name + " </h4><input type='image' src='" + StoreInventory[i].Avatar + "' class='BattleItem' id='" + i + "' ><br>Price : $" + StoreInventory[i].Worth + "</input></div>");
+                    $("#" + i).css("background", "#b7b7b7");
                 }
                 if (Party[0].Wallet.Total < StoreInventory[i].Worth) {
                     // Player doesn't have enough money..
@@ -379,20 +338,15 @@ function StartStore() {
                     var index = this.id
                     ShopkeeperPurchaseDialog();
                     $("#StatusMessageHolder").css("display", "block");
-                    $("#AlertPlayerMessage").html("<div class='BattleMessage'> Want to buy this? </div><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'><img class='Width75' src='"+StoreInventory[this.id].Avatar+"'></img><br> <span class='animated flipInY '>" + StoreInventory[this.id].Name + " </span><br><span class='animated flipInY '>" + StoreInventory[this.id].Description + " </span> <br> <span class='animated flipInY '>$ " + StoreInventory[this.id].Worth + "</span> <br><button class='MenuButton' id='Accept'> Buy </button><button class='MenuButton'  id='Deny'> No </button>");
+                    $("#AlertPlayerMessage").html("<div class='BattleMessage'> Want to buy this? </div><h4 class='BattleMessage animated flipInX'>" + StoreInventory[this.id].Name + " </h4><img class='Width75 animated flipInY' src='"+StoreInventory[this.id].Avatar+"'></img><br><span class='AlertPlayerText animated flipInY '>$ " + StoreInventory[this.id].Worth + "</span><br><span class='AlertPlayerText animated flipInY '>" + StoreInventory[this.id].Description + " </span><br><button class='MenuButton' id='Accept'> Buy </button><button class='MenuButton'  id='Deny'> No </button>");
                     $("#StatusMessageHolder").css("border-color", "" + Party[0].Color + "");
                     $("#Accept").click(function () {
-                       
                          /****** Equip Phase OF Store !? */
-                                    $("#MessageHolder").html("<h4 class='animated tada  AlertPlayerText' id='Dialog'> Do you want to equip that now ?  </h4>");
-                        $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>Would you like to equip this item now to a party member ? </h4><br><button id='Yes' class='MenuButton'> Yes </button><button id='No' class='MenuButton'> No </button></div>");
+                        $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>Would you like to equip this item now to a party member ? </h4><br><button id='Yes' class='MenuButton'> Equip </button><button id='No' class='MenuButton'> Cancel Purchase </button></div>");
                      
                         $("#No").click(function(){
                             $("#OverlayBlanket").remove();
                     $("#AlertPlayerMessage").remove();
-                             $("#MessageHolder").html("");
-                        $("#StatusMessageHolder").css("display", "none");
-                         PurchaseItem( index); 
                         });
                         
                         
@@ -411,7 +365,7 @@ function StartStore() {
                     var index2 = this.id.substr(1,1)
                    
                     $("#StatusMessageHolder").css("display", "block");
-                    $("#AlertPlayerMessage").html("<h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>Are you sure you want to equip " + Party[index2].Name + " with " + StoreInventory[index].Name + " ? <br><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> No </button></div></h4>");
+                    $("#AlertPlayerMessage").html("<h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>Are you sure you want to equip " + Party[index2].Name + " with " + StoreInventory[index].Name + " ? <br><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> Cancel Purchase </button></div></h4>");
                     $("#StatusMessageHolder").css("border-color", "" + Party[0].Color + ""); 
                     $("#Accept").click(function () {
                           
@@ -423,14 +377,11 @@ function StartStore() {
                     
                         if (CurrentEquipmentSlot != "" ){
                             console.log(" Player Already has an item equipped");
-                             $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated pulse  AlertPlayerText' id='StatusMessage'>" + Party[index2].Name + " already has something  equipped for that. Would you like to equip the "+StoreInventory[index].Name+" instead ? </h4><br> <button class='MenuButton' id='Yes'> Yes </button> <button class='MenuButton' id='No'> No </button></div>");
+                             $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated pulse  AlertPlayerText' id='StatusMessage'>" + Party[index2].Name + " already has something  equipped for that. Would you like to equip the "+StoreInventory[index].Name+" instead ? </h4><br> <button class='MenuButton' id='Yes'> Yes </button> <button class='MenuButton' id='No'> Cancel Purchase </button></div>");
                             
                             $("#No").click(function(){
                                 $("#OverlayBlanket").remove();
                         $("#AlertPlayerMessage").remove();
-                                $("#MessageHolder").html("");
-                                $("#StatusMessageHolder").css("display", "none");
-                                  PurchaseItem( index); 
                             });
                             
                             $("#Yes").click(function(){
@@ -477,10 +428,6 @@ function StartStore() {
                     $("#Deny").click(function () {
                         $("#OverlayBlanket").remove();
                         $("#AlertPlayerMessage").remove();
-                        $("#Inventory").html("");
-                        $("#StatusMessageHolder").html("<h4 class='animated flipOutX  AlertPlayerText' id='StatusMessgae'></h4>");
-                        $("#StatusMessageHolder").css("display", "none");
-                        FreshenStore();
                     })
                 });
                                   
@@ -493,11 +440,7 @@ function StartStore() {
                     $("#Deny").click(function () {
                         $("#OverlayBlanket").remove();
                         $("#AlertPlayerMessage").remove();
-                        $("#Inventory").html("");
-                        $("#StatusMessageHolder").html("<h4 class='animated flipOutX  AlertPlayerText' id='StatusMessgae'></h4>");
-                        $("#StatusMessageHolder").css("display", "none");
-                       
-                        FreshenStore();
+                        
                     })
                 });
             };
@@ -515,7 +458,7 @@ function StartStore() {
             $("#Logo").html("");
                     var Party = JSON.parse(localStorage.getItem('_Party'));
             console.log(Party);
-            $("#MessageHolder").html("<h4 class='animated tada  AlertPlayerText' id='Dialog'> You protect yourself?? </h4>");
+            $("#MessageHolder").html("<h4 class='animated tada  Message' id='Dialog'> You trying to  protect yourself? </h4>");
             $("#Inventory").html("<div class='SubSubMainTitle animated flipInY' id='Armour'> Armour </div><div id='InventoryContainer' class='StoreInventory'></div>");
             var StoreItemCount = 0
             for (i = 0; i < StoreInventory.length; i++) {
@@ -523,8 +466,9 @@ function StartStore() {
                 if (StoreInventory[i].Type == "Armour") {
                     StoreItemCount++
                    $("#InventoryContainer").append("<div class='BattleItemSlot'><input type='image' src='" + StoreInventory[i].Avatar + "' class='BattleItem' id='" + i + "' ><br> " + StoreInventory[i].Name + " <br>Price : $" + StoreInventory[i].Worth + "</input></div>");
-                    $("#" + i).css("border-color", "#8acad9");
+                    $("#" + i).css("background", "#8acad9");
                 }
+                
                 if (Party[0].Wallet.Total < StoreInventory[i].Worth) {
                     // Player doesn't have enough money..
                     $("#" + i).css("border-color", "Grey");
@@ -536,20 +480,17 @@ function StartStore() {
                     var index = this.id
                     ShopkeeperPurchaseDialog();
                     $("#StatusMessageHolder").css("display", "block");
-                    $("#AlertPlayerMessage").html("<div class='BattleMessage'> Want to buy this? </div><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'><img class='Width75' src='"+StoreInventory[this.id].Avatar+"'></img><br> <span class='animated flipInY '>" + StoreInventory[this.id].Name + " </span><br> <span class='animated flipInY '>$ " + StoreInventory[this.id].Worth + "</span> <br><button class='MenuButton' id='Accept'> Buy </button><button class='MenuButton'  id='Deny'> No </button>");
+                    $("#AlertPlayerMessage").html("<div class='BattleMessage'> Want to buy this? </div><h4 class='BattleMessage animated flipInX'>" + StoreInventory[this.id].Name + " </h4><img class='Width75 animated flipInY' src='"+StoreInventory[this.id].Avatar+"'></img><br><span class='AlertPlayerText animated flipInY '>$ " + StoreInventory[this.id].Worth + "</span><br><span class='AlertPlayerText animated flipInY '>" + StoreInventory[this.id].Description + " </span><br><button class='MenuButton' id='Accept'> Buy </button><button class='MenuButton'  id='Deny'> No </button>");
                     $("#StatusMessageHolder").css("border-color", "" + Party[0].Color + "");
                     $("#Accept").click(function () {
                        
                          /****** Equip Phase OF Store !? */
                                     $("#MessageHolder").html("<h4 class='animated tada  Message' id='Dialog'> Do you want to equip that now ?  </h4>");
-                        $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>Would you like to equip this item now to a party member ? </h4><br><button id='Yes' class='MenuButton'> Yes </button><button id='No' class='MenuButton'> No </button></div>");
+                        $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>Would you like to equip this item now to a party member ? </h4><br><button id='Yes' class='MenuButton'> Yes </button><button id='No' class='MenuButton'> Cancel Purchase </button></div>");
                      
                         $("#No").click(function(){
                             $("#OverlayBlanket").remove();
                         $("#AlertPlayerMessage").remove();
-                             $("#MessageHolder").html("");
-                        $("#StatusMessageHolder").css("display", "none");
-                         PurchaseItem( index); 
                         });
                         
                         
@@ -568,7 +509,7 @@ function StartStore() {
                     var index2 = this.id.substr(1,1)
                    
                     $("#StatusMessageHolder").css("display", "block");
-                    $("#AlertPlayerMessage").html("<h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>Are you sure you want to equip " + Party[index2].Name + " with " + StoreInventory[index].Name + " ? <br><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> No </button></div></h4>");
+                    $("#AlertPlayerMessage").html("<h4 class='animated flipInX  AlertPlayerText' id='StatusMessage'>Are you sure you want to equip " + Party[index2].Name + " with " + StoreInventory[index].Name + " ? <br><div class='MenuWrapper'><button class='MenuButton' id='Accept'> Yes </button><button class='MenuButton'  id='Deny'> Cancel Purchase </button></div></h4>");
                     $("#StatusMessageHolder").css("border-color", "" + Party[0].Color + ""); 
                     $("#Accept").click(function () {
                           
@@ -580,14 +521,11 @@ function StartStore() {
                     
                         if (CurrentEquipmentSlot != "" ){
                             console.log(" Player Already has an item equipped");
-                             $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated pulse  AlertPlayerText' id='StatusMessage'>" + Party[index2].Name + " already has something  equipped for that. Would you like to equip the "+StoreInventory[index].Name+" instead ? </h4><br> <button class='MenuButton' id='Yes'> Yes </button> <button class='MenuButton' id='No'> No </button></div>");
+                             $("#AlertPlayerMessage").html("<div class='MenuWrapper'><h4 class='animated pulse  AlertPlayerText' id='StatusMessage'>" + Party[index2].Name + " already has something  equipped for that. Would you like to equip the "+StoreInventory[index].Name+" instead ? </h4><br> <button class='MenuButton' id='Yes'> Yes </button> <button class='MenuButton' id='No'> Cancel Purchase </button></div>");
                             
                             $("#No").click(function(){
                                 $("#OverlayBlanket").remove();
                         $("#AlertPlayerMessage").remove();
-                                $("#MessageHolder").html("");
-                                $("#StatusMessageHolder").css("display", "none");
-                                  PurchaseItem( index); 
                             });
                             
                             $("#Yes").click(function(){
@@ -634,10 +572,6 @@ function StartStore() {
                     $("#Deny").click(function () {
                         $("#OverlayBlanket").remove();
                         $("#AlertPlayerMessage").remove();
-                        $("#Inventory").html("");
-                        $("#StatusMessageHolder").html("<h4 class='animated flipOutX  AlertPlayerText' id='StatusMessgae'></h4>");
-                        $("#StatusMessageHolder").css("display", "none");
-                        FreshenStore();
                     })
                 });
                                   

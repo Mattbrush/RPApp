@@ -64,10 +64,10 @@ var RandomItem = [
     
     
     
-     $("#AlertPlayerMessage").prepend("<div id='AlertPlayerText' class='AlertPlayerText'><h5 id='Status'></h5><div id='PlayerStats'></div><img id='Player' style='Width:40%' src='./img/BeachIdle.gif'></img><br><br><button id='Walk' class='MenuButton'> Walk </button><br><button id='Leave' class='MenuButton'> Leave </button></div>");
+     $("#AlertPlayerMessage").prepend("<div id='AlertPlayerText' class='AlertPlayerText'><h5 id='Status'></h5><div class='PlayerStats' id='PlayerStats'></div><img id='Player' class='BattleWalkingStatus' src='./img/BeachIdle.gif'></img><br><br><button id='Walk' class='MenuButton'> Walk </button><br><button id='Leave' class='MenuButton'> Leave </button></div>");
     var Party = JSON.parse(localStorage.getItem('_Party'));
      for (i = 0; i < Party.length; i++) {
-         $("#PlayerStats").append(" "+Party[i].Name+"   HP:"+Party[i].Stats[0].Value+"/"+Party[i].Stats[6].Value+" <br> ");
+         $("#PlayerStats").append("<span>"+Party[i].Name+"<br>   Level : "+Party[i].Level+" HP : "+Party[i].Stats[0].Value+"/"+Party[i].Stats[6].Value+"<br></span> ");
      };
     
     $("#AlertPlayerMessage").css("top","10%");
@@ -89,7 +89,7 @@ var RandomItem = [
     
     function Walking(){
     
-    $("#AlertPlayerMessage").html("<div id='AlertPlayerText' class='AlertPlayerText'><h5 id='Status'></h5><img id='Player' style='Width:50%' src='./img/BeachWalking.gif'></img><br><button id='Stop' class='MenuButton'> Stop </button></div>");
+    $("#AlertPlayerMessage").html("<div id='AlertPlayerText' class='AlertPlayerText'><h5 id='Status'></h5><img id='Player' class='BattleWalkingStatus'  src='./img/BeachWalking.gif'></img><br><button id='Stop' class='MenuButton'> Stop </button></div>");
         
         $("#Stop").click(function(){
          $("#ContinueMessageHolder").remove();
@@ -269,7 +269,7 @@ var RandomItem = [
             }, {
                 Dialog: "  Pondering life "
             }, {
-                Dialog: " Craving a Tommie's Icebergs "
+                Dialog: " Craving a Tommie's Iceberg "
             }, {
                 Dialog: " Looking at Sand "
             }, {
@@ -286,6 +286,14 @@ var RandomItem = [
                 Dialog: " Getting paranoid "
             }, {
                 Dialog: " Drifting off to sleep "
+            }, {
+                Dialog: " Arguing "
+            }, {
+                Dialog: " Throwing rocks into the water "
+            }, {
+                Dialog: " Making bird nosies "
+            }, {
+                Dialog: " Having an epic swordbattle with driftwood "
             }
         , ]
         var StatusOption = Status[Math.floor(Math.random() * Status.length)];

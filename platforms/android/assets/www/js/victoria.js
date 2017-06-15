@@ -51,15 +51,15 @@ function StartApp() {
     
     
     
-    
+     
     
     
     /* Check Story Progress */
     
      if(Party[0].Triggers.Victoria10 == true){
-    $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='Pier'>Victoria Pier</button>");
-          $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='ShoppingDistrict'>Shopping District</button>");
-  $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='VictoriaParliamentBuilding'>Victoria Parliament Building</button>  ");
+    $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='Pier'>Victoria Pier <br><img class='Icon' src='./img/PlaceIcon.png'></img></button>");
+          $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='ShoppingDistrict'>Shopping District <br><img class='Icon' src='./img/ShopIcon.png'></button>");
+  $("#ProvinceList").append("<br><button class='MenuButton animated flipInY' id='VictoriaParliamentBuilding'>Victoria Parliament Building <br><img class='Icon' src='./img/ImportantIcon.png'></button>  ");
       AppendJournal();
                
     }

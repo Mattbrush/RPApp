@@ -5,17 +5,13 @@ StartApp();
 /*~~~~~~~~~~~~~~~~~~~~ --------------------- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 function StartApp() {
       $("#MessageHolder").remove();
-    var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
     Party[0].Inventory.sort(function(a, b){
     if(a.Name < b.Name) return -1;
     if(a.Name > b.Name) return 1;
     return 0;
 })
-      localStorage.setItem('_character', JSON.stringify(Character));
-     var Character = JSON.parse(localStorage.getItem('_character'));
     var Party = JSON.parse(localStorage.getItem('_Party'));
-    Party[0] = Character
     if (Party[0].Inventory.length <= 0) {
         console.log('emptyInventory');
         $("#InventoryContainer").html("<h3 class='SubSubMainTitle animated rubberBand'> Inventory </h3>  You have no items");
@@ -33,7 +29,6 @@ function StartApp() {
                 $("#StatusMessageHolder").html("");
                 $("#StatusMessageHolder").css("display", "none");
                 $("#InventoryContainer").html("<h3 class='SubSubMainTitle animated rubberBand'> Inventory </h3> ");
-                var Character = JSON.parse(localStorage.getItem('_character'));
                 for (i = 0; i < Party[0].Inventory.length; i++) {
                     console.log(Party[0].Inventory[i]);
                     Party[0].Inventory[i].Index = i;
@@ -118,8 +113,6 @@ function StartApp() {
                             $("#AlertPlayerMessage").html("<div class='animated tada AlertPlayerText'>Healed Up " + Party[Name].Name + " By " + Item.Stats.Health + " HP </div>");
                             };
                             Party[0].Inventory.splice(index, 1);
-                            Character = Party[0];
-                            localStorage.setItem('_character', JSON.stringify(Character));
                             localStorage.setItem('_Party', JSON.stringify(Party));
                             setTimeout(function () {
                                 $("#InventoryDialog").html("");
@@ -144,8 +137,6 @@ function StartApp() {
                             Party[Name].Spells.push(Item);
                             $("#AlertPlayerMessage").html("<div class='animated tada AlertPlayerText'>Taught " + Item.Name + " To " + Party[Name].Name + " !</div>");
                             Party[0].Inventory.splice(index, 1);
-                            Character = Party[0];
-                            localStorage.setItem('_character', JSON.stringify(Character));
                             localStorage.setItem('_Party', JSON.stringify(Party));
                             setTimeout(function () {
                                 $("#InventoryDialog").html("");
@@ -187,8 +178,6 @@ function StartApp() {
                             console.log(Party[Name].Equipment)
                             $("#AlertPlayerMessage").html("<div class='animated bounceIn AlertPlayerText'> "+Party[Name].Name+" has switched the "+OldName.Name+" with the " + Item.Name + " !</div>");
                            Party[0].Inventory.splice(index, 1);
-                            Character = Party[0];
-                            localStorage.setItem('_character', JSON.stringify(Character));
                            localStorage.setItem('_Party', JSON.stringify(Party));
                            setTimeout(function () {
                                 $("#InventoryDialog").html("");

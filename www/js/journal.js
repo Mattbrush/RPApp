@@ -8,8 +8,8 @@ function StartJournal() {
     var Party = JSON.parse(localStorage.getItem('_Party'));
     var Journal = JSON.parse(localStorage.getItem('_Journal'));
     console.log("Journal Starts");
-    //Party[0].Experience.SkillPoints = Party[0].Experience.SkillPoints = 5;
-   // Party[1].Experience.SkillPoints = Party[1].Experience.SkillPoints = 5;
+  //  Party[0].Experience.SkillPoints = Party[0].Experience.SkillPoints = 5;
+  //  Party[1].Experience.SkillPoints = Party[1].Experience.SkillPoints = 5;
 
     $("#Journal").html("<div id='JournalList' class='MenuWrapper animated FlipInY '></div>");
     $("#Locationtitle").html(" Journal ");
